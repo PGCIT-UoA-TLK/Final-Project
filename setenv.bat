@@ -18,7 +18,13 @@ echo ******************************
 :: > run 'derbyportal.sql';
 :: which will create the tables for the "blog.war" jsp blog application
 
-set JAVA_HOME=C:\Program Files\Java\jdk1.8.0_66
+FOR %%A IN ("C:\Program Files\Java\jdk1.8.0*") DO (
+ echo %%A
+ set JAVA_HOME=%%A
+ goto done
+)
+:done
+
 if not exist "%JAVA_HOME%" echo %JAVA_HOME% does not exist. Need Java 8& goto done
 
 set DERBY_HOME=%JAVA_HOME%\db
