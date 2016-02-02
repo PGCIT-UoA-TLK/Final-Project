@@ -1,49 +1,51 @@
 import simplewebapp.Article;
 import simplewebapp.ArticleDAO;
+
 import java.io.*;
 import java.util.List;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 public class SimpleBlogServlet extends HttpServlet {
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("article") != null) {
-			displayArticle(request,response);
-		} else {
-			displayHome(request,response);
-		}
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        switch (request.getParameter("page")) {
+            case "article": displayArticle(request, response);
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
+            default: displayHome(request, response);
+        }
+    }
 
-	protected void displayHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
- 		// Getting the instance of the ArticleDAO
-		ArticleDAO articleDAO = ArticleDAO.getInstance();
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
 
-		// Getting all the articles as a list
-		List<Article> listOfArticles = articleDAO.getAll();
+    protected void displayHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Getting the instance of the ArticleDAO
+        ArticleDAO articleDAO = ArticleDAO.getInstance();
 
-		request.setAttribute("Articles",listOfArticles);
+        // Getting all the articles as a list
+        List<Article> listOfArticles = articleDAO.getAll();
 
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/home.jsp");
-		dispatcher.forward(request, response);
-	}
+        request.setAttribute("Articles", listOfArticles);
 
-	protected void displayArticle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
- 		// Getting the instance of the ArticleDAO
-		ArticleDAO articleDAO = ArticleDAO.getInstance();
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/home.jsp");
+        dispatcher.forward(request, response);
+    }
 
-		//Parsing the parameter to an int
-		int id = Integer.parseInt(request.getParameter("article"));
+    protected void displayArticle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Getting the instance of the ArticleDAO
+        ArticleDAO articleDAO = ArticleDAO.getInstance();
 
-		// Getting all the articles as a list
-		Article a = articleDAO.getByArticleID(id);
+        //Parsing the parameter to an int
+        int id = Integer.parseInt(request.getParameter("article"));
 
-		request.setAttribute("Article",a);
+        // Getting all the articles as a list
+        Article a = articleDAO.getByArticleID(id);
 
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/article.jsp");
-		dispatcher.forward(request, response);
-	}
+        request.setAttribute("Article", a);
+
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/article.jsp");
+        dispatcher.forward(request, response);
+    }
 }

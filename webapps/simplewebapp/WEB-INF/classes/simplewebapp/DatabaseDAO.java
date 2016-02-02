@@ -1,54 +1,82 @@
 package simplewebapp;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DatabaseDAO {
-	private static Connection connection;
+    private static Connection connection;
 
-	private static DatabaseDAO instance = null;
+    private static DatabaseDAO instance = null;
 
-	protected static ResultSet doQuery(String query) {
-		try {
-			Statement sqlStatement = connection.createStatement();
-			ResultSet sqlResultSet = sqlStatement.executeQuery(query);
-			return sqlResultSet;
-		} catch (SQLException e) {
-			System.err.println(e);
-		}
-		return null;
-	}
+    protected ResultSet doQuery(String query) {
+        try {
+            Statement sqlStatement = connection.createStatement();
+            ResultSet sqlResultSet = sqlStatement.executeQuery(query);
+            return sqlResultSet;
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return null;
+    }
 
-	//Empty private constructor to prevent other classes calling this
-	private DatabaseDAO() {
+    protected boolean runParametisedQuery (String query, Object... arguments) throws Exception {
+        try {
+            PreparedStatement sqlStatement = connection.prepareStatement(query);
 
-	}
+            int count = 0;
+            for (Object argument : arguments) {
+                count++;
+                if (argument.getClass().equals(Integer.class)) {
+                    sqlStatement.setInt(count, (int) argument);
+                } else if (argument.getClass().equals(String.class)) {
+                    sqlStatement.setString(count, (String) argument);
+                } else {
+                    throw new Exception("Incorrect paramter type!");
+                }
+            }
 
-	private void init() {
-		try {
-			String dbMode = "derby";
-			String dbClassName = "org.apache.derby.jdbc.ClientDriver";
-			String host = "localhost:1527";
-			String db = "blog";
+            sqlStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
 
-			Class.forName(dbClassName);
+        return false;
+    }
 
-		// Setting the derby connection URI
-			String DB_CONNSTRING = "jdbc:"+dbMode+"://" + host + "/" + db;
+    //Empty private constructor to prevent other classes calling this
+    private DatabaseDAO() {
 
-			connection = DriverManager.getConnection(DB_CONNSTRING);
+    }
 
-		} catch(ClassNotFoundException e) {
-			System.err.println(e);
-		} catch(SQLException e) {
-			System.err.println(e);
-		}
-	}
+    private void init() {
+        try {
+            String dbMode = "derby";
+            String dbClassName = "org.apache.derby.jdbc.ClientDriver";
+            String host = "localhost:1527";
+            String db = "blog";
 
-	public static DatabaseDAO getInstance() {
-		if (instance == null) {
-			instance = new DatabaseDAO();
-			instance.init();
-		}
-		return instance;
-	}
+            Class.forName(dbClassName);
+
+            // Setting the derby connection URI
+            String DB_CONNSTRING = "jdbc:" + dbMode + "://" + host + "/" + db;
+
+            connection = DriverManager.getConnection(DB_CONNSTRING);
+
+        } catch (ClassNotFoundException | SQLException e) {
+            System.err.println(e);
+        }
+    }
+
+    public static DatabaseDAO getInstance() {
+        if (instance == null) {
+            instance = new DatabaseDAO();
+            instance.init();
+        }
+        return instance;
+    }
 }

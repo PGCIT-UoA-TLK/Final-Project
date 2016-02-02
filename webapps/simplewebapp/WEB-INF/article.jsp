@@ -1,35 +1,35 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<%@page contentType="text/html"%>
+<%@page contentType="text/html" %>
 <%@ page language="java" import="java.sql.*,java.util.List,java.util.ArrayList" %>
 <%@ page import="simplewebapp.Article" %>
 <html>
-  <head>
+<head>
     <title>Simple Blog</title>
-  </head>
+</head>
 
-<%@ page language="java"%>
+<%@ page language="java" %>
 
-  <body>
+<body>
 
-    <section id="view" class="container">
-      <%
-      Article a = (Article) request.getAttribute("Article");
+<section id="view" class="container">
+    <%
+        Article a = (Article) request.getAttribute("Article");
 
-      String articleTitle = a.getTitle();
-      String articleBody = a.getBody();
+        String articleTitle = a.getTitle();
+        String articleBody = a.getBody();
 
-      %>
+    %>
 
-      <section class ="article">
+    <section class="article">
         <h1>
-          <%= articleTitle %>
-        </h1>  
+            <%= articleTitle %>
+        </h1>
         <p>
-          <%= articleBody %>
+            <%= articleBody %>
         </p>
-      </section>
     </section>
-  </body>
+</section>
+</body>
 </html>
