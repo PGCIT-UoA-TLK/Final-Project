@@ -1,0 +1,7 @@
+/.idea
+/blog
+derby.log
+
+*.class
+
+**/simpleWebApp.jar
