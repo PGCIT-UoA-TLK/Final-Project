@@ -37,3 +37,5 @@ echo and DERBY_HOME: %DERBY_HOME%
 :done
 echo ******************************
 echo.
+
+startNetworkServer

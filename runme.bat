@@ -4,6 +4,6 @@ start /wait compile.bat
 
 cd ../../../../
 
-start setenv.bat
+start setenvwithnetworkserver.bat
 
 java -jar start.jar

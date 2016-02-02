@@ -9,7 +9,8 @@ import javax.servlet.http.*;
 
 public class SimpleBlogServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        switch (request.getParameter("page")) {
+        String page = (request.getParameter("page") != null ? request.getParameter("page") : "");
+        switch (page) {
             case "article": displayArticle(request, response);
 
             default: displayHome(request, response);
