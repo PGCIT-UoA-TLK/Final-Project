@@ -34,7 +34,7 @@ public class DatabaseDAO {
         return false;
     }
 
-    protected boolean runParametisedQuery (String query, Object... arguments) throws Exception {
+    protected ResultSet runParametisedQuery (String query, Object... arguments) throws Exception {
         try {
             PreparedStatement sqlStatement = connection.prepareStatement(query);
 
@@ -51,12 +51,12 @@ public class DatabaseDAO {
             }
 
             sqlStatement.executeUpdate();
-            return true;
+            return sqlStatement.getGeneratedKeys();
         } catch (SQLException e) {
             System.err.println(e);
         }
 
-        return false;
+        return null;
     }
 
     //Empty private constructor to prevent other classes calling this
