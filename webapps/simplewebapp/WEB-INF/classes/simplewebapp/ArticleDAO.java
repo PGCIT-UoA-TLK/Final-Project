@@ -63,7 +63,7 @@ public class ArticleDAO {
     }
 
     public boolean updateArticle(Article article) {
-        String query = "UPDATE article SET TITLE = ? AND BODY = ? WHERE ARTICLE_ID = ?;";
+        String query = "UPDATE article SET title = ? AND body = ? WHERE article_id = ?;";
         try {
             databaseDAO.runParametisedQuery(query, article.getTitle(), article.getBody(), article.getID());
             return true;
@@ -75,10 +75,10 @@ public class ArticleDAO {
     }
 
     public boolean deleteArticle(Article article) {
-        String query = "DELETE FROM article WHERE ARTICLE_ID = ?;";
+        String query = "DELETE FROM article WHERE article_id = ?;";
         try {
             databaseDAO.runParametisedQuery(query, article.getID());
-            List<Article> results = doQuery("SELECT * FROM article WHERE ARTICLE_ID = " + article.getID());
+            List<Article> results = doQuery("SELECT * FROM article WHERE article_id = " + article.getID());
             if (results.size() <= 0) return true;
         } catch (Exception e) {
             e.printStackTrace();
