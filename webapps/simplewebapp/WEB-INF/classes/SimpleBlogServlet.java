@@ -11,9 +11,10 @@ public class SimpleBlogServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String page = (request.getParameter("page") != null ? request.getParameter("page") : "");
         switch (page) {
-            case "article": displayArticle(request, response);
+            case "article": displayArticle(request, response); break;
+            case "addArticle": displayAddArticle(request, response); break;
 
-            default: displayHome(request, response);
+            default: displayHome(request, response); break;
         }
     }
 
@@ -47,6 +48,11 @@ public class SimpleBlogServlet extends HttpServlet {
         request.setAttribute("Article", a);
 
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/article.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    protected void displayAddArticle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/addArticle.jsp");
         dispatcher.forward(request, response);
     }
 }

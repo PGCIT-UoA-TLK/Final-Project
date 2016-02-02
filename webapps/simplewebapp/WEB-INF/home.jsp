@@ -13,6 +13,10 @@
 
 <body>
 
+<p>
+    <a href="?page=addArticle&addArticle=1">Add a New Article</a>
+</p>
+
 <section id="view" class="container">
     <%
         List<Article> articles = (List<Article>) request.getAttribute("Articles");
@@ -20,7 +24,7 @@
         for (Article a : articles) {
             String articleTitle = a.getTitle();
             int articleID = a.getID();
-            String linkURI = String.format("?page=article&&article=%d", articleID);
+            String linkURI = String.format("?page=article&article=%d", articleID);
     %>
     <section class="article">
         <p>

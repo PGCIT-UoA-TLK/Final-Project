@@ -62,6 +62,12 @@ public class ArticleDAO {
         return a;
     }
 
+    public void addNewArticle(String titles, String newText) {
+        // KL - Crating the add new article query and calling the updateQuery method
+        String query = "INSERT INTO article (title, body) VALUES ('" + titles + "','" + newText + "')";
+        databaseDAO.updateQuery(query);
+    }
+
     public boolean updateArticle(Article article) {
         String query = "UPDATE article SET title = ? AND body = ? WHERE article_id = ?;";
         try {

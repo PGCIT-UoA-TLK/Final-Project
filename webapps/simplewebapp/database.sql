@@ -39,3 +39,10 @@ CREATE TABLE users (
   firstname VARCHAR(100) NOT NULL             DEFAULT '',
   lastname  VARCHAR(100) NOT NULL             DEFAULT ''
 );
+
+CREATE TABLE comments (
+  comment_id INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
+  article_id INT,
+  body       LONG VARCHAR NOT NULL             DEFAULT '',
+  FOREIGN KEY (article_id) REFERENCES article (article_id)
+);
