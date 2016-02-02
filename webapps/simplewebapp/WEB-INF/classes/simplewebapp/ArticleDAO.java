@@ -2,8 +2,7 @@ package simplewebapp;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ArticleDAO {
 
@@ -62,10 +61,17 @@ public class ArticleDAO {
         return a;
     }
 
-    public void addNewArticle(String titles, String newText) {
+    public boolean addNewArticle(String newTitle, String newText) {
         // KL - Crating the add new article query and calling the updateQuery method
-        String query = "INSERT INTO article (title, body) VALUES ('" + titles + "','" + newText + "')";
-        databaseDAO.updateQuery(query);
+        String query = "INSERT INTO article (title, body) VALUES (?,?)";
+        try {
+            databaseDAO.runParametisedQuery(query, newTitle, newText);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     public boolean updateArticle(Article article) {
@@ -91,5 +97,46 @@ public class ArticleDAO {
         }
 
         return false;
+    }
+
+    public boolean addNewComment(String newComment, int articleID) {
+        String query = "INSERT INTO comments (article_id, body) VALUES (?,?)";
+        try {
+            databaseDAO.runParametisedQuery(query, articleID, newComment);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public List<Comment> getCommentsByArticleID(int articleID) {
+        String query = "SELECT * FROM comments WHERE article_id = " + articleID;
+        ResultSet rs = null;
+        List<Comment> comments = new ArrayList<>();
+        try {
+            rs = databaseDAO.doQuery(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(rs == null){
+            System.out.println("null");
+            return comments;
+        }
+        try {
+            while(rs.next()){
+                int cID = rs.getInt("comment_id");
+                int aID = rs.getInt("article_id");
+                String commentBody = rs.getString("body");
+
+                Comment c = new Comment(cID, aID, commentBody);
+                System.out.println(c.getBody());
+                comments.add(c);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return comments;
     }
 }

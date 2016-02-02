@@ -11,6 +11,7 @@
 <%@page contentType="text/html"%>
 <%@ page language="java" import="java.sql.*,java.util.List,java.util.ArrayList" %>
 <%@ page import="simplewebapp.ArticleDAO" %>
+<%@ page import="simplewebapp.Article" %>
 
 
 <html>
@@ -37,7 +38,6 @@
 
 <%!
     private void addArticle(String newTitle, String articleText){
-
         ArticleDAO.getInstance().addNewArticle(newTitle, articleText);
     } %>
 <%
