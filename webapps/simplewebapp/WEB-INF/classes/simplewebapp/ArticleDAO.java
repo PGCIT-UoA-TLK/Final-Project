@@ -181,4 +181,17 @@ public class ArticleDAO {
 
     }
 
+    public boolean deleteComment(Comment comment) {
+        String query = "DELETE FROM comments WHERE comment_id = ?";
+        try {
+            databaseDAO.runParametisedQuery(query, comment.getComment_id());
+            List<Article> results = doQuery("SELECT * FROM comments WHERE comment_id = " + comment.getComment_id());
+            if (results.size() <= 0) return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
 }

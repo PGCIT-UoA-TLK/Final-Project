@@ -18,14 +18,14 @@
 <%
     int articleID = Integer.parseInt(request.getParameter("articleID"));
     int commentID = Integer.parseInt(request.getParameter("commentID"));
-    Comment toEdit = getComment(articleID,commentID);
+    Comment c = getComment(articleID,commentID);
 
     if(request.getParameter("edited") != null){
-        toEdit.setBody(request.getParameter("commentBox"));
-        editComment(toEdit);
+        c.setBody(request.getParameter("commentBox"));
+        editComment(c);
         response.sendRedirect("/simplewebapp/?page=article&article=" + articleID);
-    }else{
-
+    }else if(request.getParameter("delete") != null){
+        deleteComment(c);
     }
 %>
 <%! Comment getComment(int articleID, int commentID) {
@@ -34,17 +34,22 @@
     void editComment(Comment comment){
         ArticleDAO.getInstance().updateComment(comment);
     }
+    void deleteComment(Comment comment) {
+        ArticleDAO.getInstance().deleteComment(comment);
+    }
+
 %>
 
 <form>
     <fieldset>
         <legend>Comment</legend>
-        <textarea name="commentBox" id="commentBox" rows="5" cols="40" title="Comment Box"><%=toEdit.getBody()%></textarea><br><br>
+        <textarea name="commentBox" id="commentBox" rows="5" cols="40" title="Comment Box"><%=c.getBody()%></textarea><br><br>
         <input type="hidden" name="articleID" value="<%= articleID %>" />
         <input type="hidden" name="commentID" value="<%=commentID%>" />
         <input type="hidden" name="page" value="editComment">
         <input type="hidden" name="edited" value="1">
         <input type="submit" value="Submit">
+        <input type="submit" value="Delete Comment" name="delete" />
     </fieldset>
 </form>
 </body>
