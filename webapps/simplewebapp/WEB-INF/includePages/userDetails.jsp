@@ -1,3 +1,4 @@
+<%--suppress HtmlUnknownTarget --%>
 <%@ page import="simplewebapp.User" %>
 <%
     User user = null;
@@ -17,7 +18,7 @@
     <a href="/simplewebapp/?page=editUser">My Account</a>
     <a href="/simplewebapp/?<%if(currentPage != null){%><%=currentPage%>&<%}%>logout">Logout</a>
     <% } else { %>
-    <a href="/simplewebapp/?page=loginUser">Login</a>
-    <a href="/simplewebapp/?page=addUser">Register</a>
+    <a href="/simplewebapp/?page=loginUser<%if(currentPage != null){%>&back<%=currentPage%><%}%>">Login</a>
+    <a href="/simplewebapp/?page=addUser<%if(currentPage != null){%>&back<%=currentPage%><%}%>">Register</a>
     <% } %>
 </div>

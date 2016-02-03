@@ -29,7 +29,13 @@
 
         if (thisUser != null) {
             session.setAttribute("user", thisUser);
-            response.sendRedirect("/simplewebapp/?loginSuccess=1");
+
+            String returnPage = "";
+            if (request.getParameter("backpage") != null) {
+                returnPage = "&page=" + request.getParameter("backpage");
+            }
+
+            response.sendRedirect("/simplewebapp/?loginSuccess=1" + returnPage);
         } else {
             out.println("Incorrect Username or Password");
         }

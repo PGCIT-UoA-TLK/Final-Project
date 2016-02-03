@@ -32,9 +32,13 @@
 
         if (user != null) {
             session.setAttribute("user", user);
-            response.sendRedirect("/simplewebapp/");
-        } else {
 
+            String returnPage = "";
+            if (request.getParameter("backpage") != null) {
+                returnPage = "?page=" + request.getParameter("backpage");
+            }
+
+            response.sendRedirect("/simplewebapp/" + returnPage);
         }
     }
 %>
