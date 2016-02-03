@@ -23,8 +23,6 @@
 
     String articleTitle = (newTitle != null ? newTitle : article.getTitle());
     String articleBody = (newBody != null ? newBody : article.getBody());
-
-
 %>
 
 <%@ page language="java"%>
@@ -44,7 +42,6 @@
 </form>
 
 <%
-
     if (!article.getTitle().equals(articleTitle) || !article.getBody().equals(articleBody)) {
         article.setTitle(newTitle);
         article.setBody(newBody);
@@ -57,7 +54,6 @@
         deleteArticle(article);
         response.sendRedirect("/simplewebapp/");
     }
-
 %>
 </body>
 </html>
