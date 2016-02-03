@@ -10,10 +10,10 @@ public class Comment {
     private int user_id;
     private String body;
 
-    Comment(int comment_id, int article_id, String body) {
+    Comment(int comment_id, int article_id, int user_id, String body) {
         this.comment_id = comment_id;
         this.article_id = article_id;
-        //this.user_id = user_id;
+        this.user_id = user_id;
         this.body = body;
 
     }

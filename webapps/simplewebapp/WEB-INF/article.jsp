@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <%@page contentType="text/html" %>
-<%@ page import="simplewebapp.Article" %>
-<%@ page import="simplewebapp.ArticleDAO" %>
-<%@ page import="simplewebapp.Comment" %>
 <%@ page import="java.util.List" %>
+<%@ page import="simplewebapp.*" %>
 <html>
 <head>
     <title>Simple Blog</title>
@@ -19,8 +17,8 @@
     <%@include file="includePages/userDetails.jsp" %>
 
     <%!
-        private void addComment(String newComment, int articleID) {
-            ArticleDAO.getInstance().addNewComment(newComment, articleID);
+        private void addComment(String newComment, int articleID, int userID) {
+            ArticleDAO.getInstance().addNewComment(newComment, articleID, userID);
         }
 
         private List<Comment> getComments(int articleID) {
@@ -30,10 +28,10 @@
 
     <%
         Article a = (Article) request.getAttribute("Article");
-
         String articleTitle = a.getTitle();
         String articleBody = a.getBody();
         int articleID = a.getID();
+        int userID = user.getId();
     %>
 
     <section class="article">
@@ -53,7 +51,7 @@
     <%
         if (request.getParameter("commentBox") != null) {
             String newComment = request.getParameter("commentBox");
-            addComment(newComment, articleID);
+            addComment(newComment, articleID, userID);
             response.sendRedirect("/simplewebapp/?page=article&article=" + articleID);
         } else {
 
@@ -63,9 +61,13 @@
         for (Comment c : articleComments) {
             String body = c.getBody();
             int commentID = c.getComment_id();
+            int commentUserID = c.getUser_id();
+            User poster = UserDAO.getInstance().getUser(commentUserID);
+            String username = poster.getUsername();
+
     %>
     <section class="comments">
-        <%= body %>
+        <p> <%=username%>: <%=body%> </p>
         <form>
             <input type="hidden" name="page" value="editComment"/>
             <input type="hidden" name="articleID" value="<%= articleID %>"/>

@@ -1,7 +1,9 @@
 CREATE TABLE article (
   article_id INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
+  user_id INTEGER,
   title      VARCHAR(250) NOT NULL             DEFAULT '',
-  body       LONG VARCHAR NOT NULL             DEFAULT ''
+  body       LONG VARCHAR NOT NULL             DEFAULT '',
+  FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
 INSERT INTO article (title, body) VALUES
@@ -43,8 +45,8 @@ CREATE TABLE users (
 CREATE TABLE comments (
   comment_id INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
   article_id INTEGER,
---   user_id INTEGER,
+  user_id INTEGER,
   body       VARCHAR(200) NOT NULL             DEFAULT '',
-  FOREIGN KEY (article_id) REFERENCES article (article_id)
---   FOREIGN KEY  (user_id) REFERENCES  users (user_id)
+  FOREIGN KEY (article_id) REFERENCES article (article_id),
+  FOREIGN KEY  (user_id) REFERENCES  users (user_id)
 );

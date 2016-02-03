@@ -100,10 +100,10 @@ public class ArticleDAO {
         return false;
     }
 
-    public boolean addNewComment(String newComment, int articleID) {
-        String query = "INSERT INTO comments (article_id, body) VALUES (?,?)";
+    public boolean addNewComment(String newComment, int articleID, int userID) {
+        String query = "INSERT INTO comments (article_id, user_id, body) VALUES (?,?, ?)";
         try {
-            databaseDAO.runParametisedQuery(query, articleID, newComment);
+            databaseDAO.runParametisedQuery(query, articleID, userID, newComment);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,9 +129,10 @@ public class ArticleDAO {
             while(rs.next()){
                 int cID = rs.getInt("comment_id");
                 int aID = rs.getInt("article_id");
+                int uID = rs.getInt("user_id");
                 String commentBody = rs.getString("body");
 
-                Comment c = new Comment(cID, aID, commentBody);
+                Comment c = new Comment(cID, aID, uID, commentBody);
                 System.out.println(c.getBody());
                 comments.add(c);
             }
@@ -158,9 +159,10 @@ public class ArticleDAO {
             while(rs.next()){
                 int cID = rs.getInt("comment_id");
                 int aID = rs.getInt("article_id");
+                int uID = rs.getInt("user_id");
                 String commentBody = rs.getString("body");
 
-                c = new Comment(cID, aID, commentBody);
+                c = new Comment(cID, aID, uID, commentBody);
 
             }
         } catch (SQLException e) {
