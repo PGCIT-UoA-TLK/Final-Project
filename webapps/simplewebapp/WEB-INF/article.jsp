@@ -42,11 +42,13 @@
         <p>
             <%= articleBody %>
         </p>
-        <form>
-            <input type="hidden" name="page" value="editArticle"/>
-            <input type="hidden" name="articleID" value="<%=articleID%>" />
-            <input type="submit" value="Edit"/>
-        </form>
+        <div class="editor">
+            <form>
+                <input type="hidden" name="page" value="editArticle"/>
+                <input type="hidden" name="articleID" value="<%=articleID%>"/>
+                <input type="submit" value="Edit"/><br/><br/>
+            </form>
+        </div>
     </section>
     <%
         if (request.getParameter("commentBox") != null) {
@@ -60,12 +62,19 @@
         List<Comment> articleComments = getComments(articleID);
         for (Comment c : articleComments) {
             String body = c.getBody();
-            System.out.println(body);
+            int commentID = c.getComment_id();
+
 
     %>
 
     <section class="comments">
         <%= body %>
+        <form>
+            <input type="hidden" name="page" value="editComment"/>
+            <input type="hidden" name="articleID" value="<%= articleID %>"/>
+            <input type="hidden" name="commentID" value="<%= commentID%>"/>
+            <input type="submit" value="Edit"/>
+        </form>
     </section>
     <%
         }
@@ -73,10 +82,9 @@
     <section class="addComment">
         <form>
             <fieldset>
-                <legend>Add a Comment</legend>
-                <label for="commentBox">Comments: </label>
-                <textarea name="commentBox" id="commentBox" rows="5" cols="40" placeholder="Comments"></textarea>
-                <br><br>
+                <legend>Comment</legend>
+                <textarea name="commentBox" id="commentBox" rows="5" cols="40"
+                          placeholder="Comments"></textarea><br><br>
                 <input type="hidden" name="article" value="<%= articleID %>">
                 <input type="hidden" name="page" value="article">
                 <input type="submit" value="Submit">

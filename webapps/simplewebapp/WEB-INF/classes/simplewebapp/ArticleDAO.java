@@ -140,4 +140,45 @@ public class ArticleDAO {
         }
         return comments;
     }
+
+    public Comment getCommentByArticleIDAndCommentID(int articleID, int commentID) {
+        String query = "SELECT * FROM comments WHERE article_id = " + articleID + "AND comment_id=" + commentID;
+        Comment c = null;
+        ResultSet rs = null;
+        try {
+            rs = databaseDAO.doQuery(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(rs == null){
+            System.out.println("null");
+            return c;
+        }
+        try {
+            while(rs.next()){
+                int cID = rs.getInt("comment_id");
+                int aID = rs.getInt("article_id");
+                String commentBody = rs.getString("body");
+
+                c = new Comment(cID, aID, commentBody);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return c;
+    }
+
+    public void updateComment(Comment comment) {
+        String query = "UPDATE comments SET body = ? WHERE article_id = ? AND comment_id = ?";
+        try {
+            databaseDAO.runParametisedQuery(query, comment.getBody(), comment.getArticle_id(), comment.getComment_id());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 }
