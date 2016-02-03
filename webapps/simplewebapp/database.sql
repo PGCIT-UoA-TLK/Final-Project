@@ -41,6 +41,7 @@ CREATE TABLE users (
   firstname VARCHAR(100) NOT NULL             DEFAULT '',
   lastname  VARCHAR(100) NOT NULL             DEFAULT ''
 );
+INSERT into users (username, password, firstname, lastname)  VALUES ('Blobbo', 'swindle10', 'John', 'Key');
 
 CREATE TABLE comments (
   comment_id INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
