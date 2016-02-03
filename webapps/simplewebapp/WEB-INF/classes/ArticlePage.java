@@ -12,7 +12,12 @@ public class ArticlePage extends Page {
         ArticleDAO articleDAO = ArticleDAO.getInstance();
 
         //Parsing the parameter to an int
-        int id = Integer.parseInt(request.getParameter("article"));
+        int id = 0;
+        try {
+            id = Integer.parseInt(request.getParameter("article"));
+        } catch (Exception ignored) {
+            response.sendRedirect("/simplewebapp/");
+        }
 
         // Getting all the articles as a list
         Article a = articleDAO.getByArticleID(id);

@@ -1,3 +1,11 @@
+CREATE TABLE users (
+  user_id   INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
+  username  VARCHAR(100) NOT NULL             DEFAULT '',
+  password  VARCHAR(100) NOT NULL             DEFAULT '',
+  firstname VARCHAR(100) NOT NULL             DEFAULT '',
+  lastname  VARCHAR(100) NOT NULL             DEFAULT ''
+);
+
 CREATE TABLE article (
   article_id INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
   user_id INTEGER,
@@ -33,14 +41,6 @@ INSERT INTO article (title, body) VALUES
    'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.'),
   ('Duis aliquam convallis nunc',
    'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.');
-
-CREATE TABLE users (
-  user_id   INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
-  username  VARCHAR(100) NOT NULL             DEFAULT '',
-  password  VARCHAR(100) NOT NULL             DEFAULT '',
-  firstname VARCHAR(100) NOT NULL             DEFAULT '',
-  lastname  VARCHAR(100) NOT NULL             DEFAULT ''
-);
 
 CREATE TABLE comments (
   comment_id INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
