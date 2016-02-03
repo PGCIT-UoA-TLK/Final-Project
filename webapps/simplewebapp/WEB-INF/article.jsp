@@ -23,8 +23,7 @@
         }
 
         private List<Comment> getComments(int articleID) {
-            List<Comment> comments = ArticleDAO.getInstance().getCommentsByArticleID(articleID);
-            return comments;
+            return ArticleDAO.getInstance().getCommentsByArticleID(articleID);
         }
 
     %>

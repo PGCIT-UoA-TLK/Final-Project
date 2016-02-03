@@ -23,7 +23,7 @@ public class ArticleDAO {
     // TODO: VERY BADLY THOUGHT OUT METHOD NEEDS REWRITE
     private List<Article> doQuery(String query) {
         // Creating a list to store the results in
-        List<Article> l = new ArrayList<Article>();
+        List<Article> l = new ArrayList<>();
         try {
             ResultSet rs = databaseDAO.doQuery(query);
             while (rs.next()) {
@@ -35,7 +35,7 @@ public class ArticleDAO {
                 l.add(new Article(id, title, body));
             }
         } catch (SQLException e) {
-            System.err.println(e);
+            System.err.println(String.valueOf(e));
         }
         // Return the list
         return l;
@@ -75,9 +75,10 @@ public class ArticleDAO {
     }
 
     public boolean updateArticle(Article article) {
-        String query = "UPDATE article SET title = ? AND body = ? WHERE article_id = ?";
+        String query = "UPDATE ARTICLE SET %s = ? WHERE ARTICLE_ID = ?";
         try {
-            databaseDAO.runParametisedQuery(query, article.getTitle(), article.getBody(), article.getID());
+            databaseDAO.runParametisedQuery(String.format(query, "TITLE"), article.getTitle(), article.getID());
+            databaseDAO.runParametisedQuery(String.format(query, "BODY"), article.getBody(), article.getID());
             return true;
         } catch (Exception e) {
             e.printStackTrace();

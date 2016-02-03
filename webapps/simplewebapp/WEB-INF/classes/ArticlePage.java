@@ -26,7 +26,7 @@ public class ArticlePage extends Page {
         navigate("/WEB-INF/addArticle.jsp", request, response);
     }
 
-    protected static void displayEditArticle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected static void editArticle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         navigate("/WEB-INF/editArticle.jsp", request, response);
     }
 }
