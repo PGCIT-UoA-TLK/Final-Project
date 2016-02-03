@@ -15,9 +15,10 @@
 <body>
 
 <section id="view" class="container">
+
+    <%@include file="includePages/userDetails.jsp" %>
+
     <%!
-
-
         private void addComment(String newComment, int articleID) {
             ArticleDAO.getInstance().addNewComment(newComment, articleID);
         }
@@ -25,7 +26,6 @@
         private List<Comment> getComments(int articleID) {
             return ArticleDAO.getInstance().getCommentsByArticleID(articleID);
         }
-
     %>
 
     <%
@@ -35,12 +35,11 @@
         String articleBody = a.getBody();
         int articleID = a.getID();
     %>
+
     <section class="article">
-        <h1>
-            <%= articleTitle %>
+        <h1><%=articleTitle%>
         </h1>
-        <p>
-            <%= articleBody %>
+        <p><%=articleBody%>
         </p>
         <div class="editor">
             <form>
@@ -50,6 +49,7 @@
             </form>
         </div>
     </section>
+
     <%
         if (request.getParameter("commentBox") != null) {
             String newComment = request.getParameter("commentBox");
@@ -63,22 +63,20 @@
         for (Comment c : articleComments) {
             String body = c.getBody();
             int commentID = c.getComment_id();
-
-
     %>
-
     <section class="comments">
         <%= body %>
         <form>
             <input type="hidden" name="page" value="editComment"/>
             <input type="hidden" name="articleID" value="<%= articleID %>"/>
-            <input type="hidden" name="commentID" value="<%= commentID%>"/>
+            <input type="hidden" name="commentID" value="<%= commentID %>"/>
             <input type="submit" value="Edit"/>
         </form>
     </section>
     <%
         }
     %>
+
     <section class="addComment">
         <form>
             <fieldset>

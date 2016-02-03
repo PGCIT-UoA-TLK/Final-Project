@@ -13,15 +13,13 @@
 
 <body>
 
+<%@include file="includePages/userDetails.jsp"%>
+
 <p>
     <a href="?page=addArticle&addArticle=1">Add a New Article</a>
 </p>
 
-<%
-    if (session.getAttribute("user") != null) {
-        User user = (User) session.getAttribute("user");
-    }
-%>
+
 
 <section id="view" class="container">
     <%

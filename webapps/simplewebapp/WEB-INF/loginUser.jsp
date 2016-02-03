@@ -6,6 +6,9 @@
     <title>Login</title>
 </head>
 <body>
+
+<%@include file="includePages/userDetails.jsp"%>
+
 <form>
     <fieldset>
         <legend>Login</legend>
@@ -23,10 +26,10 @@
     if (username != null && password != null) {
         UserDAO userDAO = UserDAO.getInstance();
 
-        User user = userDAO.loginUser(username, password);
+        User thisUser = userDAO.loginUser(username, password);
 
-        if (user != null) {
-            session.setAttribute("user", user);
+        if (thisUser != null) {
+            session.setAttribute("user", thisUser);
             response.sendRedirect("/simplewebapp/?loginSuccess=1");
         } else {
             out.println("Incorrect Username or Password");

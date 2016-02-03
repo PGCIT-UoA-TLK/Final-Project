@@ -9,6 +9,14 @@
 <head>
     <title>Edit Article</title>
 </head>
+
+<%@ page language="java"%>
+
+<body>
+
+<%@include file="includePages/userDetails.jsp"%>
+
+
 <%!
     private void deleteArticle(Article article) {
         ArticleDAO.getInstance().deleteArticle(article);
@@ -24,10 +32,6 @@
     String articleTitle = (newTitle != null ? newTitle : article.getTitle());
     String articleBody = (newBody != null ? newBody : article.getBody());
 %>
-
-<%@ page language="java"%>
-
-<body>
 
 <form>
     <fieldset>

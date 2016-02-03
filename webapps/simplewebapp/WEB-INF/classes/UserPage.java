@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class UserPage extends Page {
     public static void registerUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        navigate("/WEB-INF/registerUser.jsp", request, response);
+        navigate("/WEB-INF/addUser.jsp", request, response);
     }
 
     public static void loginUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
