@@ -6,6 +6,8 @@
 <html>
 <head>
     <title>Simple Blog</title>
+
+    <%@include file="include/specialIncludeFiles.jsp"%>
 </head>
 
 <%@ page language="java" %>

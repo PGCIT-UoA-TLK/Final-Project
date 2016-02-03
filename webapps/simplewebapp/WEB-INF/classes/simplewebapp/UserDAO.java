@@ -83,11 +83,13 @@ public class UserDAO {
 
     public boolean deleteUser(User user) {
         String query = "DELETE FROM USERS WHERE USER_ID = ?";
+        System.err.println("Deleting User: " + user.getId());
         try {
             databaseDAO.runParametisedQuery(query, user.getId());
 
             return true;
         } catch (Exception e) {
+            System.err.println("deleteUser");
             e.printStackTrace();
         }
 

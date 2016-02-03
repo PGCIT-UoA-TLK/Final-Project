@@ -1,4 +1,3 @@
-<%@page contentType="text/html" %>
 <script type="text/javascript" src="/include/tools.js"></script>
 
 <!-- Latest compiled and minified CSS & JS -->

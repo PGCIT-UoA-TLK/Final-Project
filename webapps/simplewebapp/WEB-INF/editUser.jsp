@@ -3,6 +3,8 @@
 <html>
 <head>
     <title>Account Information</title>
+
+    <%@include file="include/specialIncludeFiles.jsp"%>
 </head>
 <body>
 
@@ -26,7 +28,7 @@
     }
 %>
 
-<form>
+<form id="editUserForm">
     <fieldset>
         <legend>Account Information</legend>
         <label for="input-username">Username</label><input type="text" id="input-username" name="username" value="<%=user.getUsername()%>" disabled><br/>
@@ -35,11 +37,17 @@
         <label for="input-lastname">Last Name</label><input type="text" id="input-lastname" name="lastname" value="<%=user.getLastname()%>"><br/>
         <input type="hidden" name="page" value="editUser">
         <input type="submit" value="Change details">
-        <input type="button" value="Delete account">
+        <input type="button" value="Delete account" onclick="confirmDelete('editUserForm')">
+        <input type="hidden" id="delete" name="delete">
     </fieldset>
 </form>
 
 <%
+    if (request.getParameter("delete") != null && !request.getParameter("delete").equals("")) {
+        UserDAO.getInstance().deleteUser(user);
+        response.sendRedirect("/simplewebapp/?logout=1");
+    }
+
     if (edited) {
         UserDAO userDAO = UserDAO.getInstance();
 
@@ -57,11 +65,6 @@
         out.print("Account Details Saved!");
     } else if (request.getParameter("failure") != null) {
         out.print("Something went wrong! Please try again");
-    }
-
-    if (request.getParameter("delete") != null) {
-        UserDAO.getInstance().deleteUser(user);
-        response.sendRedirect("/simplewebapp/");
     }
 %>
 

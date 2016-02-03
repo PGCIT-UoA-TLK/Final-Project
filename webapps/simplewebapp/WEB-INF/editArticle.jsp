@@ -59,7 +59,7 @@
         response.sendRedirect("/simplewebapp/?page=article&article=" + article.getID());
     }
 
-    if (request.getParameter("delete") != null) {
+    if (request.getParameter("delete") != null && !request.getParameter("delete").equals("")) {
         deleteArticle(article);
         response.sendRedirect("/simplewebapp/");
     }

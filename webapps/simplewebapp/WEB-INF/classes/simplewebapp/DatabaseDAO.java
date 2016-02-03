@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ServiceConfigurationError;
 
 public class DatabaseDAO {
     private static Connection connection;
@@ -22,25 +23,15 @@ public class DatabaseDAO {
         return null;
     }
 
-    protected boolean updateQuery(String query){
-        try{
-            Statement sqlStatement = connection.createStatement();
-            sqlStatement.executeUpdate(query);
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
     protected ResultSet runParametisedQuery (String query, Object... arguments) throws Exception {
         try {
-            PreparedStatement sqlStatement = connection.prepareStatement(query);
+            PreparedStatement sqlStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             addParameters(sqlStatement, arguments);
 
             sqlStatement.executeUpdate();
             return sqlStatement.getGeneratedKeys();
         } catch (SQLException e) {
+            System.err.println("runParametisedQuery");
             System.err.println(String.valueOf(e));
         }
 
@@ -49,7 +40,7 @@ public class DatabaseDAO {
 
     public ResultSet getParametisedQuery(String query, Object... arguments) throws Exception {
         try {
-            PreparedStatement sqlStatement = connection.prepareStatement(query);
+            PreparedStatement sqlStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             addParameters(sqlStatement, arguments);
 
             return sqlStatement.executeQuery();
