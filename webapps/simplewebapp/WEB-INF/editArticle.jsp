@@ -8,14 +8,14 @@
 <head>
     <title>Edit Article</title>
 
-    <%@ include file="includePages/specialIncludeFiles.jsp" %>
+    <%@ include file="include/specialIncludeFiles.jsp" %>
 </head>
 
 <%@ page language="java" %>
 
 <body>
 
-<%@ include file="includePages/userDetails.jsp" %>
+<%@ include file="include/userDetails.jsp" %>
 
 <%!
     private void deleteArticle(Article article) {
@@ -36,14 +36,16 @@
 <form id="editArticleForm">
     <fieldset>
         <legend>Edit the Article:</legend>
-        <label for="articleTitle">Title: </label><input type="text" id="articleTitle" name="articleTitle"
-                                                        value="<%=articleTitle%>"><br><br>
-        <label for="articleBody">Article Body: </label><textarea name="articleBody" rows="15" cols="50"
-                                                                 id="articleBody"><%=articleBody%></textarea><br><br>
+        <label for="articleTitle">Title: </label>
+        <input type="text" id="articleTitle" name="articleTitle" value="<%=articleTitle%>"><br><br>
+        <label for="articleBody">Article Body: </label>
+        <textarea name="articleBody" rows="15" cols="50" id="articleBody"><%=articleBody%></textarea><br><br>
+
         <input type="hidden" name="page" value="editArticle">
         <input type="hidden" name="articleID" value="<%=articleID%>">
         <input type="submit" value="Submit Changes">
-        <input type="button" value="Delete Article" onclick="confirmDelete('editArticleForm')" name="delete">
+        <input type="button" value="Delete Article" onclick="confirmDelete('editArticleForm')">
+        <input type="hidden" id="delete" name="delete">
     </fieldset>
 </form>
 

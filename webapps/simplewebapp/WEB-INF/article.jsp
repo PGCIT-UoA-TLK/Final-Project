@@ -14,7 +14,7 @@
 
 <section id="view" class="container">
 
-    <%@include file="includePages/userDetails.jsp" %>
+    <%@include file="include/userDetails.jsp" %>
 
     <%!
         private void addComment(String newComment, int articleID, int userID) {

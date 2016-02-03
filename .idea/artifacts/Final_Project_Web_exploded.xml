@@ -2,7 +2,7 @@
   <artifact type="exploded-war" name="Final Project:Web exploded">
     <output-path>$PROJECT_DIR$/webapps/simplewebapp/WEB-INF/out/artifacts/Final_Project_Web_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="Final Project/web/Web" />
+      <element id="javaee-facet-resources" facet="Final Project/web/Simplewebapp" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="Final Project" />

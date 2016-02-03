@@ -12,7 +12,7 @@
 
 <body>
 
-<%@include file="includePages/userDetails.jsp"%>
+<%@include file="include/userDetails.jsp"%>
 
 <p>
     <a href="?page=addArticle&addArticle=1">Add a New Article</a>
