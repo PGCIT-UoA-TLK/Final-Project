@@ -18,7 +18,7 @@
     <%!
 
 
-        private void addComment(String newComment, int articleID ){
+        private void addComment(String newComment, int articleID) {
             ArticleDAO.getInstance().addNewComment(newComment, articleID);
         }
 
@@ -44,21 +44,21 @@
         </p>
         <form>
             <input type="hidden" name="page" value="editArticle"/>
-            <input type="hidden" name="articleID" value=<%= articleID %> />
-            <input type="submit" value="Edit" />
+            <input type="hidden" name="articleID" value="<%=articleID%>" />
+            <input type="submit" value="Edit"/>
         </form>
     </section>
     <%
-        if(request.getParameter("commentBox") != null) {
+        if (request.getParameter("commentBox") != null) {
             String newComment = request.getParameter("commentBox");
             addComment(newComment, articleID);
             response.sendRedirect("/simplewebapp/?page=article&article=" + articleID);
-        }else{
+        } else {
 
         }
 
         List<Comment> articleComments = getComments(articleID);
-        for(Comment c: articleComments){
+        for (Comment c : articleComments) {
             String body = c.getBody();
             System.out.println(body);
 
@@ -75,7 +75,8 @@
             <fieldset>
                 <legend>Add a Comment</legend>
                 <label for="commentBox">Comments: </label>
-                <textarea name="commentBox" id="commentBox" rows="5" cols="40" placeholder="Comments"></textarea><br><br>
+                <textarea name="commentBox" id="commentBox" rows="5" cols="40" placeholder="Comments"></textarea>
+                <br><br>
                 <input type="hidden" name="article" value="<%= articleID %>">
                 <input type="hidden" name="page" value="article">
                 <input type="submit" value="Submit">

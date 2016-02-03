@@ -16,28 +16,23 @@
 <form>
     <fieldset>
         <legend>Add a New Article:</legend>
-        <label for="artTitle">Title: </label>
-        <input type="text" id ="artTitle" name="artTitle" placeholder="Article Title"><br><br>
+        <label for="articleTitle">Title: </label>
+        <input type="text" id ="articleTitle" name="articleTitle" placeholder="Article Title"><br><br>
         <label for="articleText">Article Text: </label>
         <textarea name="articleText" rows="15" cols="50" placeholder="Article Text" id="articleText"></textarea><br><br>
         <input type="hidden" name="page" value="addArticle"/>
         <input type="submit" value="Submit New Article">
     </fieldset>
 </form>
+<%
 
-<%!
-    private void addArticle(String newTitle, String articleText){
-        ArticleDAO.getInstance().addNewArticle(newTitle, articleText);
-    }
-%><%
-
-    if(request.getParameter("artTitle") != null) {
-        String newTitle = request.getParameter("artTitle");
+    if(request.getParameter("articleTitle") != null) {
+        String newTitle = request.getParameter("articleTitle");
         String articleText = request.getParameter("articleText");
-        addArticle(newTitle, articleText);
-        response.sendRedirect("/simplewebapp/");
-    }else{
 
+        ArticleDAO.getInstance().addNewArticle(newTitle, articleText);
+
+        response.sendRedirect("/simplewebapp/");
     }
 
 %>

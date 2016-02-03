@@ -11,21 +11,13 @@
 </head>
 <%
     int articleID = Integer.parseInt(request.getParameter("articleID"));
-    Article a = getArticleText(articleID);
+    Article article = ArticleDAO.getInstance().getByArticleID(articleID);
 
-    String articleTitle;
-    if (request.getParameter("articleTitle") != null) {
-        articleTitle = request.getParameter("articleTitle");
-    } else {
-        articleTitle = a.getTitle();
-    }
+    String newTitle = request.getParameter("articleTitle");
+    String newBody = request.getParameter("articleBody");
 
-    String articleBody;
-    if(request.getParameter("articleText") != null){
-        articleBody = request.getParameter("articleText");
-    }else{
-        articleBody = a.getBody();
-    }
+    String articleTitle = (newTitle != null ? newTitle : article.getTitle());
+    String articleBody = (newBody != null ? newBody : article.getBody());
 %>
 
 <%@ page language="java"%>
@@ -36,32 +28,22 @@
     <fieldset>
         <legend>Edit the Body of an Article:</legend>
         <label for="articleTitle">Title: </label><input type="text" id ="articleTitle" name="articleTitle" value="<%=articleTitle%>"><br><br>
-        <label for="articleText">Article Text: </label><textarea name="articleText" rows="15" cols="50" id="articleText"><%=articleBody%></textarea><br><br>
+        <label for="articleBody">Article Body: </label><textarea name="articleBody" rows="15" cols="50" id="articleBody"><%=articleBody%></textarea><br><br>
         <input type="hidden" name="page" value="editArticle">
         <input type="hidden" name="articleID" value="<%=articleID%>">
         <input type="submit" value="Submit Changes">
     </fieldset>
 </form>
 
-<%!
-    private Article getArticleText(int articleID){
-        return ArticleDAO.getInstance().getByArticleID(articleID);
-    }
+<%
 
-    private void editArticle(Article toUpdate){
-        ArticleDAO.getInstance().updateArticle(toUpdate);
-    }
-%><%
+    if (!article.getTitle().equals(articleTitle) || !article.getBody().equals(articleBody)) {
+        article.setTitle(newTitle);
+        article.setBody(newBody);
 
-    if (!a.getTitle().equals(articleTitle) || !a.getBody().equals(articleBody)) {
-        String newTitle = request.getParameter("articleTitle");
-        String articleText = request.getParameter("articleText");
-        a.setBody(articleText);
-        a.setTitle(newTitle);
-        editArticle(a);
-        //        response.sendRedirect("/simplewebapp/");
-    }else{
+        ArticleDAO.getInstance().updateArticle(article);
 
+        response.sendRedirect("/simplewebapp/?page=article&article=" + article.getID());
     }
 
 %>
