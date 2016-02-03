@@ -5,7 +5,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class UserPage extends Page {
-    public static void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        navigate("/WEB-INF/addUser.jsp", request, response);
+    public static void registerUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        navigate("/WEB-INF/registerUser.jsp", request, response);
+    }
+
+    public static void loginUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        navigate("/WEB-INF/loginUser.jsp", request, response);
     }
 }

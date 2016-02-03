@@ -31,6 +31,20 @@ public class UserDAO {
         return null;
     }
 
+    public User loginUser(String username, String password) {
+        try {
+            String query = "SELECT * FROM USERS WHERE USERNAME = ? AND PASSWORD = ?";
+            ResultSet result = databaseDAO.getParametisedQuery(query, username, password);
+            result.next();
+
+            return new User(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public User addUser(String username, String password, String firstname, String lastname) {
         try {
             String query = "INSERT INTO USERS (USERNAME, PASSWORD, FIRSTNAME, LASTNAME) VALUES (?, ?, ?, ?)";
