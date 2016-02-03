@@ -14,12 +14,15 @@
     int commentID = Integer.parseInt(request.getParameter("commentID"));
     Comment c = getComment(articleID,commentID);
 
-    if(request.getParameter("edited") != null){
+    if(request.getParameter("edited") != null && request.getParameter("delete") == null){
         c.setBody(request.getParameter("commentBox"));
         editComment(c);
         response.sendRedirect("/simplewebapp/?page=article&article=" + articleID);
     }else if(request.getParameter("delete") != null){
         deleteComment(c);
+        response.sendRedirect("/simplewebapp/?page=article&article=" + articleID);
+    }else{
+
     }
 %>
 <%! Comment getComment(int articleID, int commentID) {
@@ -40,9 +43,9 @@
         <textarea name="commentBox" id="commentBox" rows="5" cols="40" title="Comment Box"><%=c.getBody()%></textarea><br><br>
         <input type="hidden" name="articleID" value="<%= articleID %>" />
         <input type="hidden" name="commentID" value="<%=commentID%>" />
-        <input type="hidden" name="page" value="editComment">
-        <input type="hidden" name="edited" value="1">
-        <input type="submit" value="Submit">
+        <input type="hidden" name="page" value="editComment" />
+        <input type="hidden" name="edited" value="1" />
+        <input type="submit" value="Submit" />
         <input type="submit" value="Delete Comment" name="delete" />
     </fieldset>
 </form>
