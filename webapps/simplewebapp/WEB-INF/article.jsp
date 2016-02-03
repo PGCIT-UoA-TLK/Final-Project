@@ -43,6 +43,11 @@
         <p>
             <%= articleBody %>
         </p>
+        <form>
+            <input type="hidden" name="page" value="editArticle"/>
+            <input type="hidden" name="articleID" value=<%= articleID %> />
+            <input type="submit" value="Edit" />
+        </form>
     </section>
     <%
         if(request.getParameter("commentBox") != null) {
@@ -66,8 +71,6 @@
     <%
         }
     %>
-
-
     <section class="addComment">
         <form>
             <fieldset>
