@@ -14,11 +14,21 @@
     }
 %>
 <div id="user-bar">
+    <div>
+        <a href="/simplewebapp/">Home</a>
+    </div>
+    <% if (user != null) { %>
+    <div>
+        <%=user.getUsername()%>
+    </div>
+    <% } %>
+    <div>
     <% if (user != null) { %>
     <a href="/simplewebapp/?page=editUser">My Account</a>
-    <a href="/simplewebapp/?<%if(currentPage != null){%><%=currentPage%>&<%}%>logout">Logout</a>
+    <a href="/simplewebapp/?logout">Logout</a>
     <% } else { %>
-    <a href="/simplewebapp/?page=loginUser<%if(currentPage != null){%>&back<%=currentPage%><%}%>">Login</a>
-    <a href="/simplewebapp/?page=addUser<%if(currentPage != null){%>&back<%=currentPage%><%}%>">Register</a>
+    <a href="/simplewebapp/?page=loginUser">Login</a>
+    <a href="/simplewebapp/?page=addUser">Register</a>
     <% } %>
+    </div>
 </div>
