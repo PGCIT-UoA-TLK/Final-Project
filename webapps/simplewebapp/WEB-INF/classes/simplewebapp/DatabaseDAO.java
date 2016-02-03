@@ -22,20 +22,9 @@ public class DatabaseDAO {
         return null;
     }
 
-    protected boolean updateQuery(String query){
-        try{
-            Statement sqlStatement = connection.createStatement();
-            sqlStatement.executeUpdate(query);
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
     protected ResultSet runParametisedQuery (String query, Object... arguments) throws Exception {
         try {
-            PreparedStatement sqlStatement = connection.prepareStatement(query);
+            PreparedStatement sqlStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             addParameters(sqlStatement, arguments);
 
             sqlStatement.executeUpdate();

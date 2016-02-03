@@ -19,8 +19,9 @@ public class UserDAO {
 
     public User getUser(int id) {
         try {
-            String query = "SELECT * FROM USERS WHERE USER_ID = ?;";
+            String query = "SELECT * FROM USERS WHERE USER_ID = ?";
             ResultSet result = databaseDAO.getParametisedQuery(query, id);
+            result.next();
 
             return new User(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5));
         } catch (Exception e) {
@@ -30,19 +31,25 @@ public class UserDAO {
         return null;
     }
 
-    public boolean addUser(String username, String password, String firstname, String lastname) {
+    public User addUser(String username, String password, String firstname, String lastname) {
         try {
             String query = "INSERT INTO USERS (USERNAME, PASSWORD, FIRSTNAME, LASTNAME) VALUES (?, ?, ?, ?)";
             ResultSet result = databaseDAO.runParametisedQuery(query, username, password, firstname, lastname);
 
-            System.err.printf("%s %s %s %s %s", result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5));
+            User user;
+            if (result == null) {
+                return null;
+            } else {
+                result.next();
+                int id = result.getInt(1);
+                user = UserDAO.getInstance().getUser(id);
+            }
 
-            return true;
-//            return new User(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5));
+            return user;
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return false;
+        return null;
     }
 }

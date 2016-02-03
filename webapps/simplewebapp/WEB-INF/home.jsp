@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <%@page contentType="text/html" %>
-<%@ page language="java" import="java.sql.*,java.util.List,java.util.ArrayList" %>
 <%@ page import="simplewebapp.Article" %>
+<%@ page import="simplewebapp.User" %>
+<%@ page import="java.util.List" %>
 <html>
 <head>
     <title>Simple Blog</title>
@@ -16,6 +17,12 @@
     <a href="?page=addArticle&addArticle=1">Add a New Article</a>
 </p>
 
+<%
+    if (session.getAttribute("user") != null) {
+        User user = (User) session.getAttribute("user");
+    }
+%>
+
 <section id="view" class="container">
     <%
         List<Article> articles = (List<Article>) request.getAttribute("Articles");
@@ -27,7 +34,8 @@
     %>
     <section class="article">
         <p>
-            <a href="<%= linkURI%>"><%= articleTitle %>
+            <a href="<%= linkURI%>">
+                <%= articleTitle %>
             </a>
         </p>
     </section>
