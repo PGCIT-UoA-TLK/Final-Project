@@ -15,6 +15,13 @@ public class User {
         this.lastname = lastname;
     }
 
+    public User(int id, String username, String firstname, String lastname) {
+        this.id = id;
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
     public int getId() {
         return id;
     }

@@ -1,6 +1,9 @@
 package simplewebapp;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
     private static UserDAO instance;
@@ -29,6 +32,36 @@ public class UserDAO {
         }
 
         return null;
+    }
+    // TODO: VERY BADLY THOUGHT OUT METHOD NEEDS REWRITE
+    private List<User> doQuery(String query) {
+        // Creating a list to store the results in
+        List<User> users = new ArrayList<>();
+        try {
+            ResultSet rs = databaseDAO.doQuery(query);
+            while (rs.next()) {
+                // Converting the results into a Article object
+                int id = rs.getInt("user_id");
+                String username = rs.getString("username");
+                String firstname = rs.getString("firstname");
+                String lastname = rs.getString("lastname");
+
+                // Adding the post object to the list
+                users.add(new User(id, username, firstname, lastname));
+            }
+        } catch (SQLException e) {
+            System.err.println(String.valueOf(e));
+        }
+        // Return the list
+        return users;
+    }
+
+    public List<User> getAll() {
+        // Creating the query
+        String query = "SELECT * FROM USERS";
+
+        // Execute the query and return the result
+        return doQuery(query);
     }
 
     public User loginUser(String username, String password) {
