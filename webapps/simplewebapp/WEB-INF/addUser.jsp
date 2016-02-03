@@ -13,7 +13,7 @@
         <label for="input-password">Password</label><input type="password" id="input-password" name="password"><br/>
         <label for="input-firstname">First Name</label><input type="text" id="input-firstname" name="firstname"><br/>
         <label for="input-lastname">Last Name</label><input type="text" id="input-lastname" name="lastname"><br/>
-        <input type="hidden" name="page" value="registerUser">
+        <input type="hidden" name="page" value="addUser">
         <input type="submit" value="Register">
     </fieldset>
 </form>

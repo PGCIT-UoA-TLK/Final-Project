@@ -1,4 +1,3 @@
-<%@ page import="simplewebapp.User" %>
 <%@ page import="simplewebapp.UserDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>

@@ -16,8 +16,9 @@ public class SimpleBlogServlet extends HttpServlet {
             case "editArticle": ArticlePage.editArticle(request, response); break;
 
             // User Pages
+            case "addUser": UserPage.addUser(request, response);
             case "loginUser": UserPage.loginUser(request, response);
-            case "registerUser": UserPage.registerUser(request, response);
+            case "editUser": UserPage.editUser(request, response);
 
             default: Page.displayHome(request, response); break;
         }

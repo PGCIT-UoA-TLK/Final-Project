@@ -66,4 +66,31 @@ public class UserDAO {
 
         return null;
     }
+
+    public boolean updateUser(User user) {
+        try {
+            String query = "UPDATE USERS SET %s = ? WHERE USER_ID = ?";
+            databaseDAO.runParametisedQuery(String.format(query, "FIRSTNAME"), user.getFirstname());
+            databaseDAO.runParametisedQuery(String.format(query, "LASTNAME"), user.getLastname());
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public boolean deleteUser(User user) {
+        String query = "DELETE FROM USERS WHERE USER_ID = ?";
+        try {
+            databaseDAO.runParametisedQuery(query, user.getId());
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }

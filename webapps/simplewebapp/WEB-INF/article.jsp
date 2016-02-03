@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <%@page contentType="text/html" %>
-<%@ page language="java" import="java.sql.*,java.util.List,java.util.ArrayList" %>
 <%@ page import="simplewebapp.Article" %>
 <%@ page import="simplewebapp.ArticleDAO" %>
 <%@ page import="simplewebapp.Comment" %>
+<%@ page import="java.util.List" %>
 <html>
 <head>
     <title>Simple Blog</title>

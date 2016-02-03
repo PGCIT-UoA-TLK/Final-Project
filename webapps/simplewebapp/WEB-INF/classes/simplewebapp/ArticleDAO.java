@@ -177,8 +177,6 @@ public class ArticleDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     public boolean deleteComment(Comment comment) {

@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <%@page contentType="text/html" %>
 <%@ page import="simplewebapp.Article" %>
-<%@ page import="simplewebapp.User" %>
 <%@ page import="java.util.List" %>
 <html>
 <head>
