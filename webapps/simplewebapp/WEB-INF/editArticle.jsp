@@ -9,6 +9,11 @@
 <head>
     <title>Edit Article</title>
 </head>
+<%!
+    private void deleteArticle(Article article) {
+        ArticleDAO.getInstance().deleteArticle(article);
+    }
+%>
 <%
     int articleID = Integer.parseInt(request.getParameter("articleID"));
     Article article = ArticleDAO.getInstance().getByArticleID(articleID);
@@ -18,6 +23,8 @@
 
     String articleTitle = (newTitle != null ? newTitle : article.getTitle());
     String articleBody = (newBody != null ? newBody : article.getBody());
+
+
 %>
 
 <%@ page language="java"%>
@@ -26,12 +33,13 @@
 
 <form>
     <fieldset>
-        <legend>Edit the Body of an Article:</legend>
+        <legend>Edit the Article:</legend>
         <label for="articleTitle">Title: </label><input type="text" id ="articleTitle" name="articleTitle" value="<%=articleTitle%>"><br><br>
         <label for="articleBody">Article Body: </label><textarea name="articleBody" rows="15" cols="50" id="articleBody"><%=articleBody%></textarea><br><br>
         <input type="hidden" name="page" value="editArticle">
         <input type="hidden" name="articleID" value="<%=articleID%>">
         <input type="submit" value="Submit Changes">
+        <input type="submit" value="Delete Article" name="delete">
     </fieldset>
 </form>
 
@@ -44,6 +52,10 @@
         ArticleDAO.getInstance().updateArticle(article);
 
         response.sendRedirect("/simplewebapp/?page=article&article=" + article.getID());
+    }
+    if(request.getParameter("delete") != null){
+        deleteArticle(article);
+        response.sendRedirect("/simplewebapp/");
     }
 
 %>
