@@ -4,8 +4,13 @@
 <html>
 <head>
     <title>User Registration</title>
+
+    <%@ include file="include/specialIncludeFiles.jsp" %>
 </head>
 <body>
+
+<%@include file="include/userBar.jsp"%>
+
 <form>
     <fieldset>
         <legend>User Registration</legend>
@@ -28,10 +33,10 @@
             firstname != null && !firstname.equals("") && lastname != null && !lastname.equals("")) {
         UserDAO userDAO = UserDAO.getInstance();
 
-        User user = userDAO.addUser(username, password, firstname, lastname);
+        User newUser = userDAO.addUser(username, password, firstname, lastname);
 
-        if (user != null) {
-            session.setAttribute("user", user);
+        if (newUser != null) {
+            session.setAttribute("user", newUser);
 
             String returnPage = "";
             if (request.getParameter("backpage") != null) {

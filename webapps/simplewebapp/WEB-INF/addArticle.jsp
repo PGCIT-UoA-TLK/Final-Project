@@ -7,13 +7,15 @@
 
 <head>
     <title>Add a New Article</title>
+
+    <%@ include file="include/specialIncludeFiles.jsp" %>
 </head>
 
 <%@ page language="java" %>
 
 <body>
 
-<%@include file="include/userDetails.jsp" %>
+<%@include file="include/userBar.jsp" %>
 
 <form>
     <fieldset>

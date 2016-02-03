@@ -3,10 +3,12 @@
 <html>
 <head>
     <title>Login</title>
+
+    <%@ include file="include/specialIncludeFiles.jsp" %>
 </head>
 <body>
 
-<%@include file="include/userDetails.jsp"%>
+<%@include file="include/userBar.jsp"%>
 
 <form>
     <fieldset>

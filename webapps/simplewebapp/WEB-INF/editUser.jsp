@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<%@include file="include/userDetails.jsp"%>
+<%@include file="include/userBar.jsp"%>
 
 <%
     if (user == null) {

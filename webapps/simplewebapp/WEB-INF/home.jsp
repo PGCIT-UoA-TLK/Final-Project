@@ -14,7 +14,7 @@
 
 <body>
 
-<%@include file="include/userDetails.jsp"%>
+<%@include file="include/userBar.jsp"%>
 
 <p>
     <a href="?page=addArticle&addArticle=1">Add a New Article</a>

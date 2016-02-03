@@ -4,10 +4,12 @@
 <html>
 <head>
     <title>Edit Comment</title>
+
+    <%@ include file="include/specialIncludeFiles.jsp" %>
 </head>
 <body>
 
-<%@include file="include/userDetails.jsp"%>
+<%@include file="include/userBar.jsp"%>
 
 <%
     int articleID = Integer.parseInt(request.getParameter("articleID"));

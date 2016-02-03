@@ -6,6 +6,8 @@
 <html>
 <head>
     <title>Simple Blog</title>
+
+    <%@ include file="include/specialIncludeFiles.jsp" %>
 </head>
 
 <%@ page language="java" %>
@@ -14,7 +16,7 @@
 
 <section id="view" class="container">
 
-    <%@include file="include/userDetails.jsp" %>
+    <%@include file="include/userBar.jsp" %>
 
     <%!
         private void addComment(String newComment, int articleID, int userID) {

@@ -15,7 +15,7 @@
 
 <body>
 
-<%@ include file="include/userDetails.jsp" %>
+<%@ include file="include/userBar.jsp" %>
 
 <%!
     private void deleteArticle(Article article) {
