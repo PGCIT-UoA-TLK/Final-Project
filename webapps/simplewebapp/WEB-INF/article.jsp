@@ -31,7 +31,7 @@
         String articleTitle = a.getTitle();
         String articleBody = a.getBody();
         int articleID = a.getID();
-        int userID = user.getId();
+
     %>
 
     <section class="article">
@@ -49,25 +49,17 @@
     </section>
 
     <%
-        if (request.getParameter("commentBox") != null) {
-            String newComment = request.getParameter("commentBox");
-            addComment(newComment, articleID, userID);
-            response.sendRedirect("/simplewebapp/?page=article&article=" + articleID);
-        } else {
-
-        }
-
         List<Comment> articleComments = getComments(articleID);
         for (Comment c : articleComments) {
             String body = c.getBody();
             int commentID = c.getComment_id();
             int commentUserID = c.getUser_id();
             User poster = UserDAO.getInstance().getUser(commentUserID);
-            String username = poster.getUsername();
+
 
     %>
     <section class="comments">
-        <p> <%=username%>: <%=body%> </p>
+        <p> <%=poster.getUsername() %>: <%=body%> </p>
         <form>
             <input type="hidden" name="page" value="editComment"/>
             <input type="hidden" name="articleID" value="<%= articleID %>"/>
@@ -78,7 +70,14 @@
     <%
         }
     %>
-
+    <%
+        if(user != null){
+            if (request.getParameter("commentBox") != null) {
+                String newComment = request.getParameter("commentBox");
+                addComment(newComment, articleID, user.getId());
+                response.sendRedirect("/simplewebapp/?page=article&article=" + articleID);
+            }
+    %>
     <section class="addComment">
         <form>
             <fieldset>
@@ -91,6 +90,7 @@
             </fieldset>
         </form>
     </section>
+    <% }  %>
 </section>
 </body>
 </html>
