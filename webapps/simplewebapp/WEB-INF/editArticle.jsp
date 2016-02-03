@@ -9,6 +9,14 @@
 <head>
     <title>Edit Article</title>
 </head>
+
+<%@ page language="java"%>
+
+<body>
+
+<%@include file="includePages/userDetails.jsp"%>
+
+
 <%
     int articleID = Integer.parseInt(request.getParameter("articleID"));
     Article article = ArticleDAO.getInstance().getByArticleID(articleID);
@@ -19,10 +27,6 @@
     String articleTitle = (newTitle != null ? newTitle : article.getTitle());
     String articleBody = (newBody != null ? newBody : article.getBody());
 %>
-
-<%@ page language="java"%>
-
-<body>
 
 <form>
     <fieldset>
