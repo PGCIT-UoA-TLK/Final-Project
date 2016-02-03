@@ -66,7 +66,16 @@
             <input type="hidden" name="page" value="editComment"/>
             <input type="hidden" name="articleID" value="<%= articleID %>"/>
             <input type="hidden" name="commentID" value="<%= commentID %>"/>
-            <input type="submit" value="Edit"/>
+            <%
+                if(user != null){
+                if (user.getId()== commentUserID) {
+            %>
+                    <input type="submit" value="Edit"/>
+            <%
+            }
+                }
+            %>
+
         </form>
     </section>
     <%

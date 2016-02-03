@@ -1,5 +1,6 @@
 <%@ page import="simplewebapp.User" %>
 <%@ page import="simplewebapp.UserDAO" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -28,8 +29,18 @@
     String password = request.getParameter("password");
     String firstname = request.getParameter("firstname");
     String lastname = request.getParameter("lastname");
+    Boolean unique = true;
+    List<User> allUsers = UserDAO.getInstance().getAll();
 
-    if (username != null && !username.equals("") && password != null && !password.equals("") &&
+    for(User u: allUsers) {
+        if (username != null && u.getUsername() != null && username.equals(u.getUsername())) {
+            out.print("Please pick a unique username.");
+            unique = false;
+            break;
+        }
+    }
+
+    if (unique && username != null && !username.equals("") && password != null && !password.equals("") &&
             firstname != null && !firstname.equals("") && lastname != null && !lastname.equals("")) {
         UserDAO userDAO = UserDAO.getInstance();
 
