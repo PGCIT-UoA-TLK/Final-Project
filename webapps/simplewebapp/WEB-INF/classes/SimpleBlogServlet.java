@@ -12,15 +12,15 @@ public class SimpleBlogServlet extends HttpServlet {
             // Article Pages
             case "article": ArticlePage.article(request, response); break;
             case "addArticle": ArticlePage.addArticle(request, response); break;
-            case "editComment": ArticlePage.displayEditComment(request,response); break;
+            case "editComment": ArticlePage.displayEditComment(request, response); break;
             case "editArticle": ArticlePage.editArticle(request, response); break;
 
             // User Pages
-            case "addUser": UserPage.addUser(request, response);
-            case "loginUser": UserPage.loginUser(request, response);
-            case "editUser": UserPage.editUser(request, response);
+            case "addUser": UserPage.addUser(request, response); break;
+            case "loginUser": UserPage.loginUser(request, response); break;
+            case "editUser": UserPage.editUser(request, response); break;
 
-            default: Page.displayHome(request, response); break;
+            case "": Page.displayHome(request, response); break;
         }
     }
 

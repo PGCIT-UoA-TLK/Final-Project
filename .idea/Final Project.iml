@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
   <component name="FacetManager">
-    <facet type="web" name="Web">
+    <facet type="web" name="Simplewebapp">
       <configuration>
         <descriptors>
           <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/webapps/simplewebapp/WEB-INF/web.xml" />
         </descriptors>
         <webroots>
-          <root url="file://$MODULE_DIR$/webapps/simplewebapp" relative="/" />
+          <root url="file://$MODULE_DIR$/webapps" relative="/" />
         </webroots>
       </configuration>
     </facet>
@@ -20,5 +20,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
+    <orderEntry type="library" name="jquery" level="application" />
   </component>
 </module>

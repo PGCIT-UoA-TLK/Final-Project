@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<%@include file="includePages/userDetails.jsp"%>
+<%@include file="include/userDetails.jsp"%>
 
 <form>
     <fieldset>

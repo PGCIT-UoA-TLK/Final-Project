@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<%@include file="includePages/userDetails.jsp"%>
+<%@include file="include/userDetails.jsp"%>
 
 <%
     int articleID = Integer.parseInt(request.getParameter("articleID"));
