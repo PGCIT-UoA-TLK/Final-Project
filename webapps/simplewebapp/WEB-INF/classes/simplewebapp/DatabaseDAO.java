@@ -15,10 +15,9 @@ public class DatabaseDAO {
     protected ResultSet doQuery(String query) {
         try {
             Statement sqlStatement = connection.createStatement();
-            ResultSet sqlResultSet = sqlStatement.executeQuery(query);
-            return sqlResultSet;
+            return sqlStatement.executeQuery(query);
         } catch (SQLException e) {
-            System.err.println(e);
+            System.err.println(String.valueOf(e));
         }
         return null;
     }
@@ -37,26 +36,42 @@ public class DatabaseDAO {
     protected ResultSet runParametisedQuery (String query, Object... arguments) throws Exception {
         try {
             PreparedStatement sqlStatement = connection.prepareStatement(query);
-
-            int count = 0;
-            for (Object argument : arguments) {
-                count++;
-                if (argument.getClass().equals(Integer.class)) {
-                    sqlStatement.setInt(count, (int) argument);
-                } else if (argument.getClass().equals(String.class)) {
-                    sqlStatement.setString(count, (String) argument);
-                } else {
-                    throw new Exception("Incorrect paramter type!");
-                }
-            }
+            addParameters(sqlStatement, arguments);
 
             sqlStatement.executeUpdate();
             return sqlStatement.getGeneratedKeys();
         } catch (SQLException e) {
-            System.err.println(e);
+            System.err.println(String.valueOf(e));
         }
 
         return null;
+    }
+
+    public ResultSet getParametisedQuery(String query, Object... arguments) throws Exception {
+        try {
+            PreparedStatement sqlStatement = connection.prepareStatement(query);
+            addParameters(sqlStatement, arguments);
+
+            return sqlStatement.executeQuery();
+        } catch (SQLException e) {
+            System.err.println(String.valueOf(e));
+        }
+
+        return null;
+    }
+
+    private void addParameters(PreparedStatement sqlStatement, Object[] arguments) throws Exception {
+        int count = 0;
+        for (Object argument : arguments) {
+            count++;
+            if (argument.getClass().equals(Integer.class)) {
+                sqlStatement.setInt(count, (int) argument);
+            } else if (argument.getClass().equals(String.class)) {
+                sqlStatement.setString(count, (String) argument);
+            } else {
+                throw new Exception("Incorrect paramter type!");
+            }
+        }
     }
 
     //Empty private constructor to prevent other classes calling this

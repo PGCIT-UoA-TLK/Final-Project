@@ -5,7 +5,6 @@
   Time: 12:38 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <%@page contentType="text/html"%>
