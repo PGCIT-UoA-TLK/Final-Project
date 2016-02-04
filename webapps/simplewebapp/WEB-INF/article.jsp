@@ -121,7 +121,7 @@
             <fieldset>
                 <legend>Comment</legend>
                 <textarea name="commentBox" id="commentBox" rows="5" cols="40"
-                          placeholder="Comments" required pattern="^[a-zA-Z0-9._%+-]{1,15}"></textarea><br><br>
+                          placeholder="Comments" required></textarea><br><br>
                 <input type="hidden" name="article" value="<%= articleID %>">
                 <input type="hidden" name="page" value="article">
                 <input type="submit" value="Submit">
