@@ -23,8 +23,16 @@
             ArticleDAO.getInstance().addNewComment(newComment, articleID, userID);
         }
 
+        Comment getComment(int articleID, int commentID) {
+            return ArticleDAO.getInstance().getCommentByArticleIDAndCommentID(articleID, commentID);
+        }
+
         private List<Comment> getComments(int articleID) {
             return ArticleDAO.getInstance().getCommentsByArticleID(articleID);
+        }
+
+        void deleteComment(Comment comment) {
+            ArticleDAO.getInstance().deleteComment(comment);
         }
     %>
 
@@ -59,6 +67,13 @@
     </section>
 
     <%
+        if(request.getParameter("delete") != null) {
+            Comment c = getComment(articleID,Integer.parseInt(request.getParameter("commentID")));
+            System.out.println("Delete");
+            deleteComment(c);
+            response.sendRedirect("/simplewebapp/?page=article&article=" + articleID);
+        }
+
         List<Comment> articleComments = getComments(articleID);
         for (Comment c : articleComments) {
             String body = c.getBody();
@@ -66,30 +81,35 @@
             int commentUserID = c.getUser_id();
             User poster = UserDAO.getInstance().getUser(commentUserID);
 
-
     %>
     <section class="comments">
         <p> <%=poster.getUsername() %>: <%=body%> </p>
         <form>
-            <input type="hidden" name="page" value="editComment"/>
-            <input type="hidden" name="articleID" value="<%= articleID %>"/>
+
+            <input type="hidden" name="article" value="<%= articleID %>"/>
             <input type="hidden" name="commentID" value="<%= commentID %>"/>
             <%
                 if(user != null){
-                if (user.getId()== commentUserID) {
+                    if (user.getId()== commentUserID) {
             %>
-                    <input type="submit" value="Edit"/>
+            <input type="hidden" name="page" value="editComment"/>
+            <input type="submit" value="Edit"/>
             <%
-            }
+            }else if (user.getId() == a.getUserID()){
+            %>
+            <input type="hidden" name="page" value="article">
+            <input type="hidden" name="delete" value="1"/>
+            <input type="submit"  value="Delete">
+            <%
+                    }
                 }
+
             %>
 
         </form>
     </section>
     <%
         }
-    %>
-    <%
         if(user != null){
             if (request.getParameter("commentBox") != null) {
                 String newComment = request.getParameter("commentBox");
@@ -109,7 +129,7 @@
             </fieldset>
         </form>
     </section>
-    <% }  %>
+    <% } %>
 </section>
 </body>
 </html>
