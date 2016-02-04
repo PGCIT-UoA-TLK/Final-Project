@@ -12,7 +12,7 @@
 <%@include file="include/userBar.jsp"%>
 
 <%
-    int articleID = Integer.parseInt(request.getParameter("articleID"));
+    int articleID = Integer.parseInt(request.getParameter("article"));
     int commentID = Integer.parseInt(request.getParameter("commentID"));
     Comment c = getComment(articleID,commentID);
 
@@ -43,7 +43,7 @@
     <fieldset>
         <legend>Comment</legend>
         <textarea name="commentBox" id="commentBox" rows="5" cols="40" title="Comment Box"><%=c.getBody()%></textarea><br><br>
-        <input type="hidden" name="articleID" value="<%= articleID %>" />
+        <input type="hidden" name="article" value="<%= articleID %>" />
         <input type="hidden" name="commentID" value="<%=commentID%>" />
         <input type="hidden" name="page" value="editComment" />
         <input type="hidden" name="edited" value="1" />
