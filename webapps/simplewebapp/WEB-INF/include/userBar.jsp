@@ -7,11 +7,6 @@
     } else if (session.getAttribute("user") != null) {
         user = (User) session.getAttribute("user");
     }
-
-    String currentPage = request.getParameter("page");
-    if (currentPage != null) {
-        currentPage = "page=" + currentPage;
-    }
 %>
 <div id="user-bar" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
