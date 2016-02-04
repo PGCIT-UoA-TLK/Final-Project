@@ -16,14 +16,16 @@
 
 <%@include file="include/userBar.jsp"%>
 
-<p>
-    <a href="?page=addArticle&addArticle=1">Add a New Article</a>
-</p>
 
 
 
 <section id="view" class="container">
-    <%
+    <% if(user != null){ %>
+    <p>
+        <a href="?page=addArticle&addArticle=1">Add a New Article</a>
+    </p>
+    <% }
+
         List<Article> articles = (List<Article>) request.getAttribute("Articles");
 
         for (Article a : articles) {
