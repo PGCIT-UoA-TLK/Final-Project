@@ -36,7 +36,7 @@
     for(User u: allUsers) {
        // username = username.trim();
         if (username != null && u.getUsername() != null && username.equals(u.getUsername())) {
-            out.print("Please pick a unique username.");
+            out.print("That username is taken.");
             unique = false;
             break;
         }
