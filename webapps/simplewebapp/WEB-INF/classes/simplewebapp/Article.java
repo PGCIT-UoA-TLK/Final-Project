@@ -3,17 +3,24 @@ package simplewebapp;
 public class Article {
 
     private int id;
+    private int userID;
     private String title;
     private String body;
 
-    public Article(int id, String title, String body) {
+
+    public Article(int id, int userID, String title, String body) {
         this.id = id;
+        this.userID = userID;
         this.title = title;
         this.body = body;
     }
 
     public int getID() {
         return this.id;
+    }
+
+    public int getUserID() {
+        return this.userID;
     }
 
     public void setId(int id) {

@@ -45,7 +45,15 @@
             <form>
                 <input type="hidden" name="page" value="editArticle"/>
                 <input type="hidden" name="articleID" value="<%=articleID%>"/>
-                <input type="submit" value="Edit"/><br/><br/>
+                <%
+                    if(user != null){
+                        if (user.getId()== a.getUserID()) {
+                %>
+                <input type="submit" value="Edit"/>
+                <%
+                        }
+                    }
+                %>
             </form>
         </div>
     </section>

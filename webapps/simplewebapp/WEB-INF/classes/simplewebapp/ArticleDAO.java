@@ -29,10 +29,11 @@ public class ArticleDAO {
             while (rs.next()) {
                 // Converting the results into a Article object
                 int id = rs.getInt("article_id");
+                int userID = rs.getInt("user_id");
                 String title = rs.getString("title");
                 String body = rs.getString("body");
                 // Adding the post object to the list
-                l.add(new Article(id, title, body));
+                l.add(new Article(id, userID, title, body));
             }
         } catch (SQLException e) {
             System.err.println(String.valueOf(e));
@@ -61,11 +62,11 @@ public class ArticleDAO {
         return a;
     }
 
-    public boolean addNewArticle(String newTitle, String newText) {
+    public boolean addNewArticle(int userId, String newTitle, String newText) {
         // KL - Crating the add new article query and calling the updateQuery method
-        String query = "INSERT INTO article (title, body) VALUES (?,?)";
+        String query = "INSERT INTO article (user_id, title, body) VALUES (?,?,?)";
         try {
-            databaseDAO.runParametisedQuery(query, newTitle, newText);
+            databaseDAO.runParametisedQuery(query, userId, newTitle, newText);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

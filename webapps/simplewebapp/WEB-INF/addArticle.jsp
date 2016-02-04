@@ -34,7 +34,7 @@
         String newTitle = request.getParameter("articleTitle");
         String articleText = request.getParameter("articleText");
 
-        ArticleDAO.getInstance().addNewArticle(newTitle, articleText);
+        ArticleDAO.getInstance().addNewArticle(user.getId(), newTitle, articleText);
 
         response.sendRedirect("/simplewebapp/");
     }
