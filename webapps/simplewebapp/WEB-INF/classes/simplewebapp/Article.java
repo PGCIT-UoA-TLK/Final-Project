@@ -6,7 +6,7 @@ public class Article {
     private int userID;
     private String title;
     private String body;
-
+    private boolean active;
 
     public Article(int id, int userID, String title, String body) {
         this.id = id;
@@ -41,5 +41,13 @@ public class Article {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

@@ -6,6 +6,7 @@ public class User {
     private String password;
     private String firstname;
     private String lastname;
+    private boolean active;
 
     public User(int id, String username, String password, String firstname, String lastname) {
         this.id = id;
@@ -60,5 +61,13 @@ public class User {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

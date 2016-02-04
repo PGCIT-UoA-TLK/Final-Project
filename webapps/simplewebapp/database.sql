@@ -3,17 +3,30 @@ CREATE TABLE users (
   username  VARCHAR(100) NOT NULL             DEFAULT '',
   password  VARCHAR(100) NOT NULL             DEFAULT '',
   firstname VARCHAR(100) NOT NULL             DEFAULT '',
-  lastname  VARCHAR(100) NOT NULL             DEFAULT ''
+  lastname  VARCHAR(100) NOT NULL             DEFAULT '',
+  active    BOOLEAN      NOT NULL             DEFAULT TRUE
 );
 
 CREATE TABLE article (
   article_id INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
-  user_id INTEGER,
+  user_id    INTEGER,
   title      VARCHAR(250) NOT NULL             DEFAULT '',
   body       LONG VARCHAR NOT NULL             DEFAULT '',
+  active     BOOLEAN      NOT NULL             DEFAULT TRUE,
   FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
+CREATE TABLE comments (
+  comment_id INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
+  article_id INTEGER,
+  user_id    INTEGER,
+  body       VARCHAR(200) NOT NULL             DEFAULT '',
+  active     BOOLEAN      NOT NULL             DEFAULT TRUE,
+  FOREIGN KEY (article_id) REFERENCES article (article_id),
+  FOREIGN KEY (user_id) REFERENCES users (user_id)
+);
+
+-- Sample Data
 INSERT INTO article (title, body) VALUES
   ('Duis bibendum, felis sed',
    'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.'),
@@ -41,12 +54,3 @@ INSERT INTO article (title, body) VALUES
    'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.'),
   ('Duis aliquam convallis nunc',
    'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.');
-
-CREATE TABLE comments (
-  comment_id INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
-  article_id INTEGER,
-  user_id INTEGER,
-  body       VARCHAR(200) NOT NULL             DEFAULT '',
-  FOREIGN KEY (article_id) REFERENCES article (article_id),
-  FOREIGN KEY  (user_id) REFERENCES  users (user_id)
-);

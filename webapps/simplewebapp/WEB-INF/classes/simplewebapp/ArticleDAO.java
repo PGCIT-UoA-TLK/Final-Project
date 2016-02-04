@@ -20,46 +20,52 @@ public class ArticleDAO {
         return instance;
     }
 
-    // TODO: VERY BADLY THOUGHT OUT METHOD NEEDS REWRITE
-    private List<Article> doQuery(String query) {
-        // Creating a list to store the results in
-        List<Article> l = new ArrayList<>();
-        try {
-            ResultSet rs = databaseDAO.doQuery(query);
-            while (rs.next()) {
-                // Converting the results into a Article object
-                int id = rs.getInt("article_id");
-                int userID = rs.getInt("user_id");
-                String title = rs.getString("title");
-                String body = rs.getString("body");
-                // Adding the post object to the list
-                l.add(new Article(id, userID, title, body));
-            }
-        } catch (SQLException e) {
-            System.err.println(String.valueOf(e));
-        }
-        // Return the list
-        return l;
-    }
-
     public List<Article> getAll() {
         // Creating the query
         String query = "SELECT * FROM article";
 
+        // Creating a list to store the results in
+        List<Article> articleList = new ArrayList<>();
+
+        try {
+            ResultSet result = databaseDAO.getParametisedQuery(query);
+
+            while (result.next()) {
+                // Converting the results into a Article object
+                int id = result.getInt("article_id");
+                int userID = result.getInt("user_id");
+                String title = result.getString("title");
+                String body = result.getString("body");
+
+                // Adding the post object to the list
+                articleList.add(new Article(id, userID, title, body));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // Execute the query and return the result
-        return doQuery(query);
+        return articleList;
     }
 
     public Article getByArticleID(int articleID) {
-        String query = "SELECT * FROM article WHERE article_id = " + articleID;
-        List<Article> l = doQuery(query);
+        String query = "SELECT * FROM article WHERE article_id = ?";
+        try {
+            ResultSet result = databaseDAO.getParametisedQuery(query, articleID);
+            result.next();
 
-        //Getting the first item from the returned list
-        Article a = null;
-        if (!l.isEmpty() && l.size() > 0) {
-            a = l.get(0);
+            int id = result.getInt("article_id");
+            int userID = result.getInt("user_id");
+            String title = result.getString("title");
+            String body = result.getString("body");
+
+            // Adding the post object to the list
+            return new Article(id, userID, title, body);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return a;
+
+        return null;
     }
 
     public boolean addNewArticle(int userId, String newTitle, String newText) {
@@ -92,8 +98,7 @@ public class ArticleDAO {
         String query = "DELETE FROM article WHERE article_id = ?";
         try {
             databaseDAO.runParametisedQuery(query, article.getID());
-            List<Article> results = doQuery("SELECT * FROM article WHERE article_id = " + article.getID());
-            if (results.size() <= 0) return true;
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -171,22 +176,23 @@ public class ArticleDAO {
         return c;
     }
 
-    public void updateComment(Comment comment) {
+    public boolean updateComment(Comment comment) {
         String query = "UPDATE comments SET body = ? WHERE article_id = ? AND comment_id = ?";
         try {
             databaseDAO.runParametisedQuery(query, comment.getBody(), comment.getArticle_id(), comment.getComment_id());
-
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return false;
     }
 
     public boolean deleteComment(Comment comment) {
         String query = "DELETE FROM comments WHERE comment_id = ?";
         try {
             databaseDAO.runParametisedQuery(query, comment.getComment_id());
-            List<Article> results = doQuery("SELECT * FROM comments WHERE comment_id = " + comment.getComment_id());
-            if (results.size() <= 0) return true;
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }

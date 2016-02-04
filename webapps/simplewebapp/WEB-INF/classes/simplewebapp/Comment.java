@@ -1,21 +1,18 @@
 package simplewebapp;
 
-/**
- * Created by klev006 on 2/02/2016.
- */
 public class Comment {
 
     private int comment_id;
     private int article_id;
     private int user_id;
     private String body;
+    private boolean active;
 
     Comment(int comment_id, int article_id, int user_id, String body) {
         this.comment_id = comment_id;
         this.article_id = article_id;
         this.user_id = user_id;
         this.body = body;
-
     }
 
     public int getComment_id() {
@@ -48,5 +45,13 @@ public class Comment {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
