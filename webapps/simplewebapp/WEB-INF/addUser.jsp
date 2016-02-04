@@ -15,8 +15,8 @@
 <form>
     <fieldset>
         <legend>User Registration</legend>
-        <label for="input-username">Username</label><input type="text" id="input-username" name="username"><br/>
-        <label for="input-password">Password</label><input type="password" id="input-password" name="password"><br/>
+        <label for="input-username">Username</label><input type="text" id="input-username" name="username" required pattern="^[a-zA-Z0-9._%+-]{1,15}"><br/>
+        <label for="input-password">Password</label><input type="password" id="input-password" name="password" required pattern ="^[a-zA-Z0-9._%+-]{1,15}"><br/>
         <label for="input-firstname">First Name</label><input type="text" id="input-firstname" name="firstname"><br/>
         <label for="input-lastname">Last Name</label><input type="text" id="input-lastname" name="lastname"><br/>
         <input type="hidden" name="page" value="addUser">
@@ -26,6 +26,7 @@
 
 <%
     String username = request.getParameter("username");
+
     String password = request.getParameter("password");
     String firstname = request.getParameter("firstname");
     String lastname = request.getParameter("lastname");
@@ -33,6 +34,7 @@
     List<User> allUsers = UserDAO.getInstance().getAll();
 
     for(User u: allUsers) {
+       // username = username.trim();
         if (username != null && u.getUsername() != null && username.equals(u.getUsername())) {
             out.print("Please pick a unique username.");
             unique = false;
