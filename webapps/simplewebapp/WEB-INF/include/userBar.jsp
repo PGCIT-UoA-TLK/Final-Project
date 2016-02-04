@@ -30,10 +30,10 @@
         <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <% if (user != null) { %>
-                <li><%=user.getUsername()%></li>
+                <li><a href="/simplewebapp/?page=editUser"><%=user.getUsername()%></a></li>
                 <% } %>
                 <% if (user != null) { %>
-                <li><a href="/simplewebapp/?page=editUser">My Account</a></li>
+                <!-- <li><a href="/simplewebapp/?page=editUser">My Account</a></li> KL: Have taken this out and linked it via the username -->
                 <li><a href="/simplewebapp/?logout">Logout</a></li>
                 <% } else { %>
                 <li><a href="/simplewebapp/?page=loginUser">Login</a></li>
