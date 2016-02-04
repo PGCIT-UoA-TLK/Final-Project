@@ -134,7 +134,6 @@ public class ArticleDAO {
                 String commentBody = rs.getString("body");
 
                 Comment c = new Comment(cID, aID, uID, commentBody);
-                System.out.println(c.getBody());
                 comments.add(c);
             }
         } catch (SQLException e) {

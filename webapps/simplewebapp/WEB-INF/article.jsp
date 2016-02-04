@@ -69,7 +69,6 @@
     <%
         if(request.getParameter("delete") != null) {
             Comment c = getComment(articleID,Integer.parseInt(request.getParameter("commentID")));
-            System.out.println("Delete");
             deleteComment(c);
             response.sendRedirect("/simplewebapp/?page=article&article=" + articleID);
         }
