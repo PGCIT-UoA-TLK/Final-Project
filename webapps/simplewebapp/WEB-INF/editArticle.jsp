@@ -37,7 +37,7 @@
     <fieldset>
         <legend>Edit the Article:</legend>
         <label for="articleTitle">Title: </label>
-        <input type="text" id="articleTitle" name="articleTitle" value="<%=articleTitle%>"><br><br>
+        <input type="text" id="articleTitle" name="articleTitle" value="<%=articleTitle%>" pattern="^\S.*?\S$"><br><br>
         <label for="articleBody">Article Body: </label>
         <textarea name="articleBody" rows="15" cols="50" id="articleBody"><%=articleBody%></textarea><br><br>
 

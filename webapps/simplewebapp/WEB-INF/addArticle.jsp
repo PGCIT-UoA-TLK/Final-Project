@@ -21,9 +21,9 @@
     <fieldset>
         <legend>Add a New Article:</legend>
         <label for="articleTitle">Title: </label>
-        <input type="text" id="articleTitle" name="articleTitle" placeholder="Article Title"><br><br>
+        <input type="text" id="articleTitle" name="articleTitle" placeholder="Article Title" required pattern="^\S.*?\S$"><br><br>
         <label for="articleText">Article Text: </label>
-        <textarea name="articleText" rows="15" cols="50" placeholder="Article Text" id="articleText"></textarea><br><br>
+        <textarea name="articleText" rows="15" cols="50" placeholder="Article Text" id="articleText" required></textarea><br><br>
         <input type="hidden" name="page" value="addArticle"/>
         <input type="submit" value="Submit New Article">
     </fieldset>
