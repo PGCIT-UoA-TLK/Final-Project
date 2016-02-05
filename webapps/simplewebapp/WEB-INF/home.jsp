@@ -17,13 +17,14 @@
 <%@include file="include/userBar.jsp"%>
 
 
-
+<ul>
 
 <section id="view" class="container">
+
     <% if(user != null){ %>
-    <p>
-        <a href="?page=addArticle&addArticle=1">Add a New Article</a>
-    </p>
+
+        <li class="articleList"><a href="?page=addArticle&addArticle=1">Add a New Article</a></li>
+
     <% }
 
         List<Article> articles = (List<Article>) request.getAttribute("Articles");
@@ -34,15 +35,17 @@
             String linkURI = String.format("?page=article&article=%d", articleID);
     %>
     <section class="article">
-        <p>
+        <li class="articleList">
             <a href="<%= linkURI%>">
                 <%= articleTitle %>
             </a>
-        </p>
+        </li>
     </section>
+
     <%
         }
     %>
 </section>
+</ul>
 </body>
 </html>

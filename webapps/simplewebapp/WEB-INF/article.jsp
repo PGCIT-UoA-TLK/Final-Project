@@ -43,12 +43,11 @@
         int articleID = a.getID();
 
     %>
-
+<div class="container-fluid">
     <section class="article">
-        <h1><%=articleTitle%>
-        </h1>
-        <p><%=articleBody%>
-        </p>
+        <div class="articleTitle"><h1><%=articleTitle%></h1></div>
+        <div class="articleText"><p><%=articleBody%> </p></div>
+
         <div class="editor">
             <form>
                 <input type="hidden" name="page" value="editArticle"/>
@@ -65,7 +64,7 @@
             </form>
         </div>
     </section>
-
+</div>
     <%
         if(request.getParameter("delete") != null) {
             Comment c = getComment(articleID,Integer.parseInt(request.getParameter("commentID")));
@@ -81,9 +80,10 @@
             User poster = UserDAO.getInstance().getUser(commentUserID);
 
     %>
+    <div class="container-fluid">
     <section class="comments">
-        <p> <%=poster.getUsername() %>: <%=body%> </p>
-        <form>
+        <p class="comment"> <%=poster.getUsername() %>: <%=body%></p>
+        <span><form>
 
             <input type="hidden" name="article" value="<%= articleID %>"/>
             <input type="hidden" name="commentID" value="<%= commentID %>"/>
@@ -105,8 +105,9 @@
 
             %>
 
-        </form>
+        </form></span>
     </section>
+        </div>
     <%
         }
         if(user != null){
@@ -116,7 +117,9 @@
                 response.sendRedirect("/simplewebapp/?page=article&article=" + articleID);
             }
     %>
-    <section class="addComment">
+    <div class="container-fluid">
+
+    <div class="commentBox"> <section class="addComment">
         <form>
             <fieldset>
                 <legend>Comment</legend>
@@ -127,7 +130,7 @@
                 <input type="submit" value="Submit">
             </fieldset>
         </form>
-    </section>
+    </section></div></div>
     <% } %>
 </section>
 </body>

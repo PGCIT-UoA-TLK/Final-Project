@@ -1,3 +1,20 @@
 body {
     padding-top: 70px;
 }
+
+div.navbar {
+    background-color: ivory ;
+}
+
+li.articleList {
+    margin-bottom: 15px;
+}
+
+div.articleTitle{
+    background-color: lightgrey;
+}
+
+div.articleText{
+    background-color: lightgrey;
+}
+
