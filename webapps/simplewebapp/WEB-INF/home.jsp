@@ -19,7 +19,7 @@
 
 <ul>
 
-<section id="view" class="container">
+<div id="view" class="jumbotron">
 
     <% if(user != null){ %>
 
@@ -34,18 +34,20 @@
             int articleID = a.getID();
             String linkURI = String.format("?page=article&article=%d", articleID);
     %>
-    <section class="article">
+    <div class="container">
+        <div class="row"></div>
+             <div class="col-sm-4"></div>
         <li class="articleList">
             <a href="<%= linkURI%>">
                 <%= articleTitle %>
             </a>
         </li>
-    </section>
+    </div>
 
     <%
         }
     %>
-</section>
+</div>
 </ul>
 </body>
 </html>
