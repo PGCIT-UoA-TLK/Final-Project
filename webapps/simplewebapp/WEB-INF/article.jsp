@@ -43,28 +43,33 @@
         int articleID = a.getID();
 
     %>
-<div class="container-fluid">
-    <section class="article">
-        <div class="articleTitle"><h1><%=articleTitle%></h1></div>
-        <div class="articleText"><p><%=articleBody%> </p></div>
+    <div class="container">
+        <div class="jumbotron">
+            <div class = col-md>
+                <section class="article">
+                    <div class="articleTitle"><h1><%=articleTitle%></h1></div>
+                    <div class="articleText"><p><%=articleBody%> </p></div>
 
-        <div class="editor">
-            <form>
-                <input type="hidden" name="page" value="editArticle"/>
-                <input type="hidden" name="articleID" value="<%=articleID%>"/>
-                <%
-                    if(user != null){
-                        if (user.getId()== a.getUserID()) {
-                %>
-                <input type="submit" value="Edit"/>
-                <%
-                        }
-                    }
-                %>
-            </form>
+                    <div class="editor">
+                        <form>
+                            <input type="hidden" name="page" value="editArticle"/>
+                            <input type="hidden" name="articleID" value="<%=articleID%>"/>
+                            <%
+                                if(user != null){
+                                    if (user.getId()== a.getUserID()) {
+                            %>
+                            <input type="submit" value="Edit"/>
+                            <%
+                                    }
+                                }
+                            %>
+                        </form>
+                    </div>
+
+                </section>
+            </div>
         </div>
-    </section>
-</div>
+    </div>
     <%
         if(request.getParameter("delete") != null) {
             Comment c = getComment(articleID,Integer.parseInt(request.getParameter("commentID")));
@@ -80,9 +85,11 @@
             User poster = UserDAO.getInstance().getUser(commentUserID);
 
     %>
-    <div class="container-fluid">
-    <section class="comments">
-        <p class="comment"> <%=poster.getUsername() %>: <%=body%></p>
+    <div class="container">
+        <div class = "row">
+            <div class ="col-sm">
+                <section class="comments">
+                    <p class="comment"> <%=poster.getUsername() %>: <%=body%></p>
         <span><form>
 
             <input type="hidden" name="article" value="<%= articleID %>"/>
@@ -106,8 +113,11 @@
             %>
 
         </form></span>
-    </section>
+
+                </section>
+            </div>
         </div>
+    </div>
     <%
         }
         if(user != null){
@@ -119,18 +129,18 @@
     %>
     <div class="container-fluid">
 
-    <div class="commentBox"> <section class="addComment">
-        <form>
-            <fieldset>
-                <legend>Comment</legend>
+        <div class="commentBox"> <section class="addComment">
+            <form>
+                <fieldset>
+                    <legend>Comment</legend>
                 <textarea name="commentBox" id="commentBox" rows="5" cols="40"
                           placeholder="Comments" required></textarea><br><br>
-                <input type="hidden" name="article" value="<%= articleID %>">
-                <input type="hidden" name="page" value="article">
-                <input type="submit" value="Submit">
-            </fieldset>
-        </form>
-    </section></div></div>
+                    <input type="hidden" name="article" value="<%= articleID %>">
+                    <input type="hidden" name="page" value="article">
+                    <input type="submit" value="Submit">
+                </fieldset>
+            </form>
+        </section></div></div>
     <% } %>
 </section>
 </body>
