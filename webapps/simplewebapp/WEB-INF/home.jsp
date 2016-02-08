@@ -35,13 +35,15 @@
             String linkURI = String.format("?page=article&article=%d", articleID);
     %>
     <div class="container">
-        <div class="row"></div>
-             <div class="col-sm-4"></div>
+        <div class="row">
+             <div class="col-sm-4">
         <li class="articleList">
             <a href="<%= linkURI%>">
                 <%= articleTitle %>
             </a>
         </li>
+    </div>
+    </div>
     </div>
 
     <%
