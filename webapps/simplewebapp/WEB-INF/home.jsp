@@ -17,39 +17,43 @@
 <%@include file="include/userBar.jsp"%>
 
 
-<ul>
 
-<div id="view" class="jumbotron">
 
-    <% if(user != null){ %>
+    <div id="view" class="jumbotron">
+        <div class="container">
+            <% if(user != null){ %>
+            <div class="row">
+                <div class="col-sm">
+                  <a href="?page=addArticle&addArticle=1">Add a New Article</a>
+                </div>
+            </div>
+            <% }
 
-        <li class="articleList"><a href="?page=addArticle&addArticle=1">Add a New Article</a></li>
+                List<Article> articles = (List<Article>) request.getAttribute("Articles");
 
-    <% }
+                for (Article a : articles) {
+                    String articleTitle = a.getTitle();
+                    int articleID = a.getID();
+                    String linkURI = String.format("?page=article&article=%d", articleID);
+            %>
 
-        List<Article> articles = (List<Article>) request.getAttribute("Articles");
+            <div class="row">
+                <div class="col-sm">
 
-        for (Article a : articles) {
-            String articleTitle = a.getTitle();
-            int articleID = a.getID();
-            String linkURI = String.format("?page=article&article=%d", articleID);
-    %>
-    <div class="container">
-        <div class="row">
-             <div class="col-sm-4">
-        <li class="articleList">
-            <a href="<%= linkURI%>">
-                <%= articleTitle %>
-            </a>
-        </li>
+                        <a href="<%= linkURI%>">
+                            <%= articleTitle %>
+                        </a>
+
+                </div>
+            </div>
+
+
+        <%
+            }
+        %>
+
+        </div>
     </div>
-    </div>
-    </div>
 
-    <%
-        }
-    %>
-</div>
-</ul>
 </body>
 </html>
