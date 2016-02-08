@@ -21,13 +21,7 @@
 
     <div id="view" class="jumbotron">
         <div class="container">
-            <% if(user != null){ %>
-            <div class="row">
-                <div class="col-sm">
-                  <a href="?page=addArticle&addArticle=1">Add a New Article</a>
-                </div>
-            </div>
-            <% }
+            <%
 
                 List<Article> articles = (List<Article>) request.getAttribute("Articles");
 

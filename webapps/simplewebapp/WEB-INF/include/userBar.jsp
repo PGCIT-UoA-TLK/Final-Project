@@ -27,6 +27,9 @@
                 <% if (user != null) { %>
                 <li><a href="/simplewebapp/?page=editUser"><%=user.getUsername()%></a></li>
                 <% } %>
+                <% if(user != null){ %>
+                <li> <a href="?page=addArticle&addArticle=1">Add a New Article</a></li>
+                <% } %>
                 <% if (user != null) { %>
                 <!-- <li><a href="/simplewebapp/?page=editUser">My Account</a></li> KL: Have taken this out and linked it via the username -->
                 <li><a href="/simplewebapp/?logout">Logout</a></li>
