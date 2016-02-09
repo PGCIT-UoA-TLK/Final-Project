@@ -17,7 +17,7 @@ public class UserPage extends Page {
         Boolean unique = true;
         List<User> allUsers = UserDAO.getInstance().getAll();
 
-        for(User u: allUsers) {
+        for (User u : allUsers) {
             // username = username.trim();
             if (username != null && u.getUsername() != null && username.equals(u.getUsername())) {
                 request.setAttribute("errorMessage", "That username is taken.");
@@ -30,12 +30,25 @@ public class UserPage extends Page {
                 firstname != null && !firstname.equals("") && lastname != null && !lastname.equals("")) {
             UserDAO userDAO = UserDAO.getInstance();
 
-            User newUser = userDAO.addUser(username, password, firstname, lastname);
+            int icon;
+            String selection = request.getParameter("optionsRadios");
+            switch (selection) {
+                case "option1": icon = 1; break;
+                case "option2": icon = 2; break;
+                default: icon = 0; break;
+            }
+
+            User newUser = userDAO.addUser(username, password, firstname, lastname, icon);
 
             if (newUser != null) {
                 request.getSession().setAttribute("user", newUser);
 
-                response.sendRedirect("/simplewebapp/");
+                String returnPage = "";
+                if (request.getParameter("backpage") != null) {
+                    returnPage = "?page=" + request.getParameter("backpage");
+                }
+
+                response.sendRedirect("/simplewebapp/" + returnPage);
             }
         }
 
