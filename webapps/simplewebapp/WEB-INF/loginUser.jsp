@@ -1,5 +1,8 @@
-<%@ page import="simplewebapp.UserDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<jsp:useBean id="hasError" scope="request" type="java.lang.Boolean"/>
+<jsp:useBean id="errorMessage" scope="request" type="java.lang.String"/>
+
 <html>
 <head>
     <title>Login</title>
@@ -14,6 +17,16 @@
         <form class="form-horizontal">
             <fieldset class="login">
                 <legend class="login">Login</legend>
+                <c:choose>
+                    <c:when test="${hasError == true}">
+                        <c:set var="hasErrorString">has-error</c:set>
+                        <div class="alert alert-danger col-sm-offset-2 col-sm-10" role="alert">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only">Error:</span> ${errorMessage}
+                        </div>
+                    </c:when>
+                </c:choose>
+
                 <div class="form-group">
                     <label for="username" class="col-sm-2 control-label">Username</label>
                     <div class="col-sm-10">
@@ -33,28 +46,5 @@
         </form>
     </div>
 </div>
-<%
-    String username = request.getParameter("username");
-    String password = request.getParameter("password");
-
-    if (username != null && password != null) {
-        UserDAO userDAO = UserDAO.getInstance();
-
-        User thisUser = userDAO.loginUser(username, password);
-
-        if (thisUser != null) {
-            session.setAttribute("user", thisUser);
-
-            String returnPage = "";
-            if (request.getParameter("backpage") != null) {
-                returnPage = "&page=" + request.getParameter("backpage");
-            }
-
-            response.sendRedirect("/simplewebapp/?loginSuccess=1" + returnPage);
-        } else {
-            out.println("Incorrect Username or Password");
-        }
-    }
-%>
 </body>
 </html>

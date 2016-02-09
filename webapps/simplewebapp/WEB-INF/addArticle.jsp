@@ -1,24 +1,19 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<%@page contentType="text/html" %>
-<%@ page import="simplewebapp.ArticleDAO" %>
 
 <html>
-
 <head>
     <title>Add a New Article</title>
 
     <%@ include file="include/specialIncludeFiles.jsp" %>
 </head>
-
-<%@ page language="java" %>
-
 <body>
 
 <%@include file="include/userBar.jsp" %>
 <div class="container">
     <div class="col-xs-12">
-        <form class="form-horizontal" class="inputForm">
+        <form class="form-horizontal">
             <fieldset>
                 <legend>Add a New Article:</legend>
                 <div class="form-group">
@@ -39,17 +34,5 @@
         </form>
     </div>
 </div>
-<%
-
-    if (request.getParameter("articleTitle") != null) {
-        String newTitle = request.getParameter("articleTitle");
-        String articleText = request.getParameter("articleText");
-
-        ArticleDAO.getInstance().addNewArticle(user.getId(), newTitle, articleText);
-
-        response.sendRedirect("/simplewebapp/");
-    }
-
-%>
 </body>
 </html>

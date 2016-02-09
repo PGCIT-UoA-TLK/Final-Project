@@ -3,6 +3,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import simplewebapp.Article;
 import simplewebapp.ArticleDAO;
+import simplewebapp.User;
 
 import java.io.IOException;
 
@@ -28,6 +29,16 @@ public class ArticlePage extends Page {
     }
 
     protected static void addArticle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User user = (User) request.getAttribute("user");
+        if (request.getParameter("articleTitle") != null) {
+            String newTitle = request.getParameter("articleTitle");
+            String articleText = request.getParameter("articleText");
+
+            ArticleDAO.getInstance().addNewArticle(user.getId(), newTitle, articleText);
+
+            response.sendRedirect("/simplewebapp/");
+        }
+
         navigate("/WEB-INF/addArticle.jsp", request, response);
     }
 
