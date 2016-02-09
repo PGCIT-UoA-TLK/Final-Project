@@ -53,17 +53,28 @@
                         <input type="text" class="form-control" id="input-lastname" name="lastname"><br/>
                     </div>
                 </div>
+                <%--<div>--%>
+                <%--<div class="radio" id = "choose_gender">--%>
+                <div>
 
+                <input type ="radio" name="input-gender" value="Male" checked>Male</input>
+                <input type = radio" name="input-gender" value="Female">Female</input>
+
+                    </div>
+                </div>
+                <div class = "radio">
+                <label for="input-icon_name" class ="col-sm-2 control-label">Choose a user icon</label> <br/>
+                </div>
                 <div class="radio" id="input-icon_name">
                     <label>
                         <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" checked>
-                        <img src="/images/IMG1.jpg" alt="Image is not available" class="img-thumbnail" WIDTH=89 HEIGHT=89>
+                        <img src="/images/IMG1.jpg" alt="Donald icon" class="img-thumbnail" WIDTH=89 HEIGHT=89>
                     </label>
                 </div>
                 <div class="radio">
                     <label>
                         <input type="radio" name="optionsRadios" id="optionsRadios2" value="2">
-                        <img src="/images/IMG2.jpg" alt="Image is not available" class="img-thumbnail" WIDTH=89 HEIGHT=119>
+                        <img src="/images/IMG2.jpg" alt="Fresco icon" class="img-thumbnail" WIDTH=89 HEIGHT=119>
                     </label>
                 </div>
 
