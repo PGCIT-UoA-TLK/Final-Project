@@ -14,16 +14,8 @@
         <form class="form-horizontal">
             <fieldset class="login">
                 <legend class="login">Login</legend>
-                <c:choose>
-                    <%--@elvariable id="errorMessage" type="java.lang.String"--%>
-                    <c:when test="${not empty errorMessage}">
-                        <c:set var="hasErrorString">has-error</c:set>
-                        <div class="alert alert-danger col-sm-offset-2 col-sm-10" role="alert">
-                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                            <span class="sr-only">Error:</span> ${errorMessage}
-                        </div>
-                    </c:when>
-                </c:choose>
+
+                <%@include file="include/alerts.jsp" %>
 
                 <div class="form-group">
                     <label for="username" class="col-sm-2 control-label">Username</label>

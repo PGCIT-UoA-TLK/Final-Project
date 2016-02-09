@@ -15,6 +15,9 @@ public class UserPage extends Page {
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
 
+        String selection = request.getParameter("optionsRadios");
+        String gender = request.getParameter("input-gender");
+
         Boolean allowed = true;
 
         List<User> allUsers = UserDAO.getInstance().getAll();
@@ -28,21 +31,18 @@ public class UserPage extends Page {
             }
         }
 
-        System.err.println(allowed);
-
         if (allowed && username != null && !username.equals("") && password != null && !password.equals("") &&
                 firstname != null && !firstname.equals("") && lastname != null && !lastname.equals("")) {
             UserDAO userDAO = UserDAO.getInstance();
 
             int icon;
-            String selection = request.getParameter("optionsRadios");
             switch (selection) {
                 case "option1": icon = 1; break;
                 case "option2": icon = 2; break;
                 default: icon = 0; break;
             }
 
-            User newUser = userDAO.addUser(username, password, firstname, lastname, icon);
+            User newUser = userDAO.addUser(username, password, firstname, lastname, gender, icon);
 
             if (newUser != null) {
                 request.getSession().setAttribute("user", newUser);
@@ -53,6 +53,7 @@ public class UserPage extends Page {
                 }
 
                 response.sendRedirect("/simplewebapp/" + returnPage);
+                return;
             }
         }
 
@@ -64,9 +65,6 @@ public class UserPage extends Page {
         String password = request.getParameter("password");
 
         // Setting Defaults
-        request.setAttribute("hasError", Boolean.FALSE);
-        request.setAttribute("errorMessage", "");
-
         if (username != null && password != null) {
             UserDAO userDAO = UserDAO.getInstance();
 
@@ -76,8 +74,8 @@ public class UserPage extends Page {
                 request.getSession().setAttribute("user", thisUser);
 
                 response.sendRedirect("/simplewebapp/?loginSuccess=1");
+                return;
             } else {
-                request.setAttribute("hasError", Boolean.TRUE);
                 request.setAttribute("errorMessage", "Incorrect Username or Password");
             }
         }
@@ -86,6 +84,54 @@ public class UserPage extends Page {
     }
 
     public static void editUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User user = (User) request.getSession().getAttribute("user");
+
+        if (user == null) {
+            response.sendRedirect("/simplewebapp/");
+            return;
+        }
+
+        boolean edited = false;
+
+        String firstname = request.getParameter("firstname");
+        if (firstname != null && !firstname.equals("")) {
+            user.setFirstname(firstname); edited = true;
+        }
+
+        String lastname = request.getParameter("lastname");
+        if (lastname != null && !lastname.equals("")) {
+            user.setLastname(lastname); edited = true;
+        }
+
+        if (request.getParameter("delete") != null && !request.getParameter("delete").equals("")) {
+            UserDAO.getInstance().deleteUser(user);
+            response.sendRedirect("/simplewebapp/?logout=1");
+            return;
+        }
+
+        if (edited) {
+            UserDAO userDAO = UserDAO.getInstance();
+
+            boolean done = userDAO.updateUser(user);
+
+            if (done) {
+                request.getSession().setAttribute("user", user);
+                response.sendRedirect("/simplewebapp/?page=editUser&success=1");
+                return;
+            } else {
+                response.sendRedirect("/simplewebapp/?page=editUser&failure=1");
+                return;
+            }
+        }
+
+        if (request.getParameter("success") != null) {
+            request.setAttribute("successMessage", "Account Details Saved!");
+        } else if (request.getParameter("failure") != null) {
+            request.setAttribute("errorMessage", "Something went wrong! Please try again");
+        }
+
+        request.setAttribute("user", user);
+
         navigate("/WEB-INF/editUser.jsp", request, response);
     }
 }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 @SuppressWarnings("unused")
 public class User implements Serializable {
-    private int id;
+    private int userId;
     private String username;
     private String password;
     private String firstname;
@@ -17,33 +17,23 @@ public class User implements Serializable {
         this.active = false;
     }
 
-    public User(int id, String username, String password, String firstname, String lastname, String gender, int icon) {
-        this.id = id;
+    public User(int userId, String username, String password, String firstname, String lastname, String gender, int icon) {
+        this.userId = userId;
         this.username = username;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.gender = gender;
-        this.active = true;
         this.icon = icon;
-    }
-
-    public User(int id, String username, String firstname, String lastname, String gender, int icon) {
-        this.id = id;
-        this.username = username;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.gender = gender;
         this.active = true;
-        this.icon = icon;
     }
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -82,7 +72,7 @@ public class User implements Serializable {
         return gender;
     }
 
-    public void setGender(){
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

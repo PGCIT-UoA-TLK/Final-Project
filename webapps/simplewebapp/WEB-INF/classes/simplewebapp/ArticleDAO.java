@@ -1,8 +1,8 @@
 package simplewebapp;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArticleDAO {
 
@@ -84,8 +84,8 @@ public class ArticleDAO {
     public boolean updateArticle(Article article) {
         String query = "UPDATE ARTICLE SET %s = ? WHERE ARTICLE_ID = ?";
         try {
-            databaseDAO.runParametisedQuery(String.format(query, "TITLE"), article.getTitle(), article.getID());
-            databaseDAO.runParametisedQuery(String.format(query, "BODY"), article.getBody(), article.getID());
+            databaseDAO.runParametisedQuery(String.format(query, "TITLE"), article.getTitle(), article.getArticleId());
+            databaseDAO.runParametisedQuery(String.format(query, "BODY"), article.getBody(), article.getArticleId());
             return true;
         } catch (Exception e) {
             System.out.println("ArticleDAO.updateArticle: " + e.getMessage());
@@ -97,7 +97,7 @@ public class ArticleDAO {
     public boolean deleteArticle(Article article) {
         String query = "UPDATE ARTICLE SET active = false WHERE article_id = ?";
         try {
-            databaseDAO.runParametisedQuery(query, article.getID());
+            databaseDAO.runParametisedQuery(query, article.getArticleId());
             return true;
         } catch (Exception e) {
             System.out.println("ArticleDAO.deleteArticle: " + e.getMessage());

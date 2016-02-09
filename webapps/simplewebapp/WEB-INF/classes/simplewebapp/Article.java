@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 @SuppressWarnings("unused")
 public class Article implements Serializable {
-    private int id;
-    private int userID;
+    private int articleId;
+    private int userId;
     private String title;
     private String body;
     private boolean active;
@@ -14,28 +14,32 @@ public class Article implements Serializable {
         this.active = false;
     }
 
-    public Article(int id, int userID, String title, String body) {
-        this.id = id;
-        this.userID = userID;
+    public Article(int articleId, int userID, String title, String body) {
+        this.articleId = articleId;
+        this.userId = userID;
         this.title = title;
         this.body = body;
         this.active = true;
     }
 
-    public int getID() {
-        return this.id;
+    public int getArticleId() {
+        return articleId;
     }
 
-    public int getUserID() {
-        return this.userID;
+    public void setArticleId(int articleId) {
+        this.articleId = articleId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getTitle() {
-        return this.title;
+        return title;
     }
 
     public void setTitle(String title) {
@@ -43,7 +47,7 @@ public class Article implements Serializable {
     }
 
     public String getBody() {
-        return this.body;
+        return body;
     }
 
     public void setBody(String body) {

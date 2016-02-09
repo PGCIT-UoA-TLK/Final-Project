@@ -35,26 +35,29 @@ public class CommentDAO {
 
     public List<Comment> getCommentsByArticleID(int articleID) {
         String query = "SELECT * FROM comments WHERE active = true AND article_id = " + articleID;
-        ResultSet rs = null;
+        ResultSet results = null;
         List<Comment> comments = new ArrayList<>();
         try {
-            rs = databaseDAO.doQuery(query);
+            results = databaseDAO.doQuery(query);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (rs == null) {
+        if (results == null) {
             System.out.println("null");
             return comments;
         }
         try {
-            while (rs.next()) {
-                int cID = rs.getInt("comment_id");
-                int aID = rs.getInt("article_id");
-                int uID = rs.getInt("user_id");
-                String commentBody = rs.getString("body");
+            while (results.next()) {
+                int commentId = results.getInt("comment_id");
+                int articleId = results.getInt("article_id");
+                int userId = results.getInt("user_id");
+                String commentBody = results.getString("body");
 
-                Comment c = new Comment(cID, aID, uID, commentBody);
-                comments.add(c);
+                Comment comment = new Comment(commentId, articleId, userId, commentBody);
+
+                comment.setUser(getUserForComment(comment));
+
+                comments.add(comment);
             }
         } catch (SQLException e) {
             System.out.println("CommentDAO.getCommentsByArticleID: " + e.getMessage());
@@ -64,37 +67,39 @@ public class CommentDAO {
 
     public Comment getCommentByArticleIDAndCommentID(int articleID, int commentID) {
         String query = "SELECT * FROM comments WHERE active = true AND article_id = " + articleID + "AND comment_id=" + commentID;
-        Comment c = null;
-        ResultSet rs = null;
+        Comment comment = null;
+        ResultSet results = null;
         try {
-            rs = databaseDAO.doQuery(query);
+            results = databaseDAO.doQuery(query);
         } catch (Exception e) {
             System.out.println("CommentDAO.getCommentByArticleIDAndCommentID: " + e.getMessage());
         }
-        if (rs == null) {
+
+        if (results == null) {
             System.out.println("null");
-            return c;
+            return null;
         }
+
         try {
-            while (rs.next()) {
-                int cID = rs.getInt("comment_id");
-                int aID = rs.getInt("article_id");
-                int uID = rs.getInt("user_id");
-                String commentBody = rs.getString("body");
+            while (results.next()) {
+                int commentId = results.getInt("comment_id");
+                int articleId = results.getInt("article_id");
+                int userId = results.getInt("user_id");
+                String commentBody = results.getString("body");
 
-                c = new Comment(cID, aID, uID, commentBody);
-
+                comment = new Comment(commentId, articleId, userId, commentBody);
+                comment.setUser(getUserForComment(comment));
             }
         } catch (SQLException e) {
             System.out.println("CommentDAO.getCommentByArticleIDAndCommentID: " + e.getMessage());
         }
-        return c;
+        return comment;
     }
 
     public boolean updateComment(Comment comment) {
         String query = "UPDATE comments SET body = ? WHERE article_id = ? AND comment_id = ?";
         try {
-            databaseDAO.runParametisedQuery(query, comment.getBody(), comment.getArticle_id(), comment.getComment_id());
+            databaseDAO.runParametisedQuery(query, comment.getBody(), comment.getArticleId(), comment.getCommentId());
             return true;
         } catch (Exception e) {
             System.out.println("CommentDAO.updateComment: " + e.getMessage());
@@ -106,12 +111,16 @@ public class CommentDAO {
     public boolean deleteComment(Comment comment) {
         String query = "UPDATE comments SET active = false WHERE comment_id = ?";
         try {
-            databaseDAO.runParametisedQuery(query, comment.getComment_id());
+            databaseDAO.runParametisedQuery(query, comment.getCommentId());
             return true;
         } catch (Exception e) {
             System.out.println("CommentDAO.deleteComment: " + e.getMessage());
         }
 
         return false;
+    }
+
+    public static User getUserForComment(Comment comment){
+        return UserDAO.getInstance().getUser(comment.getUserId());
     }
 }

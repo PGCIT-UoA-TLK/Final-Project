@@ -7,32 +7,32 @@
 <head>
     <title>Simple Blog</title>
 
-    <%@include file="include/specialIncludeFiles.jsp"%>
+    <%@include file="include/specialIncludeFiles.jsp" %>
 </head>
 
 <%@ page language="java" %>
 
 <body>
 
-<%@include file="include/userBar.jsp"%>
-        <div class="container">
-            <div class="list-group">
-            <%
-                List<Article> articles = (List<Article>) request.getAttribute("Articles");
-                for (Article a : articles) {
-                    String articleTitle = a.getTitle();
-                    int articleID = a.getID();
-                    String linkURI = String.format("?page=article&article=%d", articleID);
-            %>
-                        <a class="list-group-item" href="<%= linkURI%>">
-                            <%= articleTitle %>
-                        </a>
+<%@include file="include/userBar.jsp" %>
+<div class="container">
+    <div class="list-group">
+        <%
+            List<Article> articles = (List<Article>) request.getAttribute("Articles");
+            for (Article a : articles) {
+                String articleTitle = a.getTitle();
+                int articleID = a.getArticleId();
+                String linkURI = String.format("?page=article&article=%d", articleID);
+        %>
+        <a class="list-group-item" href="<%= linkURI%>">
+            <%= articleTitle %>
+        </a>
         <%
             }
         %>
 
-        </div>
     </div>
+</div>
 
 </body>
 </html>

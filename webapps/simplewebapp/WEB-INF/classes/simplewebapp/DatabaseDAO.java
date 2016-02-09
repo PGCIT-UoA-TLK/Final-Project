@@ -22,7 +22,7 @@ public class DatabaseDAO {
         return null;
     }
 
-    protected ResultSet runParametisedQuery (String query, Object... arguments) throws Exception {
+    protected ResultSet runParametisedQuery(String query, Object... arguments) throws Exception {
         try {
             PreparedStatement sqlStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             addParameters(sqlStatement, arguments);
