@@ -1,8 +1,6 @@
 <%--suppress HtmlUnknownTarget --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:useBean id="user" scope="request" class="simplewebapp.User"/>
-
 <div id="user-bar" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -20,6 +18,7 @@
         <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <c:choose>
+                    <%--@elvariable id="user" type="simplewebapp.User"--%>
                     <c:when test="${not empty user.username}">
                         <li><a href="/simplewebapp/?page=editUser">${user.username}</a></li>
                         <li> <a href="?page=addArticle&addArticle=1">Add a New Article</a></li>

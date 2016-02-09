@@ -75,10 +75,10 @@ public class UserDAO {
         return null;
     }
 
-    public User addUser(String username, String password, String firstname, String lastname,int icon) {
+    public User addUser(String username, String password, String firstname, String lastname, int icon) {
         try {
-            String query = "INSERT INTO users (USERNAME, PASSWORD, FIRSTNAME, LASTNAME,ICON_NAME) VALUES (?, ?, ?, ?,?)";
-            ResultSet result = databaseDAO.runParametisedQuery(query, username, password, firstname, lastname,icon);
+            String query = "INSERT INTO users (USERNAME, PASSWORD, FIRSTNAME, LASTNAME, ICON_NAME) VALUES (?, ?, ?, ?,?)";
+            ResultSet result = databaseDAO.runParametisedQuery(query, username, password, firstname, lastname, icon);
 
             User user;
             if (result == null) {

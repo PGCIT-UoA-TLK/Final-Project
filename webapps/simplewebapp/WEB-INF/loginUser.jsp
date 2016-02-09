@@ -1,8 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:useBean id="hasError" scope="request" type="java.lang.Boolean"/>
-<jsp:useBean id="errorMessage" scope="request" type="java.lang.String"/>
-
 <html>
 <head>
     <title>Login</title>
@@ -11,14 +8,15 @@
 </head>
 <body>
 
-<%@include file="include/userBar.jsp"%>
+<%@include file="include/userBar.jsp" %>
 <div class="container">
     <div class="col-xs-12">
         <form class="form-horizontal">
             <fieldset class="login">
                 <legend class="login">Login</legend>
                 <c:choose>
-                    <c:when test="${hasError == true}">
+                    <%--@elvariable id="errorMessage" type="java.lang.String"--%>
+                    <c:when test="${not empty errorMessage}">
                         <c:set var="hasErrorString">has-error</c:set>
                         <div class="alert alert-danger col-sm-offset-2 col-sm-10" role="alert">
                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
