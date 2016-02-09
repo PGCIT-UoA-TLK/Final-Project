@@ -33,13 +33,12 @@ public class UploadedFileDAO {
 
             while (result.next()) {
                 // Converting the results into a Article object
-                int file_id = result.getInt("file_id");
-                int article_id = result.getInt("article_id");
-                String image = result.getString("image");
-                String audio = result.getString("audio");
+                int fileId = result.getInt("file_id");
+                int articleId = result.getInt("article_id");
+                String filepath = result.getString("filepath");
 
                 // Adding the post object to the list
-                fileList.add(new File(file_id, article_id, image, audio));
+                fileList.add(new File(fileId, articleId, filepath));
             }
         } catch (Exception e) {
             System.out.println("UploadedFileDAO.getAll: " + e.getMessage());
@@ -55,13 +54,13 @@ public class UploadedFileDAO {
             ResultSet result = databaseDAO.getParametisedQuery(query, articleID);
             result.next();
 
-            int file_id = result.getInt("file_id");
-            int article_id = result.getInt("article_id");
-            String image = result.getString("image");
-            String audio = result.getString("audio");
+            int fileId = result.getInt("file_id");
+            int articleId = result.getInt("article_id");
+            String filepath = result.getString("filepath");
+
 
             // Adding the post object to the list
-            return new File(file_id, article_id, image, audio);
+            return new File(fileId, articleId, filepath);
         } catch (Exception e) {
             System.out.println("uploadedFileDAO.getByArticleID: " + e.getMessage());
         }
@@ -85,7 +84,7 @@ public class UploadedFileDAO {
       public boolean deleteFile(File file) {
         String query = "DROP INDEX FROM uploadedFiles WHERE article_id = ? AND file_id = ?";
         try {
-            databaseDAO.runParametisedQuery(query, file.getArticle_id(), file.getFile_id());
+            databaseDAO.runParametisedQuery(query, file.getArticleId(), file.getFileId());
             return true;
         } catch (Exception e) {
             System.out.println("ArticleDAO.deleteArticle: " + e.getMessage());
