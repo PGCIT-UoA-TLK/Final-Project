@@ -46,6 +46,8 @@ public class User implements Serializable {
         this.id = id;
     }
 
+    public void setIcon(int icon) {this.icon =icon; }
+
     public String getUsername() {
         return username;
     }
