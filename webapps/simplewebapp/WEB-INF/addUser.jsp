@@ -32,13 +32,15 @@
                 <div class="form-group">
                     <label for="input-username" class="col-sm-2 control-label">Username</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="input-username" name="username" required pattern="^[a-zA-Z0-9._%+-]{1,15}"><br/>
+                        <input type="text" class="form-control" id="input-username" name="username" required
+                               pattern="^[a-zA-Z0-9._%+-]{1,15}"><br/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="input-password" class="col-sm-2 control-label">Password</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="input-password" name="password" required pattern="^[a-zA-Z0-9._%+-]{1,15}"><br/>
+                        <input type="password" class="form-control" id="input-password" name="password" required
+                               pattern="^[a-zA-Z0-9._%+-]{1,15}"><br/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -57,13 +59,12 @@
                 <%--<div class="radio" id = "choose_gender">--%>
                 <div>
 
-                <input type ="radio" name="input-gender" value="Male" checked>Male</input>
-                <input type = radio" name="input-gender" value="Female">Female</input>
+                    <input type="radio" name="input-gender" value="Male" checked>Male</input>
+                    <input type=radio" name="input-gender" value="Female">Female</input>
 
-                    </div>
                 </div>
-                <div class = "radio">
-                <label for="input-icon_name" class ="col-sm-2 control-label">Choose a user icon</label> <br/>
+                <div class="radio">
+                    <label for="input-icon_name" class="col-sm-2 control-label">Choose a user icon</label> <br/>
                 </div>
                 <div class="radio" id="input-icon_name">
                     <label>
