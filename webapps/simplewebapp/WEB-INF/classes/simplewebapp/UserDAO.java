@@ -25,7 +25,7 @@ public class UserDAO {
             ResultSet result = databaseDAO.getParametisedQuery(query, id);
             result.next();
 
-            return new User(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5));
+            return new User(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5),result.getInt(6));
         } catch (Exception e) {
             System.out.println("UserDAO.getUser: " + e.getMessage());
         }
@@ -48,9 +48,10 @@ public class UserDAO {
                 String username = result.getString("username");
                 String firstname = result.getString("firstname");
                 String lastname = result.getString("lastname");
+                int icon = result.getInt("icon");
 
                 // Adding the post object to the list
-                users.add(new User(id, username, firstname, lastname));
+                users.add(new User(id, username, firstname, lastname, icon));
             }
         } catch (Exception e) {
             System.out.println("UserDAO.getAll: " + e.getMessage());
@@ -66,7 +67,7 @@ public class UserDAO {
             ResultSet result = databaseDAO.getParametisedQuery(query, username, password);
             result.next();
 
-            return new User(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5));
+            return new User(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5),result.getInt(6));
         } catch (Exception e) {
             System.out.println("UserDAO.loginUser: " + e.getMessage());
         }
@@ -74,10 +75,10 @@ public class UserDAO {
         return null;
     }
 
-    public User addUser(String username, String password, String firstname, String lastname) {
+    public User addUser(String username, String password, String firstname, String lastname,int icon) {
         try {
-            String query = "INSERT INTO users (username, password, firstname, lastname) VALUES (?, ?, ?, ?)";
-            ResultSet result = databaseDAO.runParametisedQuery(query, username, password, firstname, lastname);
+            String query = "INSERT INTO users (USERNAME, PASSWORD, FIRSTNAME, LASTNAME,ICON_NAME) VALUES (?, ?, ?, ?,?)";
+            ResultSet result = databaseDAO.runParametisedQuery(query, username, password, firstname, lastname,icon);
 
             User user;
             if (result == null) {

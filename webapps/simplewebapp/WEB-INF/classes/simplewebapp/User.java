@@ -9,31 +9,37 @@ public class User implements Serializable {
     private String password;
     private String firstname;
     private String lastname;
+    private int icon;
     private boolean active;
 
     public User() {
         this.active = false;
     }
 
-    public User(int id, String username, String password, String firstname, String lastname) {
+    public User(int id, String username, String password, String firstname, String lastname, int icon) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.active = true;
+        this.icon = icon;
     }
 
-    public User(int id, String username, String firstname, String lastname) {
+    public User(int id, String username, String firstname, String lastname, int icon) {
         this.id = id;
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
         this.active = true;
+        this.icon = icon;
     }
 
     public int getId() {
         return id;
+    }
+    public int getIcon() {
+        return icon;
     }
 
     public void setId(int id) {
