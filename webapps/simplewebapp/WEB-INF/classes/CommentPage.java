@@ -16,11 +16,11 @@ public class CommentPage extends Page {
         if (request.getParameter("edited") != null && request.getParameter("delete") == null) {
             comment.setBody(request.getParameter("commentBox"));
             CommentDAO.getInstance().updateComment(comment);
-            response.sendRedirect("/simplewebapp/?page=article&article=" + articleID);
+            response.sendRedirect(request.getContextPath() + "?page=article&article=" + articleID);
             return;
         } else if (request.getParameter("delete") != null && !request.getParameter("delete").equals("")) {
             CommentDAO.getInstance().deleteComment(comment);
-            response.sendRedirect("/simplewebapp/?page=article&article=" + articleID);
+            response.sendRedirect(request.getContextPath() + "?page=article&article=" + articleID);
             return;
         }
 

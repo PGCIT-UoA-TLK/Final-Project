@@ -21,7 +21,7 @@ public class ArticlePage extends Page {
         try {
             id = Integer.parseInt(request.getParameter("article"));
         } catch (Exception ignored) {
-            response.sendRedirect("/simplewebapp/");
+            response.sendRedirect(request.getContextPath());
             return;
         }
 
@@ -34,7 +34,7 @@ public class ArticlePage extends Page {
         if (request.getParameter("delete") != null && !request.getParameter("delete").equals("")) {
             Comment c = CommentDAO.getInstance().getCommentByArticleIDAndCommentID(article.getArticleId(), Integer.parseInt(request.getParameter("commentID")));
             CommentDAO.getInstance().deleteComment(c);
-            response.sendRedirect("/simplewebapp/?page=article&article=" + article.getArticleId());
+            response.sendRedirect(request.getContextPath() + "?page=article&article=" + article.getArticleId());
             return;
         }
 
@@ -49,7 +49,7 @@ public class ArticlePage extends Page {
         if (user != null && request.getParameter("commentBox") != null) {
             String newComment = request.getParameter("commentBox");
             CommentDAO.getInstance().addNewComment(newComment, article.getArticleId(), user.getUserId());
-            response.sendRedirect("/simplewebapp/?page=article&article=" + article.getArticleId());
+            response.sendRedirect(request.getContextPath() + "?page=article&article=" + article.getArticleId());
             return;
         }
 
@@ -64,7 +64,7 @@ public class ArticlePage extends Page {
 
             ArticleDAO.getInstance().addNewArticle(user.getUserId(), newTitle, articleText);
 
-            response.sendRedirect("/simplewebapp/");
+            response.sendRedirect(request.getContextPath());
             return;
         }
 
@@ -89,14 +89,14 @@ public class ArticlePage extends Page {
 
             ArticleDAO.getInstance().updateArticle(article);
 
-            response.sendRedirect("/simplewebapp/?page=article&article=" + article.getArticleId());
+            response.sendRedirect(request.getContextPath() + "?page=article&article=" + article.getArticleId());
             return;
         }
 
         // Delete the article
         if (request.getParameter("delete") != null && !request.getParameter("delete").equals("")) {
             ArticleDAO.getInstance().deleteArticle(article);
-            response.sendRedirect("/simplewebapp/");
+            response.sendRedirect(request.getContextPath());
             return;
         }
 

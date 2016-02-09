@@ -47,12 +47,7 @@ public class UserPage extends Page {
             if (newUser != null) {
                 request.getSession().setAttribute("user", newUser);
 
-                String returnPage = "";
-                if (request.getParameter("backpage") != null) {
-                    returnPage = "?page=" + request.getParameter("backpage");
-                }
-
-                response.sendRedirect("/simplewebapp/" + returnPage);
+                response.sendRedirect(request.getContextPath());
                 return;
             }
         }
@@ -73,7 +68,7 @@ public class UserPage extends Page {
             if (thisUser != null) {
                 request.getSession().setAttribute("user", thisUser);
 
-                response.sendRedirect("/simplewebapp/?loginSuccess=1");
+                response.sendRedirect(request.getContextPath() + "?loginSuccess=1");
                 return;
             } else {
                 request.setAttribute("errorMessage", "Incorrect Username or Password");
@@ -87,7 +82,7 @@ public class UserPage extends Page {
         User user = (User) request.getSession().getAttribute("user");
 
         if (user == null) {
-            response.sendRedirect("/simplewebapp/");
+            response.sendRedirect(request.getContextPath());
             return;
         }
 
@@ -105,7 +100,7 @@ public class UserPage extends Page {
 
         if (request.getParameter("delete") != null && !request.getParameter("delete").equals("")) {
             UserDAO.getInstance().deleteUser(user);
-            response.sendRedirect("/simplewebapp/?logout=1");
+            response.sendRedirect(request.getContextPath() + "?logout=1");
             return;
         }
 
@@ -116,10 +111,10 @@ public class UserPage extends Page {
 
             if (done) {
                 request.getSession().setAttribute("user", user);
-                response.sendRedirect("/simplewebapp/?page=editUser&success=1");
+                response.sendRedirect(request.getContextPath() + "?page=editUser&success=1");
                 return;
             } else {
-                response.sendRedirect("/simplewebapp/?page=editUser&failure=1");
+                response.sendRedirect(request.getContextPath() + "?page=editUser&failure=1");
                 return;
             }
         }
