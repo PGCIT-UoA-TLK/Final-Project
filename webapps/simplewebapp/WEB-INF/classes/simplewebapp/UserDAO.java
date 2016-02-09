@@ -48,7 +48,7 @@ public class UserDAO {
                 String username = result.getString("username");
                 String firstname = result.getString("firstname");
                 String lastname = result.getString("lastname");
-                int icon = result.getInt("icon");
+                int icon = result.getInt("icon_name");
 
                 // Adding the post object to the list
                 users.add(new User(id, username, firstname, lastname, icon));

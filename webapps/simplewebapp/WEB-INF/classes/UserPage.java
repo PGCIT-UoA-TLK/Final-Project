@@ -14,19 +14,23 @@ public class UserPage extends Page {
         String password = request.getParameter("password");
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
-        Boolean unique = true;
+
+        Boolean allowed = true;
+
         List<User> allUsers = UserDAO.getInstance().getAll();
 
         for (User u : allUsers) {
             // username = username.trim();
             if (username != null && u.getUsername() != null && username.equals(u.getUsername())) {
                 request.setAttribute("errorMessage", "That username is taken.");
-                unique = false;
+                allowed = false;
                 break;
             }
         }
 
-        if (unique && username != null && !username.equals("") && password != null && !password.equals("") &&
+        System.err.println(allowed);
+
+        if (allowed && username != null && !username.equals("") && password != null && !password.equals("") &&
                 firstname != null && !firstname.equals("") && lastname != null && !lastname.equals("")) {
             UserDAO userDAO = UserDAO.getInstance();
 
