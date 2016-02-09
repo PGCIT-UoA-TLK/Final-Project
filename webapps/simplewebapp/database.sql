@@ -4,6 +4,7 @@ CREATE TABLE users (
   password  VARCHAR(100) NOT NULL             DEFAULT '',
   firstname VARCHAR(100) NOT NULL             DEFAULT '',
   lastname  VARCHAR(100) NOT NULL             DEFAULT '',
+ icon_name  INTEGER      NOT NULL             DEFAULT 1,
   active    BOOLEAN      NOT NULL             DEFAULT TRUE
 );
 
