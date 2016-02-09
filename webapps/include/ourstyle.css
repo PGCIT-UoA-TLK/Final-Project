@@ -1,12 +1,14 @@
 body {
-    padding-top: 50px;
+    padding-top: 60px;
+    min-height: 100%;
 }
 
 div.navbar {
     background-color: ivory ;
 }
 
-li.articleList {
-    margin-bottom: 15px;
-}
 
+
+div.titleDiv{
+    height:40px ;
+}

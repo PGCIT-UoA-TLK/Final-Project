@@ -38,17 +38,22 @@
     }
 
 %>
-
-<form>
+<div class="container">
+    <div class="col-xs-12">
+        <form class="form-horizontal">
     <fieldset>
         <legend>Comment</legend>
-        <textarea name="commentBox" id="commentBox" rows="5" cols="40" title="Comment Box"><%=c.getBody()%></textarea><br><br>
+        <div class="form-group">
+            <div class="col-sm-12">
+        <textarea name="commentBox" class="form-control" id="commentBox" rows="5" cols="40" title="Comment Box"><%=c.getBody()%></textarea><br><br>
+       </div>
+            </div>
         <input type="hidden" name="article" value="<%= articleID %>" />
         <input type="hidden" name="commentID" value="<%=commentID%>" />
         <input type="hidden" name="page" value="editComment" />
         <input type="hidden" name="edited" value="1" />
-        <input type="submit" value="Submit" />
-        <input type="submit" value="Delete Comment" name="delete" />
+        <input type="submit" class="btn btn-default pull-right" value="Submit" />
+        <input type="submit" value="Delete Comment" class="btn btn-default pull-right" name="delete" />
     </fieldset>
 </form>
 </body>

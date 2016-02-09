@@ -24,11 +24,11 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
+                <% if(user != null){ %>
+                <li> <a href="?page=addArticle&addArticle=1">Add an Article</a></li>
+                <% } %>
                 <% if (user != null) { %>
                 <li><a href="/simplewebapp/?page=editUser"><%=user.getUsername()%></a></li>
-                <% } %>
-                <% if(user != null){ %>
-                <li> <a href="?page=addArticle&addArticle=1">Add a New Article</a></li>
                 <% } %>
                 <% if (user != null) { %>
                 <!-- <li><a href="/simplewebapp/?page=editUser">My Account</a></li> KL: Have taken this out and linked it via the username -->

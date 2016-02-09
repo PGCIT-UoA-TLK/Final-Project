@@ -19,8 +19,9 @@
 
 
 
-    <div id="view" class="jumbotron">
+
         <div class="container">
+            <div class="list-group">
             <%
 
                 List<Article> articles = (List<Article>) request.getAttribute("Articles");
@@ -31,15 +32,12 @@
                     String linkURI = String.format("?page=article&article=%d", articleID);
             %>
 
-            <div class="row">
-                <div class="col-sm">
 
-                        <a href="<%= linkURI%>">
+                        <a class="list-group-item" href="<%= linkURI%>">
                             <%= articleTitle %>
                         </a>
 
-                </div>
-            </div>
+
 
 
         <%

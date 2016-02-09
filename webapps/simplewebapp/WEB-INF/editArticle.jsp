@@ -32,24 +32,32 @@
     String articleTitle = (newTitle != null ? newTitle : article.getTitle());
     String articleBody = (newBody != null ? newBody : article.getBody());
 %>
+<div class="container">
+    <div class="col-xs-12">
+        <form class="form-horizontal" id="editArticleForm">
+            <fieldset>
+                <legend>Edit your Article:</legend>
+                <div class="form-group">
+                    <label for="articleTitle" class="col-sm-2 control-label">Title: </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="articleTitle" name="articleTitle" value="<%=articleTitle%>" pattern="^\S.*?\S$"><br><br>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="articleBody" class="col-sm-2 control-label">Article Body: </label>
+                    <div class="col-sm-10" id="titleDiv">
+                        <textarea name="articleBody" class="form-control" rows="15" cols="50" id="articleBody"><%=articleBody%></textarea><br><br>
+                    </div>
+                </div>
+                <input type="hidden" name="page" value="editArticle">
+                <input type="hidden" name="articleID" value="<%=articleID%>">
+                <input type="submit" class="btn btn-default pull-right"  value="Submit Changes">
+                <input type="button" class="btn btn-default pull-right"  value="Delete Article" onclick="confirmDelete('editArticleForm')">
+                <input type="hidden" id="delete" name="delete">
+            </fieldset>
+        </form>
 
-<form id="editArticleForm">
-    <fieldset>
-        <legend>Edit the Article:</legend>
-        <label for="articleTitle">Title: </label>
-        <input type="text" id="articleTitle" name="articleTitle" value="<%=articleTitle%>" pattern="^\S.*?\S$"><br><br>
-        <label for="articleBody">Article Body: </label>
-        <textarea name="articleBody" rows="15" cols="50" id="articleBody"><%=articleBody%></textarea><br><br>
-
-        <input type="hidden" name="page" value="editArticle">
-        <input type="hidden" name="articleID" value="<%=articleID%>">
-        <input type="submit" value="Submit Changes">
-        <input type="button" value="Delete Article" onclick="confirmDelete('editArticleForm')">
-        <input type="hidden" id="delete" name="delete">
-    </fieldset>
-</form>
-
-<%
+            <%
     if (!article.getTitle().equals(articleTitle) || !article.getBody().equals(articleBody)) {
         article.setTitle(newTitle);
         article.setBody(newBody);

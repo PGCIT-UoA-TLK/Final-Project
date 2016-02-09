@@ -27,21 +27,43 @@
         user.setLastname(lastname); edited = true;
     }
 %>
-
-<form id="editUserForm">
-    <fieldset>
-        <legend>Account Information</legend>
-        <label for="input-username">Username</label><input type="text" id="input-username" name="username" value="<%=user.getUsername()%>" disabled><br/>
-        <label for="input-password">Password</label><input type="text" id="input-password" name="password" value="Password Hidden" disabled><br/>
-        <label for="input-firstname">First Name</label><input type="text" id="input-firstname" name="firstname" value="<%=user.getFirstname()%>"><br/>
-        <label for="input-lastname">Last Name</label><input type="text" id="input-lastname" name="lastname" value="<%=user.getLastname()%>"><br/>
-        <input type="hidden" name="page" value="editUser">
-        <input type="submit" value="Change details">
-        <input type="button" value="Delete account" onclick="confirmDelete('editUserForm')">
-        <input type="hidden" id="delete" name="delete">
-    </fieldset>
-</form>
-
+<div class="container">
+    <div class="col-xs-12">
+        <form class="form-horizontal" id="editUserForm">
+            <fieldset>
+                <legend>Account Information</legend>
+                <div class="form-group">
+                    <label for="input-username" class="col-sm-2 control-label">Username</label>
+                    <div class="col-sm-10">
+                    <input type="text" id="input-username" class="form-control" name="username" value="<%=user.getUsername()%>" disabled><br/>
+                </div>
+                    </div>
+                <div class="form-group">
+                    <label for="input-password" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="input-password" name="password" class="form-control" value="Password Hidden" disabled><br/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-firstname" class="col-sm-2 control-label">First Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="input-firstname" name="firstname" class="form-control" value="<%=user.getFirstname()%>"><br/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-lastname" class="col-sm-2 control-label">Last Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="input-lastname" name="lastname" class="form-control" value="<%=user.getLastname()%>"><br/>
+                    </div>
+                </div>
+                <input type="hidden" name="page" value="editUser">
+                <input type="submit" class="btn btn-default pull-right" value="Change details">
+                <input type="button" class="btn btn-default pull-right" value="Delete account" onclick="confirmDelete('editUserForm')">
+                <input type="hidden" id="delete" name="delete">
+            </fieldset>
+        </form>
+    </div>
+</div>
 <%
     if (request.getParameter("delete") != null && !request.getParameter("delete").equals("")) {
         UserDAO.getInstance().deleteUser(user);
