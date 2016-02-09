@@ -1,8 +1,10 @@
 <%--@elvariable id="article" type="simplewebapp.Article"--%>
 
-<%@page contentType="text/html" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
+
 <html>
 
 <head>
@@ -10,9 +12,6 @@
 
     <%@ include file="include/specialIncludeFiles.jsp" %>
 </head>
-
-<%@ page language="java" %>
-
 <body>
 
 <%@ include file="include/userBar.jsp" %>

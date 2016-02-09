@@ -3,18 +3,17 @@
 <%--@elvariable id="user" type="simplewebapp.User"--%>
 <%--@elvariable id="commentBox" type="java.lang.String"--%>
 
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<%@page contentType="text/html" %>
+
 <html>
 <head>
     <title>Simple Blog</title>
 
     <%@ include file="include/specialIncludeFiles.jsp" %>
 </head>
-
-<%@ page language="java" %>
-
 <body>
 
 <%@include file="include/userBar.jsp" %>

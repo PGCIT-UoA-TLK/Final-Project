@@ -16,7 +16,7 @@ public class Page {
         // Getting all the articles as a list
         List<Article> listOfArticles = articleDAO.getAll();
 
-        request.setAttribute("Articles", listOfArticles);
+        request.setAttribute("articles", listOfArticles);
 
         navigate("/WEB-INF/home.jsp", request, response);
     }
