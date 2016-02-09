@@ -34,6 +34,8 @@
 
 ## Plugin-specific files:
 
+/.idea/codeStyleSettings.xml
+/.idea/jsLibraryMappings.xml
 # IntelliJ
 **/out/
 
