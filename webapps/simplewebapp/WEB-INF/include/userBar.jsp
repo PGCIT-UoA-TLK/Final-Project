@@ -29,6 +29,7 @@
                 <% } %>
                 <% if (user != null) { %>
                 <li><a href="/simplewebapp/?page=editUser"><%=user.getUsername()%></a></li>
+                <li> <img src="/Images/IMG2.jpg" alt="Image is not available" class="img-thumbnail"  WIDTH=40 HEIGHT=40></li>
                 <% } %>
                 <% if (user != null) { %>
                 <!-- <li><a href="/simplewebapp/?page=editUser">My Account</a></li> KL: Have taken this out and linked it via the username -->

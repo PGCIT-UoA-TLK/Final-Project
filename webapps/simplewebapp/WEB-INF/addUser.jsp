@@ -40,6 +40,22 @@
                         <input type="text" class="form-control" id="input-lastname" name="lastname"><br/>
                     </div>
                 </div>
+
+                <div class="radio"  id="input-icon_name" >
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" checked>
+                        <img src="/Images/IMG1.jpg" alt="Image is not available" class="img-thumbnail"  WIDTH=89 HEIGHT=89>
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+
+
+                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="2">
+                        <img src="/Images/IMG2.jpg" alt="Image is not available" class="img-thumbnail"  WIDTH=89 HEIGHT=119>
+                    </label>
+                </div>
+
                 <input type="hidden" name="page" value="addUser">
                 <input type="submit" class="btn btn-default pull-right" value="Register">
             </fieldset>
@@ -67,7 +83,15 @@
             firstname != null && !firstname.equals("") && lastname != null && !lastname.equals("")) {
         UserDAO userDAO = UserDAO.getInstance();
 
-        User newUser = userDAO.addUser(username, password, firstname, lastname);
+          int icon=0;
+        String selection =request.getParameter("optionsRadios");
+        if(selection.equals("option1")){
+            icon=1;
+        }else if(selection.equals("option2")){
+            icon=2;
+        }
+        User newUser = userDAO.addUser(username, password, firstname, lastname, icon);
+
 
         if (newUser != null) {
             session.setAttribute("user", newUser);
