@@ -57,13 +57,13 @@
                 <div class="radio" id="input-icon_name">
                     <label>
                         <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" checked>
-                        <img src="/Images/IMG1.jpg" alt="Image is not available" class="img-thumbnail" WIDTH=89 HEIGHT=89>
+                        <img src="/images/IMG1.jpg" alt="Image is not available" class="img-thumbnail" WIDTH=89 HEIGHT=89>
                     </label>
                 </div>
                 <div class="radio">
                     <label>
                         <input type="radio" name="optionsRadios" id="optionsRadios2" value="2">
-                        <img src="/Images/IMG2.jpg" alt="Image is not available" class="img-thumbnail" WIDTH=89 HEIGHT=119>
+                        <img src="/images/IMG2.jpg" alt="Image is not available" class="img-thumbnail" WIDTH=89 HEIGHT=119>
                     </label>
                 </div>
 

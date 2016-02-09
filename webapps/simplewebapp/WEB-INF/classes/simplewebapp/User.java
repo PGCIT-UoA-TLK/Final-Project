@@ -38,15 +38,10 @@ public class User implements Serializable {
     public int getId() {
         return id;
     }
-    public int getIcon() {
-        return icon;
-    }
 
     public void setId(int id) {
         this.id = id;
     }
-
-    public void setIcon(int icon) {this.icon =icon; }
 
     public String getUsername() {
         return username;
@@ -78,6 +73,14 @@ public class User implements Serializable {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
     }
 
     public boolean isActive() {
