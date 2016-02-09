@@ -30,7 +30,8 @@ public class ArticlePage extends Page {
 
         request.setAttribute("article", article);
 
-        if (request.getParameter("delete") != null) {
+        // Comment needs to be deleted
+        if (request.getParameter("delete") != null && !request.getParameter("delete").equals("")) {
             Comment c = CommentDAO.getInstance().getCommentByArticleIDAndCommentID(article.getArticleId(), Integer.parseInt(request.getParameter("commentID")));
             CommentDAO.getInstance().deleteComment(c);
             response.sendRedirect("/simplewebapp/?page=article&article=" + article.getArticleId());
@@ -43,6 +44,7 @@ public class ArticlePage extends Page {
         request.setAttribute("comments", comments);
         request.setAttribute("users", users);
 
+        // If the user's logged in, load the comment box
         User user = (User) request.getAttribute("user");
         if (user != null && request.getParameter("commentBox") != null) {
             String newComment = request.getParameter("commentBox");
@@ -80,6 +82,7 @@ public class ArticlePage extends Page {
         String articleTitle = (newTitle != null ? newTitle : article.getTitle());
         String articleBody = (newBody != null ? newBody : article.getBody());
 
+        // Update the article if there are changes
         if (!article.getTitle().equals(articleTitle) || !article.getBody().equals(articleBody)) {
             article.setTitle(newTitle);
             article.setBody(newBody);
@@ -90,6 +93,7 @@ public class ArticlePage extends Page {
             return;
         }
 
+        // Delete the article
         if (request.getParameter("delete") != null && !request.getParameter("delete").equals("")) {
             ArticleDAO.getInstance().deleteArticle(article);
             response.sendRedirect("/simplewebapp/");
@@ -100,44 +104,4 @@ public class ArticlePage extends Page {
 
         navigate("/WEB-INF/editArticle.jsp", request, response);
     }
-
-    public static void editComment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int articleID = Integer.parseInt(request.getParameter("article"));
-        int commentID = Integer.parseInt(request.getParameter("commentID"));
-
-        Comment comment = CommentDAO.getInstance().getCommentByArticleIDAndCommentID(articleID, commentID);
-
-        if (request.getParameter("edited") != null && request.getParameter("delete") == null) {
-            comment.setBody(request.getParameter("commentBox"));
-            CommentDAO.getInstance().updateComment(comment);
-            response.sendRedirect("/simplewebapp/?page=article&article=" + articleID);
-            return;
-        } else if (request.getParameter("delete") != null) {
-            CommentDAO.getInstance().deleteComment(comment);
-            response.sendRedirect("/simplewebapp/?page=article&article=" + articleID);
-            return;
-        }
-
-        request.setAttribute("comment", comment);
-
-        navigate("/WEB-INF/editComment.jsp", request, response);
-    }
-
-    /*
-    private static void addComment(String newComment, int articleID, int userID) {
-        CommentDAO.getInstance().addNewComment(newComment, articleID, userID);
-    }
-
-    private static Comment getComment(int articleID, int commentID) {
-        return CommentDAO.getInstance().getCommentByArticleIDAndCommentID(articleID, commentID);
-    }
-
-    private static void deleteComment(Comment comment) {
-        CommentDAO.getInstance().deleteComment(comment);
-    }
-
-    private static void editComment(Comment comment){
-        CommentDAO.getInstance().updateComment(comment);
-    }
-    //*/
 }

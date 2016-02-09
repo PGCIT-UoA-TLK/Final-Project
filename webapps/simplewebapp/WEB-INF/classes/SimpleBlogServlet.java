@@ -9,22 +9,17 @@ import java.io.IOException;
 
 public class SimpleBlogServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = null;
-        HttpSession session = request.getSession();
-        if (request.getParameter("logout") != null) {
-            session.setAttribute("user", null);
-        } else if (session.getAttribute("user") != null) {
-            user = (User) session.getAttribute("user");
-        }
-        request.setAttribute("user", user);
+        setUser(request);
 
         String page = (request.getParameter("page") != null ? request.getParameter("page") : "");
         switch (page) {
             // Article Pages
             case "article": ArticlePage.article(request, response); break;
             case "addArticle": ArticlePage.addArticle(request, response); break;
-            case "editComment": ArticlePage.editComment(request, response); break;
             case "editArticle": ArticlePage.editArticle(request, response); break;
+
+            // Comment Page
+            case "editComment": CommentPage.editComment(request, response); break;
 
             // User Pages
             case "addUser": UserPage.addUser(request, response); break;
@@ -37,5 +32,16 @@ public class SimpleBlogServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
+    }
+
+    private void setUser(HttpServletRequest request) {
+        User user = null;
+        HttpSession session = request.getSession();
+        if (request.getParameter("logout") != null) {
+            session.setAttribute("user", null);
+        } else if (session.getAttribute("user") != null) {
+            user = (User) session.getAttribute("user");
+        }
+        request.setAttribute("user", user);
     }
 }
