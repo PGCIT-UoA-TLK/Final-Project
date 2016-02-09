@@ -1,5 +1,5 @@
 <%@ page import="simplewebapp.Comment" %>
-<%@ page import="simplewebapp.ArticleDAO" %>
+<%@ page import="simplewebapp.CommentDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -28,13 +28,13 @@
     }
 %>
 <%! Comment getComment(int articleID, int commentID) {
-    return ArticleDAO.getInstance().getCommentByArticleIDAndCommentID(articleID, commentID);
+    return CommentDAO.getInstance().getCommentByArticleIDAndCommentID(articleID, commentID);
 }
     void editComment(Comment comment){
-        ArticleDAO.getInstance().updateComment(comment);
+        CommentDAO.getInstance().updateComment(comment);
     }
     void deleteComment(Comment comment) {
-        ArticleDAO.getInstance().deleteComment(comment);
+        CommentDAO.getInstance().deleteComment(comment);
     }
 
 %>

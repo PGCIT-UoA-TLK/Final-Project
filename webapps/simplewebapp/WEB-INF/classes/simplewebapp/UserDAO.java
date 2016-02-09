@@ -21,7 +21,7 @@ public class UserDAO {
 
     public User getUser(int id) {
         try {
-            String query = "SELECT * FROM USERS WHERE USER_ID = ?";
+            String query = "SELECT * FROM users WHERE user_id = ? AND active = true";
             ResultSet result = databaseDAO.getParametisedQuery(query, id);
             result.next();
 
@@ -35,7 +35,7 @@ public class UserDAO {
 
     public List<User> getAll() {
         // Creating the query
-        String query = "SELECT * FROM USERS";
+        String query = "SELECT * FROM users WHERE active = true";
 
         List<User> users = new ArrayList<>();
 
@@ -62,7 +62,7 @@ public class UserDAO {
 
     public User loginUser(String username, String password) {
         try {
-            String query = "SELECT * FROM USERS WHERE USERNAME = ? AND PASSWORD = ?";
+            String query = "SELECT * FROM users WHERE username = ? AND password = ? AND active = true";
             ResultSet result = databaseDAO.getParametisedQuery(query, username, password);
             result.next();
 
@@ -76,7 +76,7 @@ public class UserDAO {
 
     public User addUser(String username, String password, String firstname, String lastname) {
         try {
-            String query = "INSERT INTO USERS (USERNAME, PASSWORD, FIRSTNAME, LASTNAME) VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO users (username, password, firstname, lastname) VALUES (?, ?, ?, ?)";
             ResultSet result = databaseDAO.runParametisedQuery(query, username, password, firstname, lastname);
 
             User user;
@@ -98,7 +98,7 @@ public class UserDAO {
 
     public boolean updateUser(User user) {
         try {
-            String query = "UPDATE USERS SET %s = ? WHERE USER_ID = ?";
+            String query = "UPDATE users SET %s = ? WHERE user_id = ?";
             databaseDAO.runParametisedQuery(String.format(query, "FIRSTNAME"), user.getFirstname());
             databaseDAO.runParametisedQuery(String.format(query, "LASTNAME"), user.getLastname());
 
@@ -111,7 +111,7 @@ public class UserDAO {
     }
 
     public boolean deleteUser(User user) {
-        String query = "DELETE FROM USERS WHERE USER_ID = ?";
+        String query = "UPDATE users SET active = true WHERE user_id = ?";
         System.err.println("Deleting User: " + user.getId());
         try {
             databaseDAO.runParametisedQuery(query, user.getId());

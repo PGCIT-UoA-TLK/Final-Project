@@ -1,6 +1,9 @@
 package simplewebapp;
 
-public class User {
+import java.io.Serializable;
+
+@SuppressWarnings("unused")
+public class User implements Serializable {
     private int id;
     private String username;
     private String password;
@@ -8,12 +11,17 @@ public class User {
     private String lastname;
     private boolean active;
 
+    public User() {
+        this.active = false;
+    }
+
     public User(int id, String username, String password, String firstname, String lastname) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.active = true;
     }
 
     public User(int id, String username, String firstname, String lastname) {
@@ -21,6 +29,7 @@ public class User {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.active = true;
     }
 
     public int getId() {

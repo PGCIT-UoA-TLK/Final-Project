@@ -20,19 +20,19 @@
 
     <%!
         private void addComment(String newComment, int articleID, int userID) {
-            ArticleDAO.getInstance().addNewComment(newComment, articleID, userID);
+            CommentDAO.getInstance().addNewComment(newComment, articleID, userID);
         }
 
         Comment getComment(int articleID, int commentID) {
-            return ArticleDAO.getInstance().getCommentByArticleIDAndCommentID(articleID, commentID);
+            return CommentDAO.getInstance().getCommentByArticleIDAndCommentID(articleID, commentID);
         }
 
         private List<Comment> getComments(int articleID) {
-            return ArticleDAO.getInstance().getCommentsByArticleID(articleID);
+            return CommentDAO.getInstance().getCommentsByArticleID(articleID);
         }
 
         void deleteComment(Comment comment) {
-            ArticleDAO.getInstance().deleteComment(comment);
+            CommentDAO.getInstance().deleteComment(comment);
         }
     %>
 
@@ -86,34 +86,24 @@
 
     %>
     <div class="container">
-        <div class = "row">
-            <div class ="col-sm">
+        <div class="row">
+            <div class="col-sm">
                 <section class="comments">
-                    <p class="comment"> <%=poster.getUsername() %>: <%=body%></p>
-        <span><form>
-
-            <input type="hidden" name="article" value="<%= articleID %>"/>
-            <input type="hidden" name="commentID" value="<%= commentID %>"/>
-            <%
-                if(user != null){
-                    if (user.getId()== commentUserID) {
-            %>
-            <input type="hidden" name="page" value="editComment"/>
-            <input type="submit" value="Edit"/>
-            <%
-            }else if (user.getId() == a.getUserID()){
-            %>
-            <input type="hidden" name="page" value="article">
-            <input type="hidden" name="delete" value="1"/>
-            <input type="submit"  value="Delete">
-            <%
-                    }
-                }
-
-            %>
-
-        </form></span>
-
+                    <p class="comment"><%=poster.getUsername() %>: <%=body%></p>
+                    <form>
+                        <input type="hidden" name="article" value="<%= articleID %>"/>
+                        <input type="hidden" name="commentID" value="<%= commentID %>"/>
+                        <% if (user != null) { %>
+                        <% if (user.getId() == commentUserID) { %>
+                        <input type="hidden" name="page" value="editComment"/>
+                        <input type="submit" value="Edit"/>
+                        <% } else if (user.getId() == a.getUserID()) { %>
+                        <input type="hidden" name="page" value="article">
+                        <input type="hidden" name="delete" value="1"/>
+                        <input type="submit" value="Delete">
+                        <% } %>
+                        <% } %>
+                    </form>
                 </section>
             </div>
         </div>

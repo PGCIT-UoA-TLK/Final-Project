@@ -1,6 +1,9 @@
 package simplewebapp;
 
-public class Comment {
+import java.io.Serializable;
+
+@SuppressWarnings("unused")
+public class Comment implements Serializable {
 
     private int comment_id;
     private int article_id;
@@ -8,11 +11,16 @@ public class Comment {
     private String body;
     private boolean active;
 
-    Comment(int comment_id, int article_id, int user_id, String body) {
+    public Comment() {
+        this.active = false;
+    }
+
+    public Comment(int comment_id, int article_id, int user_id, String body) {
         this.comment_id = comment_id;
         this.article_id = article_id;
         this.user_id = user_id;
         this.body = body;
+        this.active = true;
     }
 
     public int getComment_id() {
