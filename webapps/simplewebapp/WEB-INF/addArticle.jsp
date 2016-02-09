@@ -28,6 +28,18 @@
                         <textarea name="articleText" class="form-control" rows="15" cols="50" placeholder="Article Text" id="articleText" required></textarea><br><br>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="articleImages" class="col-sm-2 control-label">Upload Images: </label>
+                    <div class="col-sm-10">
+                        <input type="file" name="articleImages" class="form-control" id="articleImages" multiple>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="articleAudio" class="col-sm-2 control-label">Upload Audio: </label>
+                    <div class="col-sm-10">
+                        <input type="file" name="articleAudio" class="form-control" id="articleAudio" accept="audio/*">
+                    </div>
+                </div>
                 <input type="hidden" name="page" value="addArticle"/>
                 <input type="submit" class="btn btn-default pull-right" value="Submit New Article">
             </fieldset>

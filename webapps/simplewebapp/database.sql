@@ -27,6 +27,15 @@ CREATE TABLE comments (
   FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
+CREATE TABLE uploadedFiles (
+  file_id     INTEGER     NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+  article_id  INTEGER,
+  image       LONG VARCHAR   NOT NULL          DEFAULT '',
+  audio       LONG VARCHAR   NOT NULL          DEFAULT '',
+  FOREIGN KEY (article_id) REFERENCES article (article_id)
+
+)
+
 -- Sample Data
 INSERT INTO article (title, body) VALUES
   ('Duis bibendum, felis sed',
