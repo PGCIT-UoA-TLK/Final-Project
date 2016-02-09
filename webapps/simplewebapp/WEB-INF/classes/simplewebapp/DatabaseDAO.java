@@ -17,7 +17,7 @@ public class DatabaseDAO {
             Statement sqlStatement = connection.createStatement();
             return sqlStatement.executeQuery(query);
         } catch (SQLException e) {
-            System.err.println(String.valueOf(e));
+            System.out.println("DatabaseDAO.doQuery: " + e.getMessage());
         }
         return null;
     }
@@ -30,8 +30,7 @@ public class DatabaseDAO {
             sqlStatement.executeUpdate();
             return sqlStatement.getGeneratedKeys();
         } catch (SQLException e) {
-            System.err.println("runParametisedQuery");
-            System.err.println(String.valueOf(e));
+            System.out.println("DatabaseDAO.runParametisedQuery: " + e.getMessage());
         }
 
         return null;
@@ -44,7 +43,7 @@ public class DatabaseDAO {
 
             return sqlStatement.executeQuery();
         } catch (SQLException e) {
-            System.err.println(String.valueOf(e));
+            System.out.println("DatabaseDAO.getParametisedQuery: " + e.getMessage());
         }
 
         return null;
@@ -84,7 +83,7 @@ public class DatabaseDAO {
             connection = DriverManager.getConnection(DB_CONNSTRING);
 
         } catch (ClassNotFoundException | SQLException e) {
-            System.err.println(e);
+            System.out.println("DatabaseDAO.init: " + e.getMessage());
         }
     }
 

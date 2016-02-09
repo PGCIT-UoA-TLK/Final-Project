@@ -41,7 +41,7 @@ public class ArticleDAO {
                 articleList.add(new Article(id, userID, title, body));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("ArticleDAO.getAll: " + e.getMessage());
         }
 
         // Execute the query and return the result
@@ -62,7 +62,7 @@ public class ArticleDAO {
             // Adding the post object to the list
             return new Article(id, userID, title, body);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("ArticleDAO.getByArticleID: " + e.getMessage());
         }
 
         return null;
@@ -75,7 +75,7 @@ public class ArticleDAO {
             databaseDAO.runParametisedQuery(query, userId, newTitle, newText);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("ArticleDAO.addNewArticle: " + e.getMessage());
         }
 
         return false;
@@ -88,7 +88,7 @@ public class ArticleDAO {
             databaseDAO.runParametisedQuery(String.format(query, "BODY"), article.getBody(), article.getID());
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("ArticleDAO.updateArticle: " + e.getMessage());
         }
 
         return false;
@@ -100,7 +100,7 @@ public class ArticleDAO {
             databaseDAO.runParametisedQuery(query, article.getID());
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("ArticleDAO.deleteArticle: " + e.getMessage());
         }
 
         return false;

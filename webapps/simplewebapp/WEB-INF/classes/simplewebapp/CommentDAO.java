@@ -27,7 +27,7 @@ public class CommentDAO {
             databaseDAO.runParametisedQuery(query, articleID, userID, newComment);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("CommentDAO.addNewComment: " + e.getMessage());
         }
 
         return false;
@@ -57,7 +57,7 @@ public class CommentDAO {
                 comments.add(c);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("CommentDAO.getCommentsByArticleID: " + e.getMessage());
         }
         return comments;
     }
@@ -69,7 +69,7 @@ public class CommentDAO {
         try {
             rs = databaseDAO.doQuery(query);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("CommentDAO.getCommentByArticleIDAndCommentID: " + e.getMessage());
         }
         if (rs == null) {
             System.out.println("null");
@@ -86,7 +86,7 @@ public class CommentDAO {
 
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("CommentDAO.getCommentByArticleIDAndCommentID: " + e.getMessage());
         }
         return c;
     }
@@ -97,7 +97,7 @@ public class CommentDAO {
             databaseDAO.runParametisedQuery(query, comment.getBody(), comment.getArticle_id(), comment.getComment_id());
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("CommentDAO.updateComment: " + e.getMessage());
         }
 
         return false;
@@ -109,7 +109,7 @@ public class CommentDAO {
             databaseDAO.runParametisedQuery(query, comment.getComment_id());
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("CommentDAO.deleteComment: " + e.getMessage());
         }
 
         return false;

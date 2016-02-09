@@ -27,7 +27,7 @@ public class UserDAO {
 
             return new User(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5),result.getInt(6));
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("UserDAO.getUser: " + e.getMessage());
         }
 
         return null;
@@ -54,7 +54,7 @@ public class UserDAO {
                 users.add(new User(id, username, firstname, lastname, icon));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("UserDAO.getAll: " + e.getMessage());
         }
 
         // Execute the query and return the result
@@ -69,7 +69,7 @@ public class UserDAO {
 
             return new User(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5),result.getInt(6));
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("UserDAO.loginUser: " + e.getMessage());
         }
 
         return null;
@@ -91,7 +91,7 @@ public class UserDAO {
 
             return user;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("UserDAO.addUser: " + e.getMessage());
         }
 
         return null;
@@ -105,7 +105,7 @@ public class UserDAO {
 
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("UserDAO.updateUser: " + e.getMessage());
         }
 
         return false;
@@ -119,8 +119,7 @@ public class UserDAO {
 
             return true;
         } catch (Exception e) {
-            System.err.println("deleteUser");
-            e.printStackTrace();
+            System.out.println("UserDAO.deleteUser: " + e.getMessage());
         }
 
         return false;
