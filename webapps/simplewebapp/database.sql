@@ -4,8 +4,10 @@ CREATE TABLE users (
   password  VARCHAR(100) NOT NULL             DEFAULT '',
   firstname VARCHAR(100) NOT NULL             DEFAULT '',
   lastname  VARCHAR(100) NOT NULL             DEFAULT '',
+  gender    VARCHAR (6)  NOT NULL             DEFAULT 'Male',
  icon_name  INTEGER      NOT NULL             DEFAULT 1,
   active    BOOLEAN      NOT NULL             DEFAULT TRUE
+
 );
 
 CREATE TABLE article (

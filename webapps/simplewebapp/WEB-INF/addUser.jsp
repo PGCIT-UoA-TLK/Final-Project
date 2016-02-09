@@ -1,3 +1,6 @@
+<%@ page import="simplewebapp.User" %>
+<%@ page import="simplewebapp.UserDAO" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -29,13 +32,15 @@
                 <div class="form-group">
                     <label for="input-username" class="col-sm-2 control-label">Username</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="input-username" name="username" required pattern="^[a-zA-Z0-9._%+-]{1,15}"><br/>
+                        <input type="text" class="form-control" id="input-username" name="username" required
+                               pattern="^[a-zA-Z0-9._%+-]{1,15}"><br/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="input-password" class="col-sm-2 control-label">Password</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="input-password" name="password" required pattern="^[a-zA-Z0-9._%+-]{1,15}"><br/>
+                        <input type="password" class="form-control" id="input-password" name="password" required
+                               pattern="^[a-zA-Z0-9._%+-]{1,15}"><br/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -50,17 +55,27 @@
                         <input type="text" class="form-control" id="input-lastname" name="lastname"><br/>
                     </div>
                 </div>
+                <%--<div>--%>
+                <%--<div class="radio" id = "choose_gender">--%>
+                <div>
 
+                    <input type="radio" name="input-gender" value="Male" checked>Male</input>
+                    <input type=radio" name="input-gender" value="Female">Female</input>
+
+                </div>
+                <div class="radio">
+                    <label for="input-icon_name" class="col-sm-2 control-label">Choose a user icon</label> <br/>
+                </div>
                 <div class="radio" id="input-icon_name">
                     <label>
                         <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" checked>
-                        <img src="<c:url value="/images/IMG1.jpg"/>" alt="Image is not available" class="img-thumbnail" WIDTH=89 HEIGHT=89>
+                        <img src="/images/IMG1.jpg" alt="Donald icon" class="img-thumbnail" WIDTH=89 HEIGHT=89>
                     </label>
                 </div>
                 <div class="radio">
                     <label>
                         <input type="radio" name="optionsRadios" id="optionsRadios2" value="2">
-                        <img src="<c:url value="/images/IMG2.jpg"/>" alt="Image is not available" class="img-thumbnail" WIDTH=89 HEIGHT=119>
+                        <img src="/images/IMG2.jpg" alt="Fresco icon" class="img-thumbnail" WIDTH=89 HEIGHT=119>
                     </label>
                 </div>
 

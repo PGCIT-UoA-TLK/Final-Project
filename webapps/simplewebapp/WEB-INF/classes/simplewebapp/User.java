@@ -9,6 +9,7 @@ public class User implements Serializable {
     private String password;
     private String firstname;
     private String lastname;
+    private String gender;
     private int icon;
     private boolean active;
 
@@ -16,21 +17,23 @@ public class User implements Serializable {
         this.active = false;
     }
 
-    public User(int id, String username, String password, String firstname, String lastname, int icon) {
+    public User(int id, String username, String password, String firstname, String lastname, String gender, int icon) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.gender = gender;
         this.active = true;
         this.icon = icon;
     }
 
-    public User(int id, String username, String firstname, String lastname, int icon) {
+    public User(int id, String username, String firstname, String lastname, String gender, int icon) {
         this.id = id;
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.gender = gender;
         this.active = true;
         this.icon = icon;
     }
@@ -73,6 +76,14 @@ public class User implements Serializable {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(){
+        this.gender = gender;
     }
 
     public int getIcon() {
