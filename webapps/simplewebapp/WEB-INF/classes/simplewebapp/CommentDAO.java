@@ -34,11 +34,11 @@ public class CommentDAO {
     }
 
     public List<Comment> getCommentsByArticleID(int articleID) {
-        String query = "SELECT * FROM comments WHERE active = true AND article_id = " + articleID;
+        String query = "SELECT * FROM comments WHERE active = true AND article_id = ?";
         ResultSet results = null;
         List<Comment> comments = new ArrayList<>();
         try {
-            results = databaseDAO.doQuery(query);
+            results = databaseDAO.getParametisedQuery(query, articleID);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,11 +66,11 @@ public class CommentDAO {
     }
 
     public Comment getComment(int commentID) {
-        String query = "SELECT * FROM comments WHERE active = true AND comment_id = " + commentID;
+        String query = "SELECT * FROM comments WHERE active = true AND comment_id = ?";
         Comment comment = null;
         ResultSet results = null;
         try {
-            results = databaseDAO.doQuery(query);
+            results = databaseDAO.getParametisedQuery(query, commentID);
         } catch (Exception e) {
             System.out.println("CommentDAO.getComment: " + e.getMessage());
         }

@@ -36,14 +36,11 @@
         <iframe class="row col-xs-offset-4 col-xs-4" width="420" height="315" src="${article.embeddedContent}"></iframe>
     </c:if>
 
-
-
     <c:forEach items="${files}" var="file">
         <c:if test="${article.articleId == file.articleId}">
             <div class="col-xs-4"><img class="img-responsive img-rounded" src="${file.filepath}"></div>
         </c:if>
     </c:forEach>
-
 
     <div class="col-xs-12">
         <form class="form-select-button pull-right">
@@ -89,8 +86,7 @@
                     <legend>Comment</legend>
                     <div class="form-group">
                         <div class="col-sm-12">
-                <textarea name="commentBox" class="form-control" id="commentBox" rows="5" cols="40"
-                          placeholder="Comments" required></textarea>
+                            <textarea name="commentBox" class="form-control" id="commentBox" rows="5" cols="40" placeholder="200 Character Limit" required></textarea>
                         </div>
                     </div>
                     <input type="hidden" name="article" value="${article.articleId}">

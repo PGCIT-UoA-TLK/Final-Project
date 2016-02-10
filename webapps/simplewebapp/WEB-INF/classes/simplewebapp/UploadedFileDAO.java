@@ -26,26 +26,18 @@ public class UploadedFileDAO {
         String query = "SELECT * FROM uploadedFiles";
 
         // Creating a list to store the results in
-        List<File> fileList = new ArrayList<>();
+        List<File> files = new ArrayList<>();
 
         try {
             ResultSet result = databaseDAO.getParametisedQuery(query);
 
-            while (result.next()) {
-                // Converting the results into a Article object
-                int fileId = result.getInt("file_id");
-                int articleId = result.getInt("article_id");
-                String filepath = result.getString("filepath");
-
-                // Adding the post object to the list
-                fileList.add(new File(fileId, articleId, filepath));
-            }
+            files = processFilesFromResultSet(result);
         } catch (Exception e) {
             System.out.println("UploadedFileDAO.getAll: " + e.getMessage());
         }
 
         // Execute the query and return the result
-        return fileList;
+        return files;
     }
 
     public List<File> getByArticleID(int articleID) {
@@ -53,17 +45,26 @@ public class UploadedFileDAO {
         List<File> files = new ArrayList<>();
         try {
             ResultSet result = databaseDAO.getParametisedQuery(query, articleID);
-            while(result.next()) {
-                int fileId = result.getInt("file_id");
-                int articleId = result.getInt("article_id");
-                String filepath = result.getString("filepath");
-                // Adding the post object to the list
-                files.add(new File(fileId, articleId, filepath));
-            }
+
+            files = processFilesFromResultSet(result);
         } catch (Exception e) {
-            System.out.println("uploadedFileDAO.getByArticleID: " + e.getMessage());
+            System.out.println("UploadedFileDAO.getByArticleID: " + e.getMessage());
         }
 
+        // Execute the query and return the result
+        return files;
+    }
+
+    private List<File> processFilesFromResultSet(ResultSet result) throws SQLException {
+        List<File> files = new ArrayList<>();
+        while (result.next()) {
+            int fileId = result.getInt("file_id");
+            int articleId = result.getInt("article_id");
+            String filepath = result.getString("filepath");
+
+            // Adding the post object to the list
+            files.add(new File(fileId, articleId, filepath));
+        }
         return files;
     }
 
@@ -74,7 +75,7 @@ public class UploadedFileDAO {
             databaseDAO.runParametisedQuery(query, article_id, filePath);
             return true;
         } catch (Exception e) {
-            System.out.println("ArticleDAO.addNewArticle: " + e.getMessage());
+            System.out.println("UploadedFileDAO.addNewArticle: " + e.getMessage());
         }
 
         return false;
@@ -86,7 +87,7 @@ public class UploadedFileDAO {
             databaseDAO.runParametisedQuery(query, file.getArticleId(), file.getFileId());
             return true;
         } catch (Exception e) {
-            System.out.println("ArticleDAO.deleteArticle: " + e.getMessage());
+            System.out.println("UploadedFileDAO.deleteArticle: " + e.getMessage());
         }
 
         return false;

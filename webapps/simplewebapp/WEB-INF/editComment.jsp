@@ -27,7 +27,7 @@
 
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <textarea name="commentBox" class="form-control" id="commentBox" rows="5" cols="40" title="Comment Box">${comment.body}</textarea><br><br>
+                        <textarea name="commentBox" class="form-control" id="commentBox" rows="5" cols="40" title="Comment Box" placeholder="200 Character Limit">${comment.body}</textarea><br><br>
                     </div>
                 </div>
                 <input type="hidden" name="article" value="${comment.articleId}" />

@@ -1,27 +1,23 @@
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import simplewebapp.User;
 import simplewebapp.UserDAO;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-//import javax.json.Json;
-//import javax.json.JsonObject;
-//import javax.json.JsonReader;
-import java.net.URL;
-import javax.net.ssl.HttpsURLConnection;
-
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.List;
-
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 
 
 public class UserPage extends Page {
     public static final String url = "https://www.google.com/recaptcha/api/siteverify";
     public static final String secret = "6Lfl2xcTAAAAAKC4PYbk_0AVGlMFaCFl8hP7getE";
     private final static String USER_AGENT = "Mozilla/5.0";
+
     public static void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -36,8 +32,7 @@ public class UserPage extends Page {
 
             List<User> allUsers = UserDAO.getInstance().getAll();
 
-            String userResponse = request
-                    .getParameter("g-recaptcha-response");
+            String userResponse = request.getParameter("g-recaptcha-response");
             System.out.print("respond : " + userResponse);
             System.out.print(verify(userResponse));
 
@@ -193,14 +188,12 @@ public class UserPage extends Page {
     }
 
 
-
-
     public static boolean verify(String gRecaptchaResponse) throws IOException {
         if (gRecaptchaResponse == null || "".equals(gRecaptchaResponse)) {
             return false;
         }
 
-        try{
+        try {
             URL obj = new URL(url);
             HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 
@@ -209,8 +202,7 @@ public class UserPage extends Page {
             con.setRequestProperty("User-Agent", USER_AGENT);
             con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-            String postParams = "secret=" + secret + "&response="
-                    + gRecaptchaResponse;
+            String postParams = "secret=" + secret + "&response=" + gRecaptchaResponse;
 
             // Send post request
             con.setDoOutput(true);
@@ -224,10 +216,9 @@ public class UserPage extends Page {
             System.out.println("Post parameters : " + postParams);
             System.out.println("Response Code : " + responseCode);
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                    con.getInputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String inputLine;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
 
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
@@ -238,13 +229,13 @@ public class UserPage extends Page {
             System.out.println(response.toString());
 
             //parse JSON response and return 'success' value
-//                JsonReader jsonReader = Json.createReader(new StringReader(response.toString()));
-//                JsonObject jsonObject = jsonReader.readObject();
-//                jsonReader.close();
+            //                JsonReader jsonReader = Json.createReader(new StringReader(response.toString()));
+            //                JsonObject jsonObject = jsonReader.readObject();
+            //                jsonReader.close();
 
-//                return jsonObject.getBoolean("success");
+            //                return jsonObject.getBoolean("success");
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
