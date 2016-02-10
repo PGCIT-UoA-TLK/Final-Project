@@ -4,10 +4,11 @@ CREATE TABLE users (
   password  VARCHAR(100) NOT NULL             DEFAULT '',
   firstname VARCHAR(100) NOT NULL             DEFAULT '',
   lastname  VARCHAR(100) NOT NULL             DEFAULT '',
-  gender    VARCHAR (6)  NOT NULL             DEFAULT 'Male',
- icon_name  INTEGER      NOT NULL             DEFAULT 1,
+  gender    VARCHAR(6)   NOT NULL             DEFAULT 'Male',
+  city      VARCHAR (20) NOT NULL             DEFAULT '',
+  icon_name INTEGER      NOT NULL             DEFAULT 1,
   active    BOOLEAN      NOT NULL             DEFAULT TRUE
-);
+  );
 
 CREATE TABLE article (
   article_id INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
@@ -22,16 +23,17 @@ CREATE TABLE comments (
   comment_id INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
   article_id INTEGER,
   user_id    INTEGER,
-  body       LONG VARCHAR NOT NULL             DEFAULT '',
+  body       VARCHAR(200) NOT NULL             DEFAULT '',
   active     BOOLEAN      NOT NULL             DEFAULT TRUE,
   FOREIGN KEY (article_id) REFERENCES article (article_id),
   FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
 CREATE TABLE uploadedFiles (
-  file_id     INTEGER     NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
-  article_id  INTEGER,
-  filepath       LONG VARCHAR   NOT NULL          DEFAULT '',
+  file_id    INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
+  article_id INTEGER,
+  image      LONG VARCHAR NOT NULL             DEFAULT '',
+  audio      LONG VARCHAR NOT NULL             DEFAULT '',
   FOREIGN KEY (article_id) REFERENCES article (article_id)
 );
 
