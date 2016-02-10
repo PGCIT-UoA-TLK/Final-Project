@@ -48,31 +48,30 @@ public class UploadedFileDAO {
         return fileList;
     }
 
-    public File getByArticleID(int articleID) {
+    public List<File> getByArticleID(int articleID) {
         String query = "SELECT * FROM uploadedFiles WHERE article_id = ?";
+        List<File> files = new ArrayList<>();
         try {
             ResultSet result = databaseDAO.getParametisedQuery(query, articleID);
-            result.next();
-
-            int fileId = result.getInt("file_id");
-            int articleId = result.getInt("article_id");
-            String filepath = result.getString("filepath");
-
-
-            // Adding the post object to the list
-            return new File(fileId, articleId, filepath);
+            while(result.next()) {
+                int fileId = result.getInt("file_id");
+                int articleId = result.getInt("article_id");
+                String filepath = result.getString("filepath");
+                // Adding the post object to the list
+                files.add(new File(fileId, articleId, filepath));
+            }
         } catch (Exception e) {
             System.out.println("uploadedFileDAO.getByArticleID: " + e.getMessage());
         }
 
-        return null;
+        return files;
     }
 
-    public boolean addNewFile(int article_id, String newImage, String newAudio) {
+    public boolean addNewFile(int article_id, String filePath) {
         // KL - Crating the add new article query and calling the updateQuery method
-        String query = "INSERT INTO uploadedFiles (article_id, image, audio) VALUES (?,?,?)";
+        String query = "INSERT INTO uploadedFiles (article_id, filePath) VALUES (?,?)";
         try {
-            databaseDAO.runParametisedQuery(query, article_id, newImage, newAudio);
+            databaseDAO.runParametisedQuery(query, article_id, filePath);
             return true;
         } catch (Exception e) {
             System.out.println("ArticleDAO.addNewArticle: " + e.getMessage());
@@ -81,7 +80,7 @@ public class UploadedFileDAO {
         return false;
     }
 
-      public boolean deleteFile(File file) {
+    public boolean deleteFile(File file) {
         String query = "DROP INDEX FROM uploadedFiles WHERE article_id = ? AND file_id = ?";
         try {
             databaseDAO.runParametisedQuery(query, file.getArticleId(), file.getFileId());

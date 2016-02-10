@@ -15,6 +15,11 @@
 
 <%@include file="include/userBar.jsp" %>
 <div class="container">
+
+    <div class="col-xs-12">
+        <%@include file="include/alerts.jsp" %>
+    </div>
+
     <div class="list-group">
         <c:forEach items="${articles}" var="article">
             <div class="col-xs-12">

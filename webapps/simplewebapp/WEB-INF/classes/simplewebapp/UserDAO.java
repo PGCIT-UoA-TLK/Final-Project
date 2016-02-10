@@ -72,7 +72,7 @@ public class UserDAO {
 
             return new User(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6), result.getString(7), result.getInt(8));
         } catch (Exception e) {
-            System.out.println("UserDAO.loginUser: " + e.getMessage());
+            System.out.println("UserDAO.loginUser: Could not log user in");
         }
 
         return null;
