@@ -76,3 +76,7 @@ derby.log
 
 # Screw you windows
 Thumbs.db
+
+# Uploads Folder
+**/webapps/uploads/*
+!**/webapps/uploads/*.txt
