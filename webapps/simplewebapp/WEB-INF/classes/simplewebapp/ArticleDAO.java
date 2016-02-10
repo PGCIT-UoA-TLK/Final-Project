@@ -87,6 +87,24 @@ public class ArticleDAO {
         return false;
     }
 
+    public int addNewArticleWithId(int userId, String newTitle, String newText) {
+        // KL - Crating the add new article query and calling the updateQuery method
+        String query = "INSERT INTO article (user_id, title, body) VALUES (?,?,?)";
+        try {
+            ResultSet resultSet = databaseDAO.runParametisedQuery(query, userId, newTitle, newText);
+
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+
+            return 0;
+        } catch (Exception e) {
+            System.out.println("ArticleDAO.addNewArticle: " + e.getMessage());
+        }
+
+        return 0;
+    }
+
     public boolean updateArticle(Article article) {
         String query = "UPDATE ARTICLE SET %s = ? WHERE ARTICLE_ID = ?";
         try {

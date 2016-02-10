@@ -68,11 +68,11 @@ public class UploadedFileDAO {
         return null;
     }
 
-    public boolean addNewFile(int article_id, String newImage, String newAudio) {
+    public boolean addNewFile(int article_id, String filePath) {
         // KL - Crating the add new article query and calling the updateQuery method
-        String query = "INSERT INTO uploadedFiles (article_id, image, audio) VALUES (?,?,?)";
+        String query = "INSERT INTO uploadedFiles (article_id, filePath) VALUES (?,?)";
         try {
-            databaseDAO.runParametisedQuery(query, article_id, newImage, newAudio);
+            databaseDAO.runParametisedQuery(query, article_id, filePath);
             return true;
         } catch (Exception e) {
             System.out.println("ArticleDAO.addNewArticle: " + e.getMessage());

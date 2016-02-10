@@ -1,22 +1,15 @@
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import simplewebapp.*;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import simplewebapp.Article;
-import simplewebapp.ArticleDAO;
-import simplewebapp.Comment;
-import simplewebapp.CommentDAO;
-import simplewebapp.User;
-import simplewebapp.UserDAO;
-
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-
-import simplewebapp.*;
-
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -67,34 +60,47 @@ public class ArticlePage extends Page {
 
     protected static void addArticle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getAttribute("user");
-        String newTitle = "";
-        String articleText = "";
         DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletFileUpload upload = new ServletFileUpload(factory);
 
-        try{
+        try {
             List fileItems = upload.parseRequest(request);
             Iterator i = fileItems.iterator();
 
-            while(i.hasNext()){
-                FileItem fi = (FileItem)i.next();
-                if(!fi.isFormField() && fi.getName() != null && !fi.getName().equals("")){
-                    saveFile(fi);
-                }else if(fi.getFieldName().equals("articleTitle")){
-                    newTitle = fi.getString();
-                }else{
-                    articleText = fi.getString();
+            List<FileItem> files = new ArrayList<>();
+
+            String newTitle = "";
+            String articleText = "";
+
+            while (i.hasNext()) {
+                FileItem file = (FileItem) i.next();
+                if (!file.isFormField() && file.getName() != null && !file.getName().equals("")) {
+                    files.add(file);
+                } else if (file.getFieldName().equals("articleTitle")) {
+                    newTitle = file.getString();
+                } else if (file.getFieldName().equals("articleText")) {
+                    articleText = file.getString();
                 }
+            }
+
+            int articleId = 0;
+            if (!articleText.equals("") && !newTitle.equals("")) {
+                articleId = ArticleDAO.getInstance().addNewArticleWithId(user.getUserId(), newTitle, articleText);
+            }
+
+            if (articleId > 0) {
+                for (FileItem file : files) {
+                    String filePath = saveFile(file);
+                    UploadedFileDAO.getInstance().addNewFile(articleId, filePath);
+                }
+            }
+
+            if (!articleText.equals("") && !newTitle.equals("")) {
+                response.sendRedirect(request.getContextPath());
+                return;
             }
         } catch (FileUploadException e) {
             System.out.println("No input detected. Continuing");
-        }
-
-        if(!articleText.equals("") && !newTitle.equals("")) {
-            ArticleDAO.getInstance().addNewArticle(user.getUserId(), newTitle, articleText);
-
-            response.sendRedirect(request.getContextPath());
-            return;
         }
 
         navigate("/WEB-INF/addArticle.jsp", request, response);
@@ -134,15 +140,18 @@ public class ArticlePage extends Page {
         navigate("/WEB-INF/editArticle.jsp", request, response);
     }
 
-    protected static void saveFile(FileItem fi) throws ServletException, IOException, FileUploadException {
-        String filepath = "\\webapps\\uploads\\";
+    protected static String saveFile(FileItem fi) {
+        String filepath = "webapps\\uploads\\";
         String fileName = fi.getName();
 
         File file = new File(filepath, fileName);
         try {
             fi.write(file);
+            return (filepath + fileName);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return null;
     }
 }
