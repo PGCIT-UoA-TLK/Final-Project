@@ -5,7 +5,7 @@ CREATE TABLE users (
   firstname VARCHAR(100) NOT NULL             DEFAULT '',
   lastname  VARCHAR(100) NOT NULL             DEFAULT '',
   gender    VARCHAR(6)   NOT NULL             DEFAULT 'Male',
-  city      VARCHAR (20) NOT NULL             DEFAULT '',
+  age       VARCHAR (11) NOT NULL             DEFAULT '',
   icon_name INTEGER      NOT NULL             DEFAULT 1,
   active    BOOLEAN      NOT NULL             DEFAULT TRUE
   );

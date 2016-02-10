@@ -44,6 +44,21 @@
                     </div>
                 </div>
 
+                <div>
+                    <label for="age">Select your age group</label>
+                    </br>
+                    <select id="age" name="chooseage" multiple>
+                        <option value="0-15">0-15</option>
+                        <option value="16-25">16-25</option>
+                        <option value="26-35">26-35</option>
+                        <option value="36-45">36-45</option>
+                        <option value="46-55">46-55</option>
+                        <option value="56-65">56-65</option>
+                        <option value="66-75">66-75</option>
+                        <option value="75 and over">75 and over</option>
+                    </select>
+                </div>
+
                 <div class = "form-group">
                     <label for="input-gender" class="col-sm-2 control-label">Gender</label>
                     <div class ="col-sm-10">
@@ -61,11 +76,6 @@
                         <%--}--%>
                     <%--</script>--%>
                     </div>
-
-
-
-
-
 
                 </div>
                 <input type="hidden" name="page" value="editUser">
