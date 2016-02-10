@@ -20,11 +20,6 @@
 
 <%@include file="include/userBar.jsp" %>
 
-<%--KL NEED TO FINISH--%>
-<audio autoplay="" controls="" loop="" preload="" style="display: none">
-    <source src="http://192.254.184.234/~tangh/01_admin_resources/Shimmer/mp3/Smile.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio>
 
 <div class="container">
     <div class="jumbotron">
@@ -32,9 +27,6 @@
         <div class="articleText"><p>${article.body}</p></div>
     </div>
 
-    <c:if test="${article.embeddedContent != null && !article.embeddedContent.equals('')}">
-        <iframe class="row col-xs-offset-4 col-xs-4" width="420" height="315" src="${article.embeddedContent}"></iframe>
-    </c:if>
 
     <c:forEach items="${files}" var="file">
         <c:if test="${article.articleId == file.articleId}">
@@ -53,6 +45,26 @@
             </c:choose>
         </form>
     </div>
+
+    <c:if test="${article.embeddedContent != null && !article.embeddedContent.equals('') && article.embeddedContent.contains('youtube')}">
+        <iframe class="row col-xs-offset-4 col-xs-4" width="420" height="315" src="${article.embeddedContent}"></iframe>
+    </c:if>
+
+    <c:if test="${article.embeddedContent != null && !article.embeddedContent.equals('') && article.embeddedContent.contains('.mp3')}">
+        <div class="row col-xs-offset-4 col-xs-4">
+            <audio  autoplay="" controls="" loop="" preload="">
+                <source src="${article.embeddedContent}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </c:if>
+
+
+    <c:forEach items="${files}" var="file">
+        <c:if test="${article.articleId == file.articleId}">
+            <div class="col-xs-4"><img class="img-responsive img-rounded" src="${file.filepath}"></div>
+        </c:if>
+    </c:forEach>
 
     <c:forEach items="${comments}" var="comment">
         <blockquote>

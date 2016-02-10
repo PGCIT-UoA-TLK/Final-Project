@@ -41,14 +41,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="articleAudio" class="col-sm-2 control-label">Upload Audio: </label>
-                    <div class="col-sm-10">
-                        <input type="file" name="articleAudio" class="form-control" id="articleAudio" accept="audio/*">
-                    </div>
-                <div class="form-group">
                     <label for="embeddedContent" class="col-sm-2 control-label">Embed Audio or Video: </label>
                     <div class="col-sm-10">
-                        <input type="url" name="embeddedContent" class="form-control" id="embeddedContent" placeholder="URL">
+                        <input type="url" name="embeddedContent" class="form-control" id="embeddedContent" placeholder="Link to a Youtube Video or an MP3">
                     </div>
                 </div>
                 <input type="hidden" name="page" value="addArticle"/>

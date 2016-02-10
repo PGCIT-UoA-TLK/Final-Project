@@ -85,12 +85,14 @@ public class ArticlePage extends Page {
                 FileItem file = (FileItem) i.next();
                 if (!file.isFormField() && file.getName() != null && !file.getName().equals("")) {
                     files.add(file);
-                } else if (file.getFieldName().equals("articleTitle")) {
+                }else if (file.getFieldName().equals("articleTitle")) {
                     newTitle = file.getString();
-                } else if (file.getFieldName().equals("articleText")) {
+                }else if (file.getFieldName().equals("articleText")) {
                     articleText = file.getString();
                 }else if (file.getFieldName().equals("embeddedContent")){
-                    embeddedContent = file.getString();
+                    if(file.getString().contains("youtube") || file.getString().contains("mp3")) {
+                        embeddedContent = file.getString();
+                    }
                 }
             }
 
