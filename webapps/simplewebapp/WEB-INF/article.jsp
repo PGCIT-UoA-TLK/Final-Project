@@ -52,12 +52,13 @@
         </div>
     </c:if>
 
-
-    <c:forEach items="${files}" var="file">
-        <c:if test="${article.articleId == file.articleId}">
-            <div class="col-xs-4"><img class="img-responsive img-rounded" src="${file.filepath}"></div>
-        </c:if>
-    </c:forEach>
+    <div class="row images">
+        <c:forEach items="${files}" var="file">
+            <c:if test="${article.articleId == file.articleId}">
+                <div class="col-xs-4"><img class="img-responsive img-rounded" src="${file.filepath}"></div>
+            </c:if>
+        </c:forEach>
+    </div>
 
     <c:forEach items="${comments}" var="comment">
         <blockquote>

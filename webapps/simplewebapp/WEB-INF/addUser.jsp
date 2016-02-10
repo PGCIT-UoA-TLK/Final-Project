@@ -53,8 +53,7 @@
 
                 <div class="row">
                     <label class="col-sm-2 control-label"  for="age">Select an Age Group</label>
-
-                    <select class="col-sm-3" id="age" name="age" multiple>
+                    <select class="col-sm-3" id="age" name="age">
                         <option value="0-15">0-15</option>
                         <option value="16-25">16-25</option>
                         <option value="26-35">26-35</option>
@@ -79,16 +78,16 @@
                 <div class="row">
                     <label for="input-icon_name" class="col-sm-2 control-label">Choose an icon</label>
                     <div class="radio col-sm-offset-1 col-sm-3" id="input-icon_name">
-                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                        <img src="/Images/IMG1.jpg" alt="Donald icon" class="img-thumbnail" width=89 height=89>
+                        <input title="Trump" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                        <img src="/images/IMG1.jpg" alt="Donald icon" class="img-thumbnail" width=89 height=89>
                     </div>
                     <div class="radio col-sm-3" >
-                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                        <img src="/Images/IMG2.jpg" alt="Fresco icon" class="img-thumbnail" width=89 height=89>
+                        <input title="DIYFresco" type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                        <img src="/images/IMG2.jpg" alt="Fresco icon" class="img-thumbnail" width=89 height=89>
                     </div>
                     <div class="radio col-sm-3" >
-                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-                        <img src="/Images/IMG3.jpg" alt="Mupeet icon" class="img-thumbnail" width=89 height=89>
+                        <input title="Muppet" type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+                        <img src="/images/IMG3.jpg" alt="Muppet icon" class="img-thumbnail" width=89 height=89>
                     </div>
                 </div><br />
 
