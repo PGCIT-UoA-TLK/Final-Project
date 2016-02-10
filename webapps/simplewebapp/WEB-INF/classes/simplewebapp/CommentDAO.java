@@ -55,7 +55,7 @@ public class CommentDAO {
 
                 Comment comment = new Comment(commentId, articleId, userId, commentBody);
 
-                comment.setUser(getUserForComment(comment));
+                addCommentExtras(comment);
 
                 comments.add(comment);
             }
@@ -65,14 +65,14 @@ public class CommentDAO {
         return comments;
     }
 
-    public Comment getCommentByArticleIDAndCommentID(int articleID, int commentID) {
-        String query = "SELECT * FROM comments WHERE active = true AND article_id = " + articleID + "AND comment_id=" + commentID;
+    public Comment getComment(int commentID) {
+        String query = "SELECT * FROM comments WHERE active = true AND comment_id = " + commentID;
         Comment comment = null;
         ResultSet results = null;
         try {
             results = databaseDAO.doQuery(query);
         } catch (Exception e) {
-            System.out.println("CommentDAO.getCommentByArticleIDAndCommentID: " + e.getMessage());
+            System.out.println("CommentDAO.getComment: " + e.getMessage());
         }
 
         if (results == null) {
@@ -88,11 +88,12 @@ public class CommentDAO {
                 String commentBody = results.getString("body");
 
                 comment = new Comment(commentId, articleId, userId, commentBody);
-                comment.setUser(getUserForComment(comment));
+                addCommentExtras(comment);
             }
         } catch (SQLException e) {
-            System.out.println("CommentDAO.getCommentByArticleIDAndCommentID: " + e.getMessage());
+            System.out.println("CommentDAO.getComment: " + e.getMessage());
         }
+
         return comment;
     }
 
@@ -120,7 +121,7 @@ public class CommentDAO {
         return false;
     }
 
-    public static User getUserForComment(Comment comment){
-        return UserDAO.getInstance().getUser(comment.getUserId());
+    public static void addCommentExtras(Comment comment){
+        comment.setUser(UserDAO.getInstance().getUser(comment.getUserId()));
     }
 }

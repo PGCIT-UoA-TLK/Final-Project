@@ -22,7 +22,7 @@ CREATE TABLE comments (
   comment_id INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
   article_id INTEGER,
   user_id    INTEGER,
-  body       VARCHAR(200) NOT NULL             DEFAULT '',
+  body       LONG VARCHAR NOT NULL             DEFAULT '',
   active     BOOLEAN      NOT NULL             DEFAULT TRUE,
   FOREIGN KEY (article_id) REFERENCES article (article_id),
   FOREIGN KEY (user_id) REFERENCES users (user_id)

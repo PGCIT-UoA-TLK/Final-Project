@@ -1,6 +1,7 @@
 package simplewebapp;
 
 import java.io.Serializable;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public class Article implements Serializable {
@@ -9,6 +10,7 @@ public class Article implements Serializable {
     private String title;
     private String body;
     private boolean active;
+    private List<Comment> comments;
 
     public Article() {
         this.active = false;
@@ -60,5 +62,13 @@ public class Article implements Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

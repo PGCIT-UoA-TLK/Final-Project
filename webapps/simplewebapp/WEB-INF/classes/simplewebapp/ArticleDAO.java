@@ -37,8 +37,11 @@ public class ArticleDAO {
                 String title = result.getString("title");
                 String body = result.getString("body");
 
+                Article article = new Article(id, userID, title, body);
+                addArticleExtras(article);
+
                 // Adding the post object to the list
-                articleList.add(new Article(id, userID, title, body));
+                articleList.add(article);
             }
         } catch (Exception e) {
             System.out.println("ArticleDAO.getAll: " + e.getMessage());
@@ -59,8 +62,11 @@ public class ArticleDAO {
             String title = result.getString("title");
             String body = result.getString("body");
 
+            Article article = new Article(id, userID, title, body);
+            addArticleExtras(article);
+
             // Adding the post object to the list
-            return new Article(id, userID, title, body);
+            return article;
         } catch (Exception e) {
             System.out.println("ArticleDAO.getByArticleID: " + e.getMessage());
         }
@@ -104,5 +110,9 @@ public class ArticleDAO {
         }
 
         return false;
+    }
+
+    private static void addArticleExtras(Article article) {
+        article.setComments(CommentDAO.getInstance().getCommentsByArticleID(article.getArticleId()));
     }
 }

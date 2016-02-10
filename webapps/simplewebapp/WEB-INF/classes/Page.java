@@ -6,6 +6,7 @@ import simplewebapp.Article;
 import simplewebapp.ArticleDAO;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Page {
@@ -14,9 +15,22 @@ public class Page {
         ArticleDAO articleDAO = ArticleDAO.getInstance();
 
         // Getting all the articles as a list
-        List<Article> listOfArticles = articleDAO.getAll();
+        List<Article> articles = articleDAO.getAll();
+        List<Article> modifiedArticles = new ArrayList<>();
 
-        request.setAttribute("articles", listOfArticles);
+        // Make the body 100 or so characters long. Technically we can set back to articles, but we aren't short on memory.
+        for (Article article : articles) {
+            String body = article.getBody();
+
+            if (body.length() > 100) {
+                body = body.substring(0, 100) + body.substring(100).replaceAll("\\s.*?$", "") + " ...";
+            }
+
+            article.setBody(body);
+            modifiedArticles.add(article);
+        }
+
+        request.setAttribute("articles", modifiedArticles);
 
         navigate("/WEB-INF/home.jsp", request, response);
     }

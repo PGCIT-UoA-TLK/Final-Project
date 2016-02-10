@@ -17,9 +17,23 @@
 <div class="container">
     <div class="list-group">
         <c:forEach items="${articles}" var="article">
-            <a class="list-group-item" href="<c:url value="?page=article&article=${article.articleId}"/>">
-                    ${article.title}
-            </a>
+            <div class="col-xs-12">
+                <a class="list-group-item" href="<c:url value="?page=article&article=${article.articleId}"/>">
+                        ${article.title}
+                    <c:set var="numberOfComments" value="${article.comments.size()}"/>
+                    <c:choose>
+                        <c:when test="${numberOfComments > 1}">
+                            <span class="badge">${numberOfComments} Comments</span>
+                        </c:when>
+                        <c:when test="${numberOfComments > 0}">
+                            <span class="badge">${numberOfComments} Comment</span>
+                        </c:when>
+                    </c:choose>
+                    <br/>
+                    <small class="pull-right">${article.body}</small>
+                    <div class="clearfix"></div>
+                </a>
+            </div>
         </c:forEach>
     </div>
 </div>

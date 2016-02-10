@@ -37,27 +37,28 @@
     </div>
 
     <c:forEach items="${comments}" var="comment">
-        <div class="col-xs-12">
-            <p class="comment">${comment.user.username}: ${comment.body}
-            </p>
-        </div>
+        <blockquote>
+            <p>${comment.body}</p>
 
-        <form id="articleCommentForm" class="form-horizontal pull-right">
-            <input type="hidden" name="article" value="${article.articleId}"/>
-            <input type="hidden" name="commentID" value="${comment.commentId}"/>
+            <form id="articleCommentForm" class="form-horizontal pull-right">
+                <input type="hidden" name="article" value="${article.articleId}"/>
+                <input type="hidden" name="commentID" value="${comment.commentId}"/>
 
-            <c:choose>
-                <c:when test="${(not empty comment.userId) && (user.userId == comment.userId)}">
-                    <input type="hidden" name="page" value="editComment"/>
-                    <input type="submit" class="btn btn-default" value="Edit Comment"/>
-                </c:when>
-                <c:when test="${(article.userId == user.userId)}">
-                    <input type="hidden" name="page" value="article">
-                    <input type="hidden" name="delete"/>
-                    <input type="submit" class="btn btn-default" value="Delete Comment" onclick="confirmDelete('articleCommentForm')">
-                </c:when>
-            </c:choose>
-        </form>
+                <c:choose>
+                    <c:when test="${(not empty comment.userId) && (user.userId == comment.userId)}">
+                        <input type="hidden" name="page" value="editComment"/>
+                        <input type="submit" class="btn btn-default" value="Edit Comment"/>
+                    </c:when>
+                    <c:when test="${(article.userId == user.userId)}">
+                        <input type="hidden" name="page" value="article">
+                        <input type="hidden" name="delete"/>
+                        <input type="submit" class="btn btn-default" value="Delete Comment" onclick="confirmDelete('articleCommentForm')">
+                    </c:when>
+                </c:choose>
+            </form>
+
+            <footer>${comment.user.username}</footer>
+        </blockquote>
     </c:forEach>
 
     <c:if test="${(not empty user)}">

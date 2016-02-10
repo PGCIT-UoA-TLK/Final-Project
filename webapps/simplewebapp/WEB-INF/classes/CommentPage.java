@@ -11,7 +11,7 @@ public class CommentPage extends Page {
         int articleID = Integer.parseInt(request.getParameter("article"));
         int commentID = Integer.parseInt(request.getParameter("commentID"));
 
-        Comment comment = CommentDAO.getInstance().getCommentByArticleIDAndCommentID(articleID, commentID);
+        Comment comment = CommentDAO.getInstance().getComment(commentID);
 
         if (request.getParameter("edited") != null && request.getParameter("delete") == null) {
             comment.setBody(request.getParameter("commentBox"));

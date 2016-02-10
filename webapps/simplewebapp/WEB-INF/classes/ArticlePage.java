@@ -32,7 +32,7 @@ public class ArticlePage extends Page {
 
         // Comment needs to be deleted
         if (request.getParameter("delete") != null && !request.getParameter("delete").equals("")) {
-            Comment c = CommentDAO.getInstance().getCommentByArticleIDAndCommentID(article.getArticleId(), Integer.parseInt(request.getParameter("commentID")));
+            Comment c = CommentDAO.getInstance().getComment(Integer.parseInt(request.getParameter("commentID")));
             CommentDAO.getInstance().deleteComment(c);
             response.sendRedirect(request.getContextPath() + "?page=article&article=" + article.getArticleId());
             return;
