@@ -1,5 +1,7 @@
-<%--@elvariable id="article" type="simplewebapp.Article"--%>
+<%@ page import="simplewebapp.DatabaseDAO" %>
+<%@ page import="simplewebapp.UploadedFileDAO" %><%--@elvariable id="article" type="simplewebapp.Article"--%>
 <%--@elvariable id="comments" type="java.util.List<simplewebapp.Comment>"--%>
+<%--@elvariable id="files" type="java.util.List<simplewebapp.File>"--%>
 <%--@elvariable id="user" type="simplewebapp.User"--%>
 <%--@elvariable id="commentBox" type="java.lang.String"--%>
 
@@ -23,6 +25,15 @@
         <div class="articleTitle"><h1>${article.title}</h1></div>
         <div class="articleText"><p>${article.body}</p></div>
     </div>
+
+
+
+    <c:forEach items="${files}" var="file">
+        <c:if test="${article.articleId == file.articleId}">
+            <div class="col-xs-4"><img class="img-responsive img-rounded" src="${file.filepath}"></div>
+        </c:if>
+    </c:forEach>
+
 
     <div class="col-xs-12">
         <form class="form-select-button pull-right">

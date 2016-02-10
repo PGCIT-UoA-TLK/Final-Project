@@ -1,5 +1,6 @@
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.UploadContext;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import simplewebapp.*;
@@ -40,9 +41,11 @@ public class ArticlePage extends Page {
             return;
         }
 
+        List<simplewebapp.File> files = UploadedFileDAO.getInstance().getByArticleID(article.getArticleId());
         List<Comment> comments = CommentDAO.getInstance().getCommentsByArticleID(article.getArticleId());
         List<User> users = UserDAO.getInstance().getAll();
-
+        System.out.println(files.size());
+        request.setAttribute("files", files);
         request.setAttribute("comments", comments);
         request.setAttribute("users", users);
 
@@ -141,10 +144,10 @@ public class ArticlePage extends Page {
     }
 
     protected static String saveFile(FileItem fi) {
-        String filepath = "webapps\\uploads\\";
+        String filepath = "\\uploads\\";
         String fileName = fi.getName();
 
-        File file = new File(filepath, fileName);
+        File file = new File("webapps" + filepath, fileName);
         try {
             fi.write(file);
             return (filepath + fileName);
