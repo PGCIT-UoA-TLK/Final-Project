@@ -27,13 +27,6 @@
         <div class="articleText"><p>${article.body}</p></div>
     </div>
 
-
-    <c:forEach items="${files}" var="file">
-        <c:if test="${article.articleId == file.articleId}">
-            <div class="col-xs-4"><img class="img-responsive img-rounded" src="${file.filepath}"></div>
-        </c:if>
-    </c:forEach>
-
     <div class="col-xs-12">
         <form class="form-select-button pull-right">
             <input type="hidden" name="page" value="editArticle"/>
