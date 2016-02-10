@@ -54,7 +54,7 @@
                 <div class="row">
                     <label class="col-sm-2 control-label"  for="age">Select an Age Group</label>
 
-                    <select class="col-sm-3" id="age" name="chooseage" multiple>
+                    <select class="col-sm-3" id="age" name="age" multiple>
                         <option value="0-15">0-15</option>
                         <option value="16-25">16-25</option>
                         <option value="26-35">26-35</option>
@@ -74,7 +74,6 @@
                     <div class="radio">
                         <label class="col-sm-offset-3 col-sm-4"><input type="radio" name="input-gender" value="Female">Female</label>
                     </div>
-                    <label class="col-sm-2 control-label"  for="age">Select an Age Group</label>
                 </div>
 
                 <div class="row">
