@@ -18,7 +18,9 @@
             <fieldset>
                 <legend>User Registration</legend>
 
-                <%@include file="include/alerts.jsp" %>
+                <div class="col-sm-offset-2 col-sm-10">
+                    <%@include file="include/alerts.jsp" %>
+                </div>
 
                 <div class="form-group">
                     <label for="input-username" class="col-sm-2 control-label">Username</label>
@@ -37,13 +39,13 @@
                 <div class="form-group">
                     <label for="input-firstname" class="col-sm-2 control-label">First Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="input-firstname" name="firstname"><br/>
+                        <input type="text" class="form-control" id="input-firstname" name="firstname" required><br/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="input-lastname" class="col-sm-2 control-label">Last Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="input-lastname" name="lastname"><br/>
+                        <input type="text" class="form-control" id="input-lastname" name="lastname" required><br/>
                     </div>
                 </div>
 

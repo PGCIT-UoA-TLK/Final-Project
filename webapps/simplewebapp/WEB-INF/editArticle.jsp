@@ -22,7 +22,9 @@
             <fieldset>
                 <legend>Edit your Article:</legend>
 
-                <%@include file="include/alerts.jsp" %>
+                <div class="col-sm-offset-2 col-sm-10">
+                    <%@include file="include/alerts.jsp" %>
+                </div>
 
                 <div class="form-group">
                     <label for="articleTitle" class="col-sm-2 control-label">Title: </label>
