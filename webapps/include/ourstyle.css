@@ -22,3 +22,7 @@ div.jumbotron{
 div.images{
     padding-bottom: 10px;
 }
+
+label#ageLabel{
+    padding-top: 0px;
+}

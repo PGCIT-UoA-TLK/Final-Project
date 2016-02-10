@@ -49,10 +49,8 @@
                     </div>
                 </div>
 
-
-
-                <div class="row">
-                    <label class="col-sm-2 control-label"  for="age">Select an Age Group</label>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" id="ageLabel"  for="age">Select an Age Group</label>
                     <select class="col-sm-3" id="age" name="age">
                         <option value="0-15">0-15</option>
                         <option value="16-25">16-25</option>
@@ -65,7 +63,7 @@
                     </select>
                 </div>
 
-                <div class="row">
+                <div class="form-group">
                     <label class="col-sm-2 control-label" >Gender</label>
                     <div class="radio">
                         <label class="col-sm-offset-1 col-sm-4"><input type="radio" name="input-gender" value="Male" checked>Male</label>
@@ -75,7 +73,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="form-group">
                     <label for="input-icon_name" class="col-sm-2 control-label">Choose an icon</label>
                     <div class="radio col-sm-offset-1 col-sm-3" id="input-icon_name">
                         <input title="Trump" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
