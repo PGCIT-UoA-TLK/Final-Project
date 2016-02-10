@@ -44,7 +44,7 @@ public class ArticlePage extends Page {
         List<simplewebapp.File> files = UploadedFileDAO.getInstance().getByArticleID(article.getArticleId());
         List<Comment> comments = CommentDAO.getInstance().getCommentsByArticleID(article.getArticleId());
         List<User> users = UserDAO.getInstance().getAll();
-        System.out.println(files.size());
+
         request.setAttribute("files", files);
         request.setAttribute("comments", comments);
         request.setAttribute("users", users);

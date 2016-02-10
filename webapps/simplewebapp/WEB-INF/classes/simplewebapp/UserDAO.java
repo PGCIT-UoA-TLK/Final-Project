@@ -80,8 +80,8 @@ public class UserDAO {
 
     public User addUser(String username, String password, String firstname, String lastname, String age, String gender, int icon) {
         try {
-            String query = "INSERT INTO users (USERNAME, PASSWORD, FIRSTNAME, LASTNAME, AGE, GENDER, ICON_NAME) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            ResultSet result = databaseDAO.runParametisedQuery(query, username, password, firstname, lastname, gender, icon);
+            String query = "INSERT INTO users (USERNAME, PASSWORD, FIRSTNAME, LASTNAME, GENDER, AGE, ICON_NAME) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            ResultSet result = databaseDAO.runParametisedQuery(query, username, password, firstname, lastname, gender, age, icon);
 
             User user;
             if (result == null) {

@@ -51,12 +51,10 @@
 
 
 
-            <div class="row">
-                <label class="col-sm-2 control-label" >Gender</label>
-                <div>
-                    <label for="age">Select your age group</label>
-                    </br>
-                    <select id="age" name="chooseage" multiple>
+                <div class="row">
+                    <label class="col-sm-2 control-label"  for="age">Select an Age Group</label>
+
+                    <select class="col-sm-3" id="age" name="chooseage" multiple>
                         <option value="0-15">0-15</option>
                         <option value="16-25">16-25</option>
                         <option value="26-35">26-35</option>
@@ -66,21 +64,18 @@
                         <option value="66-75">66-75</option>
                         <option value="75 and over">75 and over</option>
                     </select>
-             </div>
+                </div>
 
-                <div>
+                <div class="row">
                     <label class="col-sm-2 control-label" >Gender</label>
-                    <label class="col-sm-offset-1"><input type="radio" name="input-gender" value="Male" checked>Male</label>
-                    <label class="col-sm-offset-1"><input type="radio" name="input-gender" value="Female">Female</label>
-                </div><br/>
-                <label for="input-icon_name" class="col-sm-2 control-label">Choose a user icon</label> <br/>
-                <div class="radio">
-                    <label class="col-sm-offset-1 col-sm-4"><input type="radio" name="input-gender" value="Male" checked>Male</label>
+                    <div class="radio">
+                        <label class="col-sm-offset-1 col-sm-4"><input type="radio" name="input-gender" value="Male" checked>Male</label>
+                    </div>
+                    <div class="radio">
+                        <label class="col-sm-offset-3 col-sm-4"><input type="radio" name="input-gender" value="Female">Female</label>
+                    </div>
+                    <label class="col-sm-2 control-label"  for="age">Select an Age Group</label>
                 </div>
-                <div class="radio">
-                    <label class="col-sm-offset-3 col-sm-4"><input type="radio" name="input-gender" value="Female">Female</label>
-                </div>
-            </div><br />
 
                 <div class="row">
                     <label for="input-icon_name" class="col-sm-2 control-label">Choose an icon</label>
