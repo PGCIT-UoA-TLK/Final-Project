@@ -8,7 +8,16 @@ import simplewebapp.CommentDAO;
 import simplewebapp.User;
 import simplewebapp.UserDAO;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+
+import simplewebapp.*;
+
+import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 public class ArticlePage extends Page {
@@ -58,10 +67,30 @@ public class ArticlePage extends Page {
 
     protected static void addArticle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getAttribute("user");
-        if (request.getParameter("articleTitle") != null) {
-            String newTitle = request.getParameter("articleTitle");
-            String articleText = request.getParameter("articleText");
+        String newTitle = "";
+        String articleText = "";
+        DiskFileItemFactory factory = new DiskFileItemFactory();
+        ServletFileUpload upload = new ServletFileUpload(factory);
 
+        try{
+            List fileItems = upload.parseRequest(request);
+            Iterator i = fileItems.iterator();
+
+            while(i.hasNext()){
+                FileItem fi = (FileItem)i.next();
+                if(!fi.isFormField() && fi.getName() != null && !fi.getName().equals("")){
+                    saveFile(fi);
+                }else if(fi.getFieldName().equals("articleTitle")){
+                    newTitle = fi.getString();
+                }else{
+                    articleText = fi.getString();
+                }
+            }
+        } catch (FileUploadException e) {
+            System.out.println("No input detected. Continuing");
+        }
+
+        if(!articleText.equals("") && !newTitle.equals("")) {
             ArticleDAO.getInstance().addNewArticle(user.getUserId(), newTitle, articleText);
 
             response.sendRedirect(request.getContextPath());
@@ -103,5 +132,17 @@ public class ArticlePage extends Page {
         request.setAttribute("article", article);
 
         navigate("/WEB-INF/editArticle.jsp", request, response);
+    }
+
+    protected static void saveFile(FileItem fi) throws ServletException, IOException, FileUploadException {
+        String filepath = "\\webapps\\uploads\\";
+        String fileName = fi.getName();
+
+        File file = new File(filepath, fileName);
+        try {
+            fi.write(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

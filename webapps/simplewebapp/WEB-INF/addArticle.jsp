@@ -14,7 +14,7 @@
 <%@include file="include/userBar.jsp" %>
 <div class="container">
     <div class="col-xs-12">
-        <form class="form-horizontal">
+        <form class="form-horizontal" method="POST" enctype="multipart/form-data">
             <fieldset>
                 <legend>Add a New Article:</legend>
 
