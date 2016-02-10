@@ -36,8 +36,9 @@ public class ArticleDAO {
                 int userID = result.getInt("user_id");
                 String title = result.getString("title");
                 String body = result.getString("body");
+                String embeddedContent = result.getString("embeddedContent");
 
-                Article article = new Article(id, userID, title, body);
+                Article article = new Article(id, userID, title, body, embeddedContent);
                 addArticleExtras(article);
 
                 // Adding the post object to the list
@@ -61,8 +62,9 @@ public class ArticleDAO {
             int userID = result.getInt("user_id");
             String title = result.getString("title");
             String body = result.getString("body");
+            String embeddedContent = result.getString("embeddedContent");
 
-            Article article = new Article(id, userID, title, body);
+            Article article = new Article(id, userID, title, body, embeddedContent);
             addArticleExtras(article);
 
             // Adding the post object to the list
@@ -74,24 +76,12 @@ public class ArticleDAO {
         return null;
     }
 
-    public boolean addNewArticle(int userId, String newTitle, String newText) {
-        // KL - Crating the add new article query and calling the updateQuery method
-        String query = "INSERT INTO article (user_id, title, body) VALUES (?,?,?)";
-        try {
-            databaseDAO.runParametisedQuery(query, userId, newTitle, newText);
-            return true;
-        } catch (Exception e) {
-            System.out.println("ArticleDAO.addNewArticle: " + e.getMessage());
-        }
 
-        return false;
-    }
-
-    public int addNewArticleWithId(int userId, String newTitle, String newText) {
+    public int addNewArticleWithId(int userId, String newTitle, String newText, String embeddedContent){
         // KL - Crating the add new article query and calling the updateQuery method
-        String query = "INSERT INTO article (user_id, title, body) VALUES (?,?,?)";
+        String query = "INSERT INTO article (user_id, title, body, embeddedContent) VALUES (?,?,?,?)";
         try {
-            ResultSet resultSet = databaseDAO.runParametisedQuery(query, userId, newTitle, newText);
+            ResultSet resultSet = databaseDAO.runParametisedQuery(query, userId, newTitle, newText, embeddedContent);
 
             if (resultSet.next()) {
                 return resultSet.getInt(1);

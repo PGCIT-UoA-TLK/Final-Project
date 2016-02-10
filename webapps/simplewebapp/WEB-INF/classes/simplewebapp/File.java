@@ -14,6 +14,7 @@ public class File implements Serializable {
     private String filepath;
 
 
+
     public File() {
 
     }
@@ -48,6 +49,8 @@ public class File implements Serializable {
     public void setFilepath(String filepath) {
         this.filepath = filepath;
     }
+
+
 }
 
 

@@ -74,6 +74,7 @@ public class ArticlePage extends Page {
 
             String newTitle = "";
             String articleText = "";
+            String embeddedContent = "";
 
             while (i.hasNext()) {
                 FileItem file = (FileItem) i.next();
@@ -83,12 +84,14 @@ public class ArticlePage extends Page {
                     newTitle = file.getString();
                 } else if (file.getFieldName().equals("articleText")) {
                     articleText = file.getString();
+                }else if (file.getFieldName().equals("embeddedContent")){
+                    embeddedContent = file.getString();
                 }
             }
 
             int articleId = 0;
             if (!articleText.equals("") && !newTitle.equals("")) {
-                articleId = ArticleDAO.getInstance().addNewArticleWithId(user.getUserId(), newTitle, articleText);
+                articleId = ArticleDAO.getInstance().addNewArticleWithId(user.getUserId(), newTitle, articleText, embeddedContent);
             }
 
             if (articleId > 0) {

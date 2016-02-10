@@ -20,11 +20,21 @@
 
 <%@include file="include/userBar.jsp" %>
 
+<%--KL NEED TO FINISH--%>
+<audio autoplay="" controls="" loop="" preload="" style="display: none">
+    <source src="http://192.254.184.234/~tangh/01_admin_resources/Shimmer/mp3/Smile.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
 <div class="container">
     <div class="jumbotron">
         <div class="articleTitle"><h1>${article.title}</h1></div>
         <div class="articleText"><p>${article.body}</p></div>
     </div>
+
+    <c:if test="${article.embeddedContent != null && !article.embeddedContent.equals('')}">
+        <iframe class="row col-xs-offset-4 col-xs-4" width="420" height="315" src="${article.embeddedContent}"></iframe>
+    </c:if>
 
 
 

@@ -11,11 +11,12 @@ CREATE TABLE users (
   );
 
 CREATE TABLE article (
-  article_id INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
-  user_id    INTEGER,
-  title      VARCHAR(250) NOT NULL             DEFAULT '',
-  body       LONG VARCHAR NOT NULL             DEFAULT '',
-  active     BOOLEAN      NOT NULL             DEFAULT TRUE,
+  article_id      INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
+  user_id         INTEGER,
+  title           VARCHAR(250) NOT NULL             DEFAULT '',
+  body            LONG VARCHAR NOT NULL             DEFAULT '',
+  embeddedContent LONG VARCHAR,
+  active          BOOLEAN      NOT NULL             DEFAULT TRUE,
   FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
@@ -32,8 +33,7 @@ CREATE TABLE comments (
 CREATE TABLE uploadedFiles (
   file_id    INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
   article_id INTEGER,
-  image      LONG VARCHAR NOT NULL             DEFAULT '',
-  audio      LONG VARCHAR NOT NULL             DEFAULT '',
+  filePath   LONG VARCHAR NOT NULL             DEFAULT '',
   FOREIGN KEY (article_id) REFERENCES article (article_id)
 );
 

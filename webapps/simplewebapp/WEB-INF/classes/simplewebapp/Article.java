@@ -9,6 +9,7 @@ public class Article implements Serializable {
     private int userId;
     private String title;
     private String body;
+    private String embeddedContent;
     private boolean active;
     private List<Comment> comments;
 
@@ -16,11 +17,12 @@ public class Article implements Serializable {
         this.active = false;
     }
 
-    public Article(int articleId, int userID, String title, String body) {
+    public Article(int articleId, int userID, String title, String body, String embeddedContent) {
         this.articleId = articleId;
         this.userId = userID;
         this.title = title;
         this.body = body;
+        this.embeddedContent = embeddedContent;
         this.active = true;
     }
 
@@ -55,6 +57,12 @@ public class Article implements Serializable {
     public void setBody(String body) {
         this.body = body;
     }
+
+    public void setEmbeddedContent(String embeddedContent) {
+        this.embeddedContent = embeddedContent;
+    }
+
+    public String getEmbeddedContent(){return embeddedContent;}
 
     public boolean isActive() {
         return active;

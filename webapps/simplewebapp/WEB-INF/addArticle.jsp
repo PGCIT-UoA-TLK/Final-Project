@@ -45,6 +45,11 @@
                     <div class="col-sm-10">
                         <input type="file" name="articleAudio" class="form-control" id="articleAudio" accept="audio/*">
                     </div>
+                <div class="form-group">
+                    <label for="embeddedContent" class="col-sm-2 control-label">Embed Audio or Video: </label>
+                    <div class="col-sm-10">
+                        <input type="url" name="embeddedContent" class="form-control" id="embeddedContent" placeholder="URL">
+                    </div>
                 </div>
                 <input type="hidden" name="page" value="addArticle"/>
                 <input type="submit" class="btn btn-default pull-right" value="Submit New Article">
