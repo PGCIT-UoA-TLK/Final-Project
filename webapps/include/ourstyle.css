@@ -11,10 +11,14 @@ div.titleDiv{
     height:40px ;
 }
 
-div.editArticle{
+div#editArticle{
     padding-bottom: 10px;
 }
 
 div.jumbotron{
     margin-bottom: 10px;
+}
+
+div.images{
+    padding-bottom: 10px;
 }
