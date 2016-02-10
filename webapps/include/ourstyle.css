@@ -10,3 +10,11 @@ div.navbar {
 div.titleDiv{
     height:40px ;
 }
+
+div.editArticle{
+    padding-bottom: 10px;
+}
+
+div.jumbotron{
+    margin-bottom: 10px;
+}

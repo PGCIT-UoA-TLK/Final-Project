@@ -56,7 +56,7 @@ public class UserDAO {
                 int icon = result.getInt("icon_name");
 
                 // Adding the post object to the list
-                users.add(new User(id, username, password, firstname, lastname, age, gender, icon));
+                users.add(new User(id, username, password, firstname, lastname, gender, age, icon));
             }
         } catch (Exception e) {
             System.out.println("UserDAO.getAll: " + e.getMessage());
@@ -85,7 +85,7 @@ public class UserDAO {
         return null;
     }
 
-    public User addUser(String username, String password, String firstname, String lastname, String age, String gender, int icon) {
+    public User addUser(String username, String password, String firstname, String lastname, String gender, String age, int icon) {
         try {
             String query = "INSERT INTO users (USERNAME, PASSWORD, FIRSTNAME, LASTNAME, GENDER, AGE, ICON_NAME) VALUES (?, ?, ?, ?, ?, ?, ?)";
             ResultSet result = databaseDAO.runParametisedQuery(query, username, password, firstname, lastname, gender, age, icon);

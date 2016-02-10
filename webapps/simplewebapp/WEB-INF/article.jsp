@@ -27,7 +27,7 @@
         <div class="articleText"><p>${article.body}</p></div>
     </div>
 
-    <div class="col-xs-12">
+    <div class="col-xs-12" id="editArticle">
         <form class="form-select-button pull-right">
             <input type="hidden" name="page" value="editArticle"/>
             <input type="hidden" name="articleID" value="${article.articleId}"/>
