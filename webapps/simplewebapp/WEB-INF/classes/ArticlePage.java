@@ -56,11 +56,19 @@ public class ArticlePage extends Page {
 
         // If the user's logged in, load the comment box
         User user = (User) request.getAttribute("user");
-        if (user != null && request.getParameter("commentBox") != null) {
+        String comment = request.getParameter("commentBox");
+
+        if (user != null && comment != null && !comment.equals("")) {
             String newComment = request.getParameter("commentBox");
             CommentDAO.getInstance().addNewComment(newComment, article.getArticleId(), user.getUserId());
             response.sendRedirect(request.getContextPath() + "?page=article&article=" + article.getArticleId());
             return;
+        } else if (user == null) {
+            printError(request, "You must be logged in to post a comment");
+        } else if (comment == null || comment.equals("")) {
+            printError(request, "Comment can not be blank");
+        } else if (comment.length() > 200) {
+            printError(request, "Comment must not be longer than 200 characters");
         }
 
         navigate("/WEB-INF/article.jsp", request, response);
@@ -78,27 +86,28 @@ public class ArticlePage extends Page {
             List<FileItem> files = new ArrayList<>();
 
             String newTitle = "";
-            String articleText = "";
+            String newBody = "";
             String embeddedContent = "";
 
             while (i.hasNext()) {
                 FileItem file = (FileItem) i.next();
                 if (!file.isFormField() && file.getName() != null && !file.getName().equals("")) {
                     files.add(file);
-                }else if (file.getFieldName().equals("articleTitle")) {
-                    newTitle = file.getString();
-                }else if (file.getFieldName().equals("articleText")) {
-                    articleText = file.getString();
-                }else if (file.getFieldName().equals("embeddedContent")){
-                    if(file.getString().contains("youtube") || file.getString().contains("mp3")) {
-                        embeddedContent = file.getString();
+                } else {
+                    switch (file.getFieldName()) {
+                        case "articleTitle": newTitle = file.getString(); break;
+                        case "articleText": newBody = file.getString(); break;
+                        case "embeddedContent": embeddedContent = file.getString(); break;
                     }
                 }
             }
 
             int articleId = 0;
-            if (!articleText.equals("") && !newTitle.equals("")) {
-                articleId = ArticleDAO.getInstance().addNewArticleWithId(user.getUserId(), newTitle, articleText, embeddedContent);
+            if (!newTitle.equals("") && !newBody.equals("")) {
+                articleId = ArticleDAO.getInstance().addNewArticleWithId(user.getUserId(), newTitle, newBody, embeddedContent);
+            } else if (checkArticleContents(request, newTitle, newBody)) {
+                navigate("/WEB-INF/addArticle.jsp", request, response);
+                return;
             }
 
             if (articleId > 0) {
@@ -108,7 +117,7 @@ public class ArticlePage extends Page {
                 }
             }
 
-            if (!articleText.equals("") && !newTitle.equals("")) {
+            if (!newTitle.equals("") && !newBody.equals("")) {
                 response.sendRedirect(request.getContextPath());
                 return;
             }
@@ -132,6 +141,11 @@ public class ArticlePage extends Page {
 
         // Update the article if there are changes
         if (!article.getTitle().equals(articleTitle) || !article.getBody().equals(articleBody)) {
+            if (checkArticleContents(request, newTitle, newBody)) {
+                navigate("/WEB-INF/editArticle.jsp", request, response);
+                return;
+            }
+
             article.setTitle(newTitle);
             article.setBody(newBody);
 
@@ -151,6 +165,17 @@ public class ArticlePage extends Page {
         request.setAttribute("article", article);
 
         navigate("/WEB-INF/editArticle.jsp", request, response);
+    }
+
+    private static boolean checkArticleContents(HttpServletRequest request, String newTitle, String newBody) {
+        if (newTitle.length() > 250) {
+            printError(request, "Title must not be longer than 250 characters");
+        } if (newTitle.equals("")) {
+            printError(request, "Article must have a title."); return true;
+        } else if (newBody.equals("")) {
+            printError(request, "Article must have some content."); return true;
+        }
+        return false;
     }
 
     protected static String saveFile(FileItem fi) {

@@ -85,6 +85,8 @@
         </blockquote>
     </c:forEach>
 
+    <%@ include file="include/alerts.jsp"%>
+
     <c:if test="${(not empty user)}">
         <div class="col-xs-12">
             <form class="form-horizontal">

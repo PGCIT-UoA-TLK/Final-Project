@@ -11,10 +11,16 @@ public class CommentPage extends Page {
         int articleID = Integer.parseInt(request.getParameter("article"));
         int commentID = Integer.parseInt(request.getParameter("commentID"));
 
+        String body = request.getParameter("commentBox");
+
         Comment comment = CommentDAO.getInstance().getComment(commentID);
 
-        if (request.getParameter("edited") != null && request.getParameter("delete") == null) {
-            comment.setBody(request.getParameter("commentBox"));
+        if (body.length() > 200) {
+            printError(request, "Comment may not be longer than 200 characters.");
+        }
+
+        if (!body.equals("") && request.getParameter("edited") != null && request.getParameter("delete") == null) {
+            comment.setBody(body);
             CommentDAO.getInstance().updateComment(comment);
             response.sendRedirect(request.getContextPath() + "?page=article&article=" + articleID);
             return;
