@@ -18,37 +18,33 @@ public class UserPage extends Page {
         String selection = request.getParameter("optionsRadios");
         String gender = request.getParameter("input-gender");
 
-        Boolean allowed = true;
+        if (request.getParameterMap().size() > 1) {
+            Boolean allowed = checkRequiredUserParameters(request, username, password, firstname, lastname);
 
-        List<User> allUsers = UserDAO.getInstance().getAll();
+            if (allowed) {
+                UserDAO userDAO = UserDAO.getInstance();
 
-        for (User u : allUsers) {
-            // username = username.trim();
-            if (username != null && u.getUsername() != null && username.equals(u.getUsername())) {
-                request.setAttribute("errorMessage", "That username is taken.");
-                allowed = false;
-                break;
-            }
-        }
+                int icon;
+                switch (selection) {
+                    case "option1":
+                        icon = 1;
+                        break;
+                    case "option2":
+                        icon = 2;
+                        break;
+                    default:
+                        icon = 0;
+                        break;
+                }
 
-        if (allowed && username != null && !username.equals("") && password != null && !password.equals("") &&
-                firstname != null && !firstname.equals("") && lastname != null && !lastname.equals("")) {
-            UserDAO userDAO = UserDAO.getInstance();
+                User newUser = userDAO.addUser(username, password, firstname, lastname, gender, icon);
 
-            int icon;
-            switch (selection) {
-                case "option1": icon = 1; break;
-                case "option2": icon = 2; break;
-                default: icon = 0; break;
-            }
+                if (newUser != null) {
+                    request.getSession().setAttribute("user", newUser);
 
-            User newUser = userDAO.addUser(username, password, firstname, lastname, gender, icon);
-
-            if (newUser != null) {
-                request.getSession().setAttribute("user", newUser);
-
-                response.sendRedirect(request.getContextPath());
-                return;
+                    response.sendRedirect(request.getContextPath() + "?registerSuccess");
+                    return;
+                }
             }
         }
 
@@ -68,7 +64,7 @@ public class UserPage extends Page {
             if (thisUser != null) {
                 request.getSession().setAttribute("user", thisUser);
 
-                response.sendRedirect(request.getContextPath() + "?loginSuccess=1");
+                response.sendRedirect(request.getContextPath() + "?loginSuccess");
                 return;
             } else {
                 request.setAttribute("errorMessage", "Incorrect Username or Password");
@@ -86,21 +82,23 @@ public class UserPage extends Page {
             return;
         }
 
-        boolean edited = false;
-
         String firstname = request.getParameter("firstname");
+        String lastname = request.getParameter("lastname");
+
+        boolean edited = false;
         if (firstname != null && !firstname.equals("")) {
-            user.setFirstname(firstname); edited = true;
+            user.setFirstname(firstname);
+            edited = true;
         }
 
-        String lastname = request.getParameter("lastname");
         if (lastname != null && !lastname.equals("")) {
-            user.setLastname(lastname); edited = true;
+            user.setLastname(lastname);
+            edited = true;
         }
 
         if (request.getParameter("delete") != null && !request.getParameter("delete").equals("")) {
             UserDAO.getInstance().deleteUser(user);
-            response.sendRedirect(request.getContextPath() + "?logout=1");
+            response.sendRedirect(request.getContextPath() + "?deleteSuccess");
             return;
         }
 
@@ -121,12 +119,40 @@ public class UserPage extends Page {
 
         if (request.getParameter("success") != null) {
             request.setAttribute("successMessage", "Account Details Saved!");
-        } else if (request.getParameter("failure") != null) {
+        } else if (request.getParameter("failure") != null && request.getAttribute("errorMessage") != null) {
             request.setAttribute("errorMessage", "Something went wrong! Please try again");
         }
 
         request.setAttribute("user", user);
 
         navigate("/WEB-INF/editUser.jsp", request, response);
+    }
+
+    private static Boolean checkRequiredUserParameters(HttpServletRequest request, String username, String password, String firstname, String lastname) {
+        List<User> allUsers = UserDAO.getInstance().getAll();
+
+        for (User u : allUsers) {
+            if (username != null && u.getUsername() != null && username.equals(u.getUsername())) {
+                request.setAttribute("errorMessage", "That username is taken.");
+                return false;
+            }
+        }
+
+        if (username == null || username.equals("")) {
+            request.setAttribute("errorMessage", "Username is required.");
+            return false;
+        }
+
+        if (password == null || password.equals("")) {
+            request.setAttribute("errorMessage", "Password is required.");
+            return false;
+        }
+
+        if (firstname == null || firstname.equals("") || lastname == null || lastname.equals("")) {
+            request.setAttribute("errorMessage", "Firstname and Lastname are required.");
+            return false;
+        }
+
+        return true;
     }
 }
