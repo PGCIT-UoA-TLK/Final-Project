@@ -73,3 +73,6 @@ derby.log
 
 # Compiled files
 **/simpleWebApp.jar
+
+# Screw you windows
+Thumbs.db
