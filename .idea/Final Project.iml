@@ -31,5 +31,7 @@
         <jarDirectory url="file://$MODULE_DIR$/webapps/simplewebapp/WEB-INF/lib" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="api" level="application" />
   </component>
 </module>

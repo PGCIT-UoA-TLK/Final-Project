@@ -109,6 +109,7 @@ public class UserPage extends Page {
         User user = (User) request.getSession().getAttribute("user");
 
         if (user == null) {
+            printError(request, "You must be logged in to do this.");
             response.sendRedirect(request.getContextPath());
             return;
         }
