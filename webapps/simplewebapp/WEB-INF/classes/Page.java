@@ -39,4 +39,12 @@ public class Page {
         RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(address);
         dispatcher.forward(request, response);
     }
+
+    protected static void printSuccess(HttpServletRequest request, String s) {
+        request.setAttribute("successMessage", s);
+    }
+
+    protected static void printError(HttpServletRequest request, String s) {
+        request.setAttribute("errorMessage", s);
+    }
 }

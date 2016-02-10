@@ -40,7 +40,7 @@ public class UserPage extends Page {
             for (User u : allUsers) {
                 // username = username.trim();
                 if (username != null && u.getUsername() != null && username.equals(u.getUsername()) && verify(userResponse)) {
-                    request.setAttribute("errorMessage", "That username is taken.");
+                    printError(request, "That username is taken.");
                     allowed = false;
                     break;
                 }
@@ -98,7 +98,7 @@ public class UserPage extends Page {
                 response.sendRedirect(request.getContextPath() + "?loginSuccess");
                 return;
             } else {
-                request.setAttribute("errorMessage", "Incorrect Username or Password");
+                printError(request, "Incorrect Username or Password.");
             }
         }
 
@@ -149,9 +149,9 @@ public class UserPage extends Page {
         }
 
         if (request.getParameter("success") != null) {
-            request.setAttribute("successMessage", "Account Details Saved!");
+            printSuccess(request, "Account Details Saved!");
         } else if (request.getParameter("failure") != null && request.getAttribute("errorMessage") != null) {
-            request.setAttribute("errorMessage", "Something went wrong! Please try again");
+            printError(request, "Something went wrong! Please try again.");
         }
 
         request.setAttribute("user", user);
@@ -164,23 +164,23 @@ public class UserPage extends Page {
 
         for (User u : allUsers) {
             if (username != null && u.getUsername() != null && username.equals(u.getUsername())) {
-                request.setAttribute("errorMessage", "That username is taken.");
+                printError(request, "That username is taken.");
                 return false;
             }
         }
 
         if (username == null || username.equals("")) {
-            request.setAttribute("errorMessage", "Username is required.");
+            printError(request, "Username is required.");
             return false;
         }
 
         if (password == null || password.equals("")) {
-            request.setAttribute("errorMessage", "Password is required.");
+            printError(request, "Password is required.");
             return false;
         }
 
         if (firstname == null || firstname.equals("") || lastname == null || lastname.equals("")) {
-            request.setAttribute("errorMessage", "Firstname and Lastname are required.");
+            printError(request, "Firstname and Lastname are required.");
             return false;
         }
 
