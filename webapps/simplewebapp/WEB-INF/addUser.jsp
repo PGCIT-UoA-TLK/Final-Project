@@ -1,13 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
-
 <html>
 <head>
     <title>User Registration</title>
 
     <%@ include file="include/specialIncludeFiles.jsp" %>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
 </head>
 <body>
 
@@ -15,7 +14,7 @@
 
 <div class="container">
     <div class="col-xs-12">
-        <form class="form-horizontal">
+        <form class="form-horizontal" method="post">
             <fieldset>
                 <legend>User Registration</legend>
 
@@ -48,31 +47,52 @@
                     </div>
                 </div>
 
-                <div>
-                    <label><input type="radio" name="input-gender" value="Male" checked>Male</label>
-                    <label><input type="radio" name="input-gender" value="Female">Female</label>
-                </div>
+
+
+                <div >
+                    <label class="col-sm-2 control-label" >Gender</label>
+                    <label class="col-sm-offset-1"><input type="radio" name="input-gender" value="Male" checked>Male</label>
+                    <label class="col-sm-offset-1"><input type="radio" name="input-gender" value="Female">Female</label>
+                </div><br/>
+                <label for="input-icon_name" class="col-sm-2 control-label">Choose a user icon</label> <br/>
                 <div class="radio">
-                    <label for="input-icon_name" class="col-sm-2 control-label">Choose a user icon</label> <br/>
                 </div>
                 <div class="radio" id="input-icon_name">
                     <label>
                         <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                        <img src="/images/IMG1.jpg" alt="Donald icon" class="img-thumbnail" width=89 height=89>
+                        <img src="/Images/IMG1.jpg" alt="Donald icon" class="img-thumbnail" width=89 height=89>
                     </label>
                 </div>
                 <div class="radio">
                     <label>
                         <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                        <img src="/images/IMG2.jpg" alt="Fresco icon" class="img-thumbnail" width=89 height=119>
+                        <img src="/Images/IMG2.jpg" alt="Fresco icon" class="img-thumbnail" width=89 height=89>
                     </label>
                 </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+                        <img src="/Images/IMG3.jpg" alt="Mupeet icon" class="img-thumbnail" width=89 height=89>
+                    </label>
+                </div>
+
+
+
+                        <div class="g-recaptcha" data-sitekey="6Lfl2xcTAAAAAKC4PYbk_0AVGlMFaCFl8hP7getE"></div>
+                        <br/>
+
+
+
 
                 <input type="hidden" name="page" value="addUser">
                 <input type="submit" class="btn btn-default pull-right" value="Register">
             </fieldset>
+
         </form>
+
     </div>
 </div>
+
+
 </body>
 </html>

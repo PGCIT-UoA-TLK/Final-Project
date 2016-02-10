@@ -1,10 +1,6 @@
 <%--@elvariable id="user" type="simplewebapp.User"--%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
-
 <html>
 <head>
     <title>Account Information</title>
@@ -46,6 +42,31 @@
                     <div class="col-sm-10">
                         <input type="text" id="input-lastname" name="lastname" class="form-control" value="${user.lastname}"><br/>
                     </div>
+                </div>
+
+                <div class = "form-group">
+                    <label for="input-gender" class="col-sm-2 control-label">Gender</label>
+                    <div class ="col-sm-10">
+                        <input type="text" id="input-gender" name=gender" class="form-control" value="${user.gender}"><br/>
+                    </div>
+                    <%--<div>--%>
+                        <%--<label><input type="radio" name="input-gender" value="Male" id="male">Male</label>--%>
+                        <%--<label><input type="radio" name="input-gender" value="Female">Female</label>--%>
+                    <%--</div>--%>
+                    <%--<script>--%>
+                        <%--if("${user.gender}"=="Male"){--%>
+                            <%--document.getElementById('male').checked = true;--%>
+                        <%--}else{--%>
+                            <%--document.getElementById("female").checked = true;--%>
+                        <%--}--%>
+                    <%--</script>--%>
+                    </div>
+
+
+
+
+
+
                 </div>
                 <input type="hidden" name="page" value="editUser">
                 <input type="submit" class="btn btn-default pull-right" value="Change details">
