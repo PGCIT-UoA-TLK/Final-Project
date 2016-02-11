@@ -12,16 +12,6 @@ public class DatabaseDAO {
 
     private static DatabaseDAO instance = null;
 
-    protected ResultSet doQuery(String query) {
-        try {
-            Statement sqlStatement = connection.createStatement();
-            return sqlStatement.executeQuery(query);
-        } catch (SQLException e) {
-            System.out.println("DatabaseDAO.doQuery: " + e.getMessage());
-        }
-        return null;
-    }
-
     protected ResultSet runParametisedQuery(String query, Object... arguments) throws Exception {
         try {
             PreparedStatement sqlStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -57,6 +47,8 @@ public class DatabaseDAO {
                 sqlStatement.setInt(count, (int) argument);
             } else if (argument.getClass().equals(String.class)) {
                 sqlStatement.setString(count, (String) argument);
+            } else if (argument.getClass().equals(byte[].class)) {
+                sqlStatement.setBytes(count, (byte[]) argument);
             } else {
                 throw new Exception("Incorrect paramter type!");
             }

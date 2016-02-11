@@ -6,7 +6,8 @@ import java.io.Serializable;
 public class User implements Serializable {
     private int userId;
     private String username;
-    private String password;
+    private byte[] password;
+    private String salt;
     private String firstname;
     private String lastname;
     private String age;
@@ -18,10 +19,11 @@ public class User implements Serializable {
         this.active = false;
     }
 
-    public User(int userId, String username, String password, String firstname, String lastname, String age, String gender, int icon) {
+    public User(int userId, String username, byte[] password, String salt, String firstname, String lastname, String age, String gender, int icon) {
         this.userId = userId;
         this.username = username;
         this.password = password;
+        this.salt = salt;
         this.firstname = firstname;
         this.lastname = lastname;
         this.age = age;
@@ -46,12 +48,20 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public String getPassword() {
+    public byte[] getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(byte[] password) {
         this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public String getFirstname() {
@@ -70,10 +80,13 @@ public class User implements Serializable {
         this.lastname = lastname;
     }
 
-   public void setAge(String age){ this.age = age; }
+    public String getAge() {
+        return age;
+    }
 
-    public String getAge(){return age;}
-
+    public void setAge(String age) {
+        this.age = age;
+    }
 
     public String getGender() {
         return gender;

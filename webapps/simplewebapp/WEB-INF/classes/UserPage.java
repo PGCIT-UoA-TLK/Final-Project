@@ -1,3 +1,6 @@
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -13,7 +16,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.math.BigInteger;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,7 +97,10 @@ public class UserPage extends Page {
                         break;
                 }
 
-                User newUser = userDAO.addUser(username, password, firstname, lastname, gender, age, icon);
+                String salt = new BigInteger(130, new SecureRandom()).toString(32);
+                byte[] hashedPassword = hashPassword(password.toCharArray(), salt.getBytes());
+
+                User newUser = userDAO.addUser(username, hashedPassword, salt, firstname, lastname, gender, age, icon);
 
                 if (newUser != null) {
                     request.getSession().setAttribute("user", newUser);
@@ -116,9 +127,14 @@ public class UserPage extends Page {
         if (username != null && password != null) {
             UserDAO userDAO = UserDAO.getInstance();
 
-            User thisUser = userDAO.loginUser(username, password);
+            User thisUser = userDAO.getUserByUsername(username);
 
+            byte[] hashedPassword = new byte[0];
             if (thisUser != null) {
+                hashedPassword = hashPassword(password.toCharArray(), thisUser.getSalt().getBytes());
+            }
+
+            if (thisUser != null && Arrays.equals(thisUser.getPassword(), hashedPassword)) {
                 request.getSession().setAttribute("user", thisUser);
 
                 response.sendRedirect(request.getContextPath() + "?loginSuccess");
@@ -215,7 +231,7 @@ public class UserPage extends Page {
             return false;
         }
 
-        if (age == null || age.isEmpty() || AGES.get(age) != null) {
+        if (age == null || age.isEmpty() || AGES.get(age) == null || AGES.get(age).isEmpty()) {
             printError(request, "Please select an age.");
             return false;
         }
@@ -225,14 +241,13 @@ public class UserPage extends Page {
             return false;
         }
 
-        if (gender == null || gender.isEmpty() || GENDERS.get(gender) != null) {
+        if (gender == null || gender.isEmpty() || GENDERS.get(gender) == null || GENDERS.get(gender).isEmpty()) {
             printError(request, "Please select a gender.");
             return false;
         }
 
         return true;
     }
-
 
     public static boolean verify(String gRecaptchaResponse) throws IOException {
         if (gRecaptchaResponse == null || "".equals(gRecaptchaResponse)) {
@@ -283,6 +298,21 @@ public class UserPage extends Page {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    private final static int PASSWORD_ITERATIONS = 10;
+    private final static int KEY_LENGTH = 256;
+
+    public static byte[] hashPassword(final char[] password, final byte[] salt) {
+        try {
+            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+            PBEKeySpec spec = new PBEKeySpec(password, salt, PASSWORD_ITERATIONS, KEY_LENGTH);
+            SecretKey key = skf.generateSecret(spec);
+            return key.getEncoded();
+
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            throw new RuntimeException(e);
         }
     }
 }

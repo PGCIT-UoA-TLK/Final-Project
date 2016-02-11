@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("UnnecessaryLocalVariable")
 public class UserDAO {
     private static UserDAO instance;
     private static DatabaseDAO databaseDAO;
@@ -22,12 +23,24 @@ public class UserDAO {
     public User getUser(int id) {
         try {
             String query = "" +
-                    "SELECT user_id, username, password, firstname, lastname, age, gender, icon_name " +
+                    "SELECT user_id, username, password, passwordSalt, firstname, lastname, age, gender, icon_name " +
                     "FROM users WHERE user_id = ? AND active = true";
             ResultSet result = databaseDAO.getParametisedQuery(query, id);
             result.next();
 
-            return new User(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6), result.getString(7), result.getInt(8));
+
+            // Converting the results into a Article object
+            String username = result.getString("username");
+            byte[] password = result.getBytes("password");
+            String passwordSalt = result.getString("passwordSalt");
+            String firstname = result.getString("firstname");
+            String lastname = result.getString("lastname");
+            String age = result.getString("age");
+            String gender = result.getString("gender");
+            int icon = result.getInt("icon_name");
+
+            User user = new User(id, username, password, passwordSalt, firstname, lastname, gender, age, icon);
+            return user;
         } catch (Exception ignored) {
         }
 
@@ -37,12 +50,23 @@ public class UserDAO {
     public User getUserByUsername(String username) {
         try {
             String query = "" +
-                    "SELECT user_id, username, password, firstname, lastname, age, gender, icon_name " +
+                    "SELECT * " +
                     "FROM users WHERE username = ? AND active = true";
             ResultSet result = databaseDAO.getParametisedQuery(query, username);
             result.next();
 
-            return new User(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6), result.getString(7), result.getInt(8));
+            // Converting the results into a Article object
+            int id = result.getInt("user_id");
+            byte[] password = result.getBytes("password");
+            String passwordSalt = result.getString("passwordSalt");
+            String firstname = result.getString("firstname");
+            String lastname = result.getString("lastname");
+            String age = result.getString("age");
+            String gender = result.getString("gender");
+            int icon = result.getInt("icon_name");
+
+            User user = new User(id, username, password, passwordSalt, firstname, lastname, gender, age, icon);
+            return user;
         } catch (Exception ignored) {
         }
 
@@ -62,15 +86,18 @@ public class UserDAO {
                 // Converting the results into a Article object
                 int id = result.getInt("user_id");
                 String username = result.getString("username");
-                String password = result.getString("password");
+                byte[] password = result.getBytes("password");
+                String passwordSalt = result.getString("passwordSalt");
                 String firstname = result.getString("firstname");
                 String lastname = result.getString("lastname");
                 String age = result.getString("age");
                 String gender = result.getString("gender");
                 int icon = result.getInt("icon_name");
 
+                User user = new User(id, username, password, passwordSalt, firstname, lastname, gender, age, icon);
+
                 // Adding the post object to the list
-                users.add(new User(id, username, password, firstname, lastname, gender, age, icon));
+                users.add(user);
             }
         } catch (Exception e) {
             System.out.println("UserDAO.getAll: " + e.getMessage());
@@ -80,26 +107,10 @@ public class UserDAO {
         return users;
     }
 
-    public User loginUser(String username, String password) {
+    public User addUser(String username, byte[] password, String passwordSalt, String firstname, String lastname, String gender, String age, int icon) {
         try {
-            String query = "" +
-                    "SELECT user_id, username, password, firstname, lastname, age, gender, icon_name " +
-                    "FROM users WHERE username = ? AND password = ? AND active = true";
-            ResultSet result = databaseDAO.getParametisedQuery(query, username, password);
-            result.next();
-
-            return new User(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6), result.getString(7), result.getInt(8));
-        } catch (Exception e) {
-            System.out.println("UserDAO.loginUser: Could not log user in");
-        }
-
-        return null;
-    }
-
-    public User addUser(String username, String password, String firstname, String lastname, String gender, String age, int icon) {
-        try {
-            String query = "INSERT INTO users (USERNAME, PASSWORD, FIRSTNAME, LASTNAME, GENDER, AGE, ICON_NAME) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            ResultSet result = databaseDAO.runParametisedQuery(query, username, password, firstname, lastname, gender, age, icon);
+            String query = "INSERT INTO users (USERNAME, PASSWORD, PASSWORDSALT, FIRSTNAME, LASTNAME, GENDER, AGE, ICON_NAME) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            ResultSet result = databaseDAO.runParametisedQuery(query, username, password, passwordSalt, firstname, lastname, gender, age, icon);
 
             User user;
             if (result == null) {
@@ -113,6 +124,7 @@ public class UserDAO {
             return user;
         } catch (Exception e) {
             System.out.println("UserDAO.addUser: " + e.getMessage());
+            e.printStackTrace();
         }
 
         return null;
