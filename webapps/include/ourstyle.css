@@ -34,3 +34,7 @@ div.recaptcha{
 img.user-image {
     width: 89px;
 }
+
+img.thumbnail-logo {
+    height: 50px;
+}
