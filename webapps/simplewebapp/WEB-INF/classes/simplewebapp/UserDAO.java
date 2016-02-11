@@ -122,7 +122,7 @@ public class UserDAO {
     }
 
     public boolean deleteUser(User user) {
-        String query = "UPDATE users SET active = true WHERE user_id = ?";
+        String query = "UPDATE users SET active = false WHERE user_id = ?";
         System.err.println("Deleting User: " + user.getUserId());
         try {
             databaseDAO.runParametisedQuery(query, user.getUserId());

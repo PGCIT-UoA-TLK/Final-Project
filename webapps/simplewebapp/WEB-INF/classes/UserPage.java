@@ -1,23 +1,20 @@
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import simplewebapp.User;
 import simplewebapp.UserDAO;
 
-import java.io.*;
-//import javax.json.Json;
-//import javax.json.JsonObject;
-//import javax.json.JsonReader;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.net.URL;
-import javax.net.ssl.HttpsURLConnection;
-
 import java.util.List;
-
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
-
 
 public class UserPage extends Page {
     public static final String url = "https://www.google.com/recaptcha/api/siteverify";
@@ -143,6 +140,7 @@ public class UserPage extends Page {
 
         if (request.getParameter("delete") != null && !request.getParameter("delete").equals("")) {
             UserDAO.getInstance().deleteUser(user);
+            request.getSession().setAttribute("user", null);
             response.sendRedirect(request.getContextPath() + "?deleteSuccess");
             return;
         }
@@ -200,8 +198,6 @@ public class UserPage extends Page {
 
         return true;
     }
-
-
 
 
     public static boolean verify(String gRecaptchaResponse) throws IOException {

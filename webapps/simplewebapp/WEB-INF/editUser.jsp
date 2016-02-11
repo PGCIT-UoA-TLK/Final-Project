@@ -47,8 +47,7 @@
                 </div>
 
                 <div>
-                    <label for="age">Select your age group</label>
-                    </br>
+                    <label for="age">Select your age group </br></label>
                     <select id="age" name="chooseage" multiple>
                         <option value="0-15">0-15</option>
                         <option value="16-25">16-25</option>
@@ -61,24 +60,11 @@
                     </select>
                 </div>
 
-                <div class = "form-group">
+                <div class="form-group">
                     <label for="input-gender" class="col-sm-2 control-label">Gender</label>
-                    <div class ="col-sm-10">
+                    <div class="col-sm-10">
                         <input type="text" id="input-gender" name=gender" class="form-control" value="${user.gender}"><br/>
                     </div>
-                    <%--<div>--%>
-                        <%--<label><input type="radio" name="input-gender" value="Male" id="male">Male</label>--%>
-                        <%--<label><input type="radio" name="input-gender" value="Female">Female</label>--%>
-                    <%--</div>--%>
-                    <%--<script>--%>
-                        <%--if("${user.gender}"=="Male"){--%>
-                            <%--document.getElementById('male').checked = true;--%>
-                        <%--}else{--%>
-                            <%--document.getElementById("female").checked = true;--%>
-                        <%--}--%>
-                    <%--</script>--%>
-                    </div>
-
                 </div>
                 <input type="hidden" name="page" value="editUser">
                 <input type="submit" class="btn btn-default pull-right" value="Change details">
