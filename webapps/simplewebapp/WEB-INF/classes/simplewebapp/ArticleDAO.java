@@ -1,5 +1,6 @@
 package simplewebapp;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +35,12 @@ public class ArticleDAO {
                 // Converting the results into a Article object
                 int id = result.getInt("article_id");
                 int userID = result.getInt("user_id");
+                Date date = result.getDate("date");
                 String title = result.getString("title");
                 String body = result.getString("body");
                 String embeddedContent = result.getString("embeddedContent");
 
-                Article article = new Article(id, userID, title, body, embeddedContent);
+                Article article = new Article(id, userID, date, title, body, embeddedContent);
                 addArticleExtras(article);
 
                 // Adding the post object to the list
@@ -60,11 +62,12 @@ public class ArticleDAO {
 
             int id = result.getInt("article_id");
             int userID = result.getInt("user_id");
+            Date date = result.getDate("date");
             String title = result.getString("title");
             String body = result.getString("body");
             String embeddedContent = result.getString("embeddedContent");
 
-            Article article = new Article(id, userID, title, body, embeddedContent);
+            Article article = new Article(id, userID, date, title, body, embeddedContent);
             addArticleExtras(article);
 
             // Adding the post object to the list
@@ -77,11 +80,11 @@ public class ArticleDAO {
     }
 
 
-    public int addNewArticleWithId(int userId, String newTitle, String newText, String embeddedContent){
+    public int addNewArticleWithId(int userId, Date date, String newTitle, String newText, String embeddedContent){
         // KL - Crating the add new article query and calling the updateQuery method
-        String query = "INSERT INTO article (user_id, title, body, embeddedContent) VALUES (?,?,?,?)";
+        String query = "INSERT INTO article (user_id, date, title, body, embeddedContent) VALUES (?,?,?,?,?)";
         try {
-            ResultSet resultSet = databaseDAO.runParametisedQuery(query, userId, newTitle, newText, embeddedContent);
+            ResultSet resultSet = databaseDAO.runParametisedQuery(query, userId, date, newTitle, newText, embeddedContent);
 
             if (resultSet.next()) {
                 return resultSet.getInt(1);
@@ -121,6 +124,7 @@ public class ArticleDAO {
     }
 
     private static void addArticleExtras(Article article) {
+        article.setUser(UserDAO.getInstance().getUser(article.getUserId()));
         article.setComments(CommentDAO.getInstance().getCommentsByArticleID(article.getArticleId()));
     }
 }

@@ -14,6 +14,7 @@ CREATE TABLE users (
 CREATE TABLE article (
   article_id      INTEGER      NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY ( START WITH 1, INCREMENT BY 1),
   user_id         INTEGER,
+  date            DATE,
   title           VARCHAR(250) NOT NULL             DEFAULT '',
   body            LONG VARCHAR NOT NULL             DEFAULT '',
   embeddedContent LONG VARCHAR,

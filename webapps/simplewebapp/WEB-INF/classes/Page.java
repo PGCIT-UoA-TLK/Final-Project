@@ -23,7 +23,7 @@ public class Page {
             String body = article.getBody();
 
             if (body.length() > 100) {
-                body = body.substring(0, 100) + body.substring(100).replaceAll("\\s.*?$", "") + " ...";
+                body = body.substring(0, 100) + " ...";
             }
 
             article.setBody(body);

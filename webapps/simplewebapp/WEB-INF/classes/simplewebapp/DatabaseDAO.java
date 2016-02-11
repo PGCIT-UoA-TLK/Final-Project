@@ -1,6 +1,7 @@
 package simplewebapp;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,8 +50,10 @@ public class DatabaseDAO {
                 sqlStatement.setString(count, (String) argument);
             } else if (argument.getClass().equals(byte[].class)) {
                 sqlStatement.setBytes(count, (byte[]) argument);
+            } else if (argument.getClass().equals(Date.class)) {
+                sqlStatement.setDate(count, (Date) argument);
             } else {
-                throw new Exception("Incorrect paramter type!");
+                throw new Exception("Unsupported paramter type!");
             }
         }
     }
