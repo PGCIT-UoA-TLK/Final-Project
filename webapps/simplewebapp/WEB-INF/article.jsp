@@ -63,7 +63,7 @@
         <blockquote>
             <p>${comment.body}</p>
 
-            <form id="articleCommentForm" class="form-horizontal pull-right">
+            <form id="articleCommentForm${comment.commentId}" class="form-horizontal pull-right">
                 <input type="hidden" name="article" value="${article.articleId}"/>
                 <input type="hidden" name="commentID" value="${comment.commentId}"/>
 
@@ -74,8 +74,8 @@
                     </c:when>
                     <c:when test="${(article.userId == user.userId)}">
                         <input type="hidden" name="page" value="article">
-                        <input type="hidden" name="delete"/>
-                        <input type="submit" class="btn btn-default" value="Delete Comment" onclick="confirmDelete('articleCommentForm')">
+                        <input type="hidden" id="delete" name="delete"/>
+                        <input type="submit" class="btn btn-default" value="Delete Comment" onclick="confirmDelete('articleCommentForm${comment.commentId}')">
                     </c:when>
                 </c:choose>
             </form>

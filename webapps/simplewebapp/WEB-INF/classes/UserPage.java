@@ -46,8 +46,8 @@ public class UserPage extends Page {
                 allowed = false;
             }
 
-            if (allowed && username != null && !username.equals("") && password != null && !password.equals("") &&
-                    firstname != null && !firstname.equals("") && lastname != null && !lastname.equals("")) {
+            if (allowed && username != null && !username.isEmpty() && password != null && !password.isEmpty() &&
+                    firstname != null && !firstname.isEmpty() && lastname != null && !lastname.isEmpty()) {
                 UserDAO userDAO = UserDAO.getInstance();
 
                 int icon;
@@ -117,17 +117,17 @@ public class UserPage extends Page {
         String lastname = request.getParameter("lastname");
 
         boolean edited = false;
-        if (firstname != null && !firstname.equals("")) {
+        if (firstname != null && !firstname.isEmpty()) {
             user.setFirstname(firstname);
             edited = true;
         }
 
-        if (lastname != null && !lastname.equals("")) {
+        if (lastname != null && !lastname.isEmpty()) {
             user.setLastname(lastname);
             edited = true;
         }
 
-        if (request.getParameter("delete") != null && !request.getParameter("delete").equals("")) {
+        if (request.getParameter("delete") != null && !request.getParameter("delete").isEmpty()) {
             UserDAO.getInstance().deleteUser(user);
             request.getSession().setAttribute("user", null);
             response.sendRedirect(request.getContextPath() + "?deleteSuccess");
@@ -170,17 +170,17 @@ public class UserPage extends Page {
             }
         }
 
-        if (username == null || username.equals("")) {
+        if (username == null || username.isEmpty()) {
             printError(request, "Username is required.");
             return false;
         }
 
-        if (password == null || password.equals("")) {
+        if (password == null || password.isEmpty()) {
             printError(request, "Password is required.");
             return false;
         }
 
-        if (firstname == null || firstname.equals("") || lastname == null || lastname.equals("")) {
+        if (firstname == null || firstname.isEmpty() || lastname == null || lastname.isEmpty()) {
             printError(request, "Firstname and Lastname are required.");
             return false;
         }

@@ -24,16 +24,19 @@ public class CommentPage extends Page {
 
         Comment comment = CommentDAO.getInstance().getComment(commentID);
 
-        if (body.length() > 200) {
+        boolean isDelete = (request.getParameter("delete") != null && !request.getParameter("delete").isEmpty());
+        boolean isEdited = (request.getParameter("edited") != null && !request.getParameter("edited").isEmpty());
+
+        if (isEdited && body.length() > 200) {
             printError(request, "Comment may not be longer than 200 characters.");
         }
 
-        if (!body.equals("") && request.getParameter("edited") != null && request.getParameter("delete") == null) {
+        if (isEdited && !isDelete && !body.isEmpty()) {
             comment.setBody(body);
             CommentDAO.getInstance().updateComment(comment);
             response.sendRedirect(request.getContextPath() + "?page=article&article=" + articleID);
             return;
-        } else if (request.getParameter("delete") != null && !request.getParameter("delete").equals("")) {
+        } else if (isDelete) {
             CommentDAO.getInstance().deleteComment(comment);
             response.sendRedirect(request.getContextPath() + "?page=article&article=" + articleID);
             return;

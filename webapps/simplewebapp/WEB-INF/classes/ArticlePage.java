@@ -39,7 +39,7 @@ public class ArticlePage extends Page {
         request.setAttribute("article", article);
 
         // Comment needs to be deleted
-        if (request.getParameter("delete") != null && !request.getParameter("delete").equals("")) {
+        if (request.getParameter("delete") != null && !request.getParameter("delete").isEmpty()) {
             Comment c = CommentDAO.getInstance().getComment(Integer.parseInt(request.getParameter("commentID")));
             CommentDAO.getInstance().deleteComment(c);
             response.sendRedirect(request.getContextPath() + "?page=article&article=" + article.getArticleId());
@@ -63,7 +63,7 @@ public class ArticlePage extends Page {
             if (user == null) {
                 printError(request, "You must be logged in to post a comment");
                 hasError = true;
-            } else if (comment == null || comment.equals("")) {
+            } else if (comment == null || comment.isEmpty()) {
                 printError(request, "Comment can not be blank");
                 hasError = true;
             } else if (comment.length() > 200) {
@@ -72,7 +72,7 @@ public class ArticlePage extends Page {
             }
         }
 
-        if (!hasError && user != null && comment != null && !comment.equals("")) {
+        if (!hasError && user != null && comment != null && !comment.isEmpty()) {
             String newComment = request.getParameter("commentBox");
             CommentDAO.getInstance().addNewComment(newComment, article.getArticleId(), user.getUserId());
             response.sendRedirect(request.getContextPath() + "?page=article&article=" + article.getArticleId());
@@ -106,7 +106,7 @@ public class ArticlePage extends Page {
 
             while (i.hasNext()) {
                 FileItem file = (FileItem) i.next();
-                if (!file.isFormField() && file.getName() != null && !file.getName().equals("")) {
+                if (!file.isFormField() && file.getName() != null && !file.getName().isEmpty()) {
                     files.add(file);
                 } else {
                     switch (file.getFieldName()) {
@@ -122,7 +122,7 @@ public class ArticlePage extends Page {
             }
 
             int articleId = 0;
-            if (!newTitle.equals("") && !newBody.equals("")) {
+            if (!newTitle.isEmpty() && !newBody.isEmpty()) {
                 articleId = ArticleDAO.getInstance().addNewArticleWithId(user.getUserId(), newTitle, newBody, embeddedContent);
             } else if (checkArticleContents(request, newTitle, newBody)) {
                 navigate("/WEB-INF/addArticle.jsp", request, response);
@@ -136,7 +136,7 @@ public class ArticlePage extends Page {
                 }
             }
 
-            if (!newTitle.equals("") && !newBody.equals("")) {
+            if (!newTitle.isEmpty() && !newBody.isEmpty()) {
                 response.sendRedirect(request.getContextPath());
                 return;
             }
@@ -183,7 +183,7 @@ public class ArticlePage extends Page {
         }
 
         // Delete the article
-        if (request.getParameter("delete") != null && !request.getParameter("delete").equals("")) {
+        if (request.getParameter("delete") != null && !request.getParameter("delete").isEmpty()) {
             ArticleDAO.getInstance().deleteArticle(article);
             response.sendRedirect(request.getContextPath());
             return;
@@ -197,9 +197,9 @@ public class ArticlePage extends Page {
     private static boolean checkArticleContents(HttpServletRequest request, String newTitle, String newBody) {
         if (newTitle.length() > 250) {
             printError(request, "Title must not be longer than 250 characters");
-        } if (newTitle.equals("")) {
+        } if (newTitle.isEmpty()) {
             printError(request, "Article must have a title."); return true;
-        } else if (newBody.equals("")) {
+        } else if (newBody.isEmpty()) {
             printError(request, "Article must have some content."); return true;
         }
         return false;
