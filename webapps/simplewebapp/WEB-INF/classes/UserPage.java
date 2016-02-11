@@ -13,13 +13,33 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserPage extends Page {
     public static final String url = "https://www.google.com/recaptcha/api/siteverify";
     public static final String secret = "6Lfl2xcTAAAAALB8ESkpLs5W3UvoI104QOdIBgT9";
     private final static String USER_AGENT = "Mozilla/5.0";
+
+    private static final List<String> AGES = new ArrayList<>();
+    static {
+        AGES.add("0-15");
+        AGES.add("16-25");
+        AGES.add("26-35");
+        AGES.add("36-45");
+        AGES.add("46-55");
+        AGES.add("56-65");
+        AGES.add("66-75");
+        AGES.add("75 and over");
+    }
+
+    private static final List<String> GENDER = new ArrayList<>();
+    static {
+        GENDER.add("Male");
+        GENDER.add("Female");
+    }
 
     public static void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
@@ -77,6 +97,10 @@ public class UserPage extends Page {
 
             }
         }
+
+        request.setAttribute("ages", AGES);
+        request.setAttribute("gender", GENDER);
+
         navigate("/WEB-INF/addUser.jsp", request, response);
 
     }
@@ -156,6 +180,9 @@ public class UserPage extends Page {
         }
 
         request.setAttribute("user", user);
+        request.setAttribute("ages", AGES);
+        request.setAttribute("gender", GENDER);
+
 
         navigate("/WEB-INF/editUser.jsp", request, response);
     }

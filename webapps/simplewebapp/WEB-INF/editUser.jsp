@@ -1,4 +1,7 @@
 <%--@elvariable id="user" type="simplewebapp.User"--%>
+<%--@elvariable id="ages" type="java.util.List<java.lang.String>"--%>
+<%--@elvariable id="gender" type="java.util.List<java.lang.String>"--%>
+
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -46,27 +49,42 @@
                     </div>
                 </div>
 
-                <div>
-                    <label for="age">Select your age group</label>
-                    <br />
-                    <select id="age" name="chooseage" multiple>
-                        <option value="0-15">0-15</option>
-                        <option value="16-25">16-25</option>
-                        <option value="26-35">26-35</option>
-                        <option value="36-45">36-45</option>
-                        <option value="46-55">46-55</option>
-                        <option value="56-65">56-65</option>
-                        <option value="66-75">66-75</option>
-                        <option value="75 and over">75 and over</option>
-                    </select>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" id="ageLabel" for="age">Select an Age Group</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="age" name="age">
+                            <c:forEach var="age" items="${ages}">
+                                <c:choose>
+                                    <c:when test="${age.equals(user.age)}">
+                                        <option value="${age}" selected>${age}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="${age}">${age}</option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="input-gender" class="col-sm-2 control-label">Gender</label>
+                    <label class="col-sm-2 control-label">Gender</label>
                     <div class="col-sm-10">
-                        <input type="text" id="input-gender" name=gender" class="form-control" value="${user.gender}"><br/>
+                        <c:forEach var="gender" items="${gender}">
+                            <div class="radio">
+                                <c:choose>
+                                    <c:when test="${gender.equals((user.gender))}">
+                                        <label><input type="radio" name="input-gender" value="${gender}" checked>${gender}</label>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <label><input type="radio" name="input-gender" value="${gender}" >${gender}</label>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </c:forEach>
                     </div>
                 </div>
+
                 <input type="hidden" name="page" value="editUser">
                 <input type="submit" class="btn btn-default pull-right" value="Change details">
                 <input type="button" class="btn btn-default pull-right" value="Delete account" onclick="confirmDelete('editUserForm')">

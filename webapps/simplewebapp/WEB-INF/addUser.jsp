@@ -1,3 +1,6 @@
+<%--@elvariable id="ages" type="java.util.List<java.lang.String>"--%>
+<%--@elvariable id="gender" type="java.util.List<java.lang.String>"--%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -51,32 +54,31 @@
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" id="ageLabel" for="age">Select an Age Group</label>
-                    <select class="col-sm-3" id="age" name="age">
-                        <option value="0-15">0-15</option>
-                        <option value="16-25">16-25</option>
-                        <option value="26-35">26-35</option>
-                        <option value="36-45">36-45</option>
-                        <option value="46-55">46-55</option>
-                        <option value="56-65">56-65</option>
-                        <option value="66-75">66-75</option>
-                        <option value="75 and over">75 and over</option>
-                    </select>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="age" name="age">
+                            <c:forEach var="age" items="${ages}">
+                                <option value="${age}">${age}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Gender</label>
-                    <div class="radio">
-                        <label class="col-sm-offset-1 col-sm-4"><input type="radio" name="input-gender" value="Male" checked>Male</label>
-                    </div>
-                    <div class="radio">
-                        <label class="col-sm-offset-3 col-sm-4"><input type="radio" name="input-gender" value="Female">Female</label>
+                    <div class="col-sm-10">
+                        <c:forEach var="gender" items="${gender}">
+                            <div class="radio">
+                                <label><input type="radio" name="input-gender" value="${gender}" >${gender}</label>
+                            </div>
+                        </c:forEach>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="input-icon_name" class="col-sm-2 control-label">Choose an icon</label>
                     <div class="radio col-sm-offset-1 col-sm-3" id="input-icon_name">
-                        <input title="Trump" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                        <input title="Trump" type="radio" name="optionsRadios" id="optionsRadios1" value="option1"
+                               checked>
                         <img src="/images/IMG1.jpg" alt="Donald icon" class="img-thumbnail" width=89 height=89>
                     </div>
                     <div class="radio col-sm-3">
@@ -90,10 +92,11 @@
                 </div>
                 <br/>
 
-                <div class="g-recaptcha" data-sitekey="6Lfl2xcTAAAAAKC4PYbk_0AVGlMFaCFl8hP7getE"></div>
-
-                <input type="hidden" name="page" value="addUser">
-                <input type="submit" class="btn btn-default pull-right" value="Register">
+                <div class="col-sm-6 g-recaptcha" data-sitekey="6Lfl2xcTAAAAAKC4PYbk_0AVGlMFaCFl8hP7getE"></div>
+                <div class="submit">
+                    <input type="hidden" name="page" value="addUser">
+                    <input type="submit" class="btn btn-default pull-right" value="Register">
+                </div>
             </fieldset>
 
         </form>

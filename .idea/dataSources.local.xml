@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="Derby (Remote) - blog@localhost" uuid="a8ebbb27-0c9b-4768-b08a-40a9f6e35b13">
+    <data-source name="Derby (Remote) - Blog@localhost" uuid="ec372859-6af4-45f6-ac8f-211718093cac">
       <secret-storage>master_key</secret-storage>
-      <schema-pattern>*</schema-pattern>
-      <default-schemas>*.APP</default-schemas>
     </data-source>
   </component>
 </project>
