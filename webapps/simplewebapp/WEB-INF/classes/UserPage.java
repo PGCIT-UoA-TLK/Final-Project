@@ -1,6 +1,3 @@
-import simplewebapp.User;
-import simplewebapp.UserDAO;
-
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -8,7 +5,14 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import simplewebapp.User;
+import simplewebapp.UserDAO;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.net.URL;
 import java.util.List;
 
@@ -29,33 +33,22 @@ public class UserPage extends Page {
         if (request.getParameterMap().size() > 1) {
             Boolean allowed = checkRequiredUserParameters(request, username, password, firstname, lastname);
 
-            List<User> allUsers = UserDAO.getInstance().getAll();
+            User temp = UserDAO.getInstance().getUserByUsername(username);
+            // No user found, username not taken
+            if (temp != null) {
+                printError(request, "That username is taken.");
+                allowed = false;
+            }
 
             String userResponse = request.getParameter("g-recaptcha-response");
-            System.out.print("respond : " + userResponse);
-            System.out.print(verify(userResponse));
-
-
-            for (User u : allUsers) {
-                // username = username.trim();
-                if (username != null && u.getUsername() != null && username.equals(u.getUsername()) && verify(userResponse)) {
-                    printError(request, "That username is taken.");
-                    allowed = false;
-                    break;
-                }
-
-                if (!verify(userResponse)) {
-                    request.setAttribute("errorMessage", "reCAPTCHA is invalid.");
-                    System.out.println("reCAPTCHA is invalid");
-                    allowed = false;
-                    break;
-                }
+            if (!verify(userResponse)) {
+                printError(request, "reCAPTCHA is invalid.");
+                allowed = false;
             }
 
             if (allowed && username != null && !username.equals("") && password != null && !password.equals("") &&
                     firstname != null && !firstname.equals("") && lastname != null && !lastname.equals("")) {
                 UserDAO userDAO = UserDAO.getInstance();
-
 
                 int icon;
                 switch (selection) {

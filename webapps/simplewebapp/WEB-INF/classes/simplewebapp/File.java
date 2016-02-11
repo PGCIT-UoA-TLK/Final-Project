@@ -1,9 +1,5 @@
 package simplewebapp;
 
-/**
- * Created by klev006 on 9/02/2016.
- */
-
 import java.io.Serializable;
 import java.sql.Blob;
 

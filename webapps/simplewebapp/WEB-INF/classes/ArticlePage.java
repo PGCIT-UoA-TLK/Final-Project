@@ -9,7 +9,7 @@ import simplewebapp.Article;
 import simplewebapp.ArticleDAO;
 import simplewebapp.Comment;
 import simplewebapp.CommentDAO;
-import simplewebapp.UploadedFileDAO;
+import simplewebapp.FileDAO;
 import simplewebapp.User;
 import simplewebapp.UserDAO;
 
@@ -46,7 +46,7 @@ public class ArticlePage extends Page {
             return;
         }
 
-        List<simplewebapp.File> files = UploadedFileDAO.getInstance().getByArticleID(article.getArticleId());
+        List<simplewebapp.File> files = FileDAO.getInstance().getByArticleID(article.getArticleId());
         List<Comment> comments = CommentDAO.getInstance().getCommentsByArticleID(article.getArticleId());
         List<User> users = UserDAO.getInstance().getAll();
 
@@ -128,7 +128,7 @@ public class ArticlePage extends Page {
             if (articleId > 0) {
                 for (FileItem file : files) {
                     String filePath = saveFile(file);
-                    UploadedFileDAO.getInstance().addNewFile(articleId, filePath);
+                    FileDAO.getInstance().addNewFile(articleId, filePath);
                 }
             }
 
