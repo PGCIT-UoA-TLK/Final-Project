@@ -28,8 +28,22 @@ public class UserDAO {
             result.next();
 
             return new User(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6), result.getString(7), result.getInt(8));
-        } catch (Exception e) {
-            System.out.println("UserDAO.getUser: " + e.getMessage());
+        } catch (Exception ignored) {
+        }
+
+        return null;
+    }
+
+    public User getUserByUsername(String username) {
+        try {
+            String query = "" +
+                    "SELECT user_id, username, password, firstname, lastname, age, gender, icon_name " +
+                    "FROM users WHERE username = ? AND active = true";
+            ResultSet result = databaseDAO.getParametisedQuery(query, username);
+            result.next();
+
+            return new User(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6), result.getString(7), result.getInt(8));
+        } catch (Exception ignored) {
         }
 
         return null;
@@ -69,15 +83,12 @@ public class UserDAO {
     public User loginUser(String username, String password) {
         try {
             String query = "" +
-                    "SELECT user_id, username, password, firstname, lastname, age, gender, icon_name" +
+                    "SELECT user_id, username, password, firstname, lastname, age, gender, icon_name " +
                     "FROM users WHERE username = ? AND password = ? AND active = true";
             ResultSet result = databaseDAO.getParametisedQuery(query, username, password);
             result.next();
 
-            return new User(
-                    result.getInt(1), result.getString(2), result.getString(3),
-                    result.getString(4), result.getString(5), result.getString(6),
-                    result.getString(7), result.getInt(8));
+            return new User(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6), result.getString(7), result.getInt(8));
         } catch (Exception e) {
             System.out.println("UserDAO.loginUser: Could not log user in");
         }
@@ -122,7 +133,7 @@ public class UserDAO {
     }
 
     public boolean deleteUser(User user) {
-        String query = "UPDATE users SET active = true WHERE user_id = ?";
+        String query = "UPDATE users SET active = false WHERE user_id = ?";
         System.err.println("Deleting User: " + user.getUserId());
         try {
             databaseDAO.runParametisedQuery(query, user.getUserId());

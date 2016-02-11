@@ -98,6 +98,7 @@
                     </div>
                     <input type="hidden" name="article" value="${article.articleId}">
                     <input type="hidden" name="page" value="article">
+                    <input type="hidden" name="newComment">
                     <input type="submit" class="btn btn-default pull-right" value="Submit">
                 </fieldset>
             </form>

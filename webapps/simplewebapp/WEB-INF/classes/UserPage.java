@@ -1,3 +1,6 @@
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,13 +12,13 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.net.URL;
 import java.util.List;
 
-
 public class UserPage extends Page {
     public static final String url = "https://www.google.com/recaptcha/api/siteverify";
-    public static final String secret = "6Lfl2xcTAAAAAKC4PYbk_0AVGlMFaCFl8hP7getE";
+    public static final String secret = "6Lfl2xcTAAAAALB8ESkpLs5W3UvoI104QOdIBgT9";
     private final static String USER_AGENT = "Mozilla/5.0";
 
     public static void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,26 +33,22 @@ public class UserPage extends Page {
         if (request.getParameterMap().size() > 1) {
             Boolean allowed = checkRequiredUserParameters(request, username, password, firstname, lastname);
 
-            List<User> allUsers = UserDAO.getInstance().getAll();
+            User temp = UserDAO.getInstance().getUserByUsername(username);
+            // No user found, username not taken
+            if (temp != null) {
+                printError(request, "That username is taken.");
+                allowed = false;
+            }
 
             String userResponse = request.getParameter("g-recaptcha-response");
-            System.out.print("respond : " + userResponse);
-            System.out.print(verify(userResponse));
-
-
-            for (User u : allUsers) {
-                // username = username.trim();
-                if (username != null && u.getUsername() != null && username.equals(u.getUsername()) && verify(userResponse)) {
-                    printError(request, "That username is taken.");
-                    allowed = false;
-                    break;
-                }
+            if (!verify(userResponse)) {
+                printError(request, "reCAPTCHA is invalid.");
+                allowed = false;
             }
 
             if (allowed && username != null && !username.equals("") && password != null && !password.equals("") &&
                     firstname != null && !firstname.equals("") && lastname != null && !lastname.equals("")) {
                 UserDAO userDAO = UserDAO.getInstance();
-
 
                 int icon;
                 switch (selection) {
@@ -130,6 +129,7 @@ public class UserPage extends Page {
 
         if (request.getParameter("delete") != null && !request.getParameter("delete").equals("")) {
             UserDAO.getInstance().deleteUser(user);
+            request.getSession().setAttribute("user", null);
             response.sendRedirect(request.getContextPath() + "?deleteSuccess");
             return;
         }
@@ -230,16 +230,14 @@ public class UserPage extends Page {
             System.out.println(response.toString());
 
             //parse JSON response and return 'success' value
-            //                JsonReader jsonReader = Json.createReader(new StringReader(response.toString()));
-            //                JsonObject jsonObject = jsonReader.readObject();
-            //                jsonReader.close();
+            JsonReader jsonReader = Json.createReader(new StringReader(response.toString()));
+            JsonObject jsonObject = jsonReader.readObject();
+            jsonReader.close();
 
-            //                return jsonObject.getBoolean("success");
-            return true;
+            return jsonObject.getBoolean("success");
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-
     }
 }

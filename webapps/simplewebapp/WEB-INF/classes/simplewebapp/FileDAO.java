@@ -2,20 +2,21 @@ package simplewebapp;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class UploadedFileDAO {
+public class FileDAO {
 
-    private static UploadedFileDAO instance;
+    private static FileDAO instance;
     private static DatabaseDAO databaseDAO;
 
-    private UploadedFileDAO() {
+    private FileDAO() {
         databaseDAO = DatabaseDAO.getInstance();
     }
 
-    public static UploadedFileDAO getInstance() {
+    public static FileDAO getInstance() {
         if (instance == null) {
-            instance = new UploadedFileDAO();
+            instance = new FileDAO();
         }
         return instance;
     }
@@ -32,7 +33,7 @@ public class UploadedFileDAO {
 
             files = processFilesFromResultSet(result);
         } catch (Exception e) {
-            System.out.println("UploadedFileDAO.getAll: " + e.getMessage());
+            System.out.println("FileDAO.getAll: " + e.getMessage());
         }
 
         // Execute the query and return the result
@@ -47,7 +48,7 @@ public class UploadedFileDAO {
 
             files = processFilesFromResultSet(result);
         } catch (Exception e) {
-            System.out.println("UploadedFileDAO.getByArticleID: " + e.getMessage());
+            System.out.println("FileDAO.getByArticleID: " + e.getMessage());
         }
 
         // Execute the query and return the result
@@ -74,10 +75,21 @@ public class UploadedFileDAO {
             databaseDAO.runParametisedQuery(query, article_id, filePath);
             return true;
         } catch (Exception e) {
-            System.out.println("UploadedFileDAO.addNewArticle: " + e.getMessage());
+            System.out.println("FileDAO.addNewArticle: " + e.getMessage());
         }
 
         return false;
     }
 
+    public boolean deleteFile(File file) {
+        String query = "DROP INDEX FROM uploadedFiles WHERE article_id = ? AND file_id = ?";
+        try {
+            databaseDAO.runParametisedQuery(query, file.getArticleId(), file.getFileId());
+            return true;
+        } catch (Exception e) {
+            System.out.println("FileDAO.deleteArticle: " + e.getMessage());
+        }
+
+        return false;
+    }
 }
