@@ -15,6 +15,7 @@ import simplewebapp.UserDAO;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -123,7 +124,10 @@ public class ArticlePage extends Page {
 
             int articleId = 0;
             if (!newTitle.isEmpty() && !newBody.isEmpty()) {
-                articleId = ArticleDAO.getInstance().addNewArticleWithId(user.getUserId(), newTitle, newBody, embeddedContent);
+                long unixTime = System.currentTimeMillis();
+                Date date = new Date(unixTime);
+
+                articleId = ArticleDAO.getInstance().addNewArticleWithId(user.getUserId(), date, newTitle, newBody, embeddedContent);
             } else if (checkArticleContents(request, newTitle, newBody)) {
                 navigate("/WEB-INF/addArticle.jsp", request, response);
                 return;

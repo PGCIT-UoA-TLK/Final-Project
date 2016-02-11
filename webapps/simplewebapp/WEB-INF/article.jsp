@@ -24,6 +24,19 @@
     <div class="jumbotron">
         <div class="articleTitle"><h1>${article.title}</h1></div>
         <div class="articleText"><p>${article.body}</p></div>
+        <div class="articleDetails">
+            <div class="pull-right">
+                <c:if test="${(article.user != null) || (article.date != null)}">
+                    Written
+                    <c:if test="${article.user != null}">
+                        by ${article.user.username} (${article.user.firstname} ${article.user.lastname})
+                    </c:if>
+                    <c:if test="${article.date != null}">
+                        on ${article.date}
+                    </c:if>
+                </c:if>
+            </div>
+        </div>
     </div>
 
     <div class="col-xs-12" id="editArticle">

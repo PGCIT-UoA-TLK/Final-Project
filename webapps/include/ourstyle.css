@@ -11,6 +11,10 @@ div.titleDiv{
     height:40px ;
 }
 
+div.articleText {
+    white-space: pre-line;
+}
+
 div#editArticle{
     padding-bottom: 10px;
 }

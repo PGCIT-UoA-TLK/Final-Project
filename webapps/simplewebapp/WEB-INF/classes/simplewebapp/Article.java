@@ -1,12 +1,15 @@
 package simplewebapp;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.List;
 
 @SuppressWarnings("unused")
 public class Article implements Serializable {
     private int articleId;
     private int userId;
+    private User user;
+    private Date date;
     private String title;
     private String body;
     private String embeddedContent;
@@ -17,9 +20,11 @@ public class Article implements Serializable {
         this.active = false;
     }
 
-    public Article(int articleId, int userID, String title, String body, String embeddedContent) {
+    public Article(int articleId, int userID, Date date, String title, String body, String embeddedContent) {
         this.articleId = articleId;
         this.userId = userID;
+        this.user = null;
+        this.date = date;
         this.title = title;
         this.body = body;
         this.embeddedContent = embeddedContent;
@@ -42,6 +47,22 @@ public class Article implements Serializable {
         this.userId = userId;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -58,11 +79,13 @@ public class Article implements Serializable {
         this.body = body;
     }
 
+    public String getEmbeddedContent() {
+        return embeddedContent;
+    }
+
     public void setEmbeddedContent(String embeddedContent) {
         this.embeddedContent = embeddedContent;
     }
-
-    public String getEmbeddedContent(){return embeddedContent;}
 
     public boolean isActive() {
         return active;
