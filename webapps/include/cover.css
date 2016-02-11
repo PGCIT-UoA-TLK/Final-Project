@@ -19,15 +19,15 @@ body {
 body {
     text-align: center;
     text-shadow: 0 1px 3px rgba(0,0,0,.5);
-}
+    color: lightgray;
+    opacity: 0.8;
 
-body.cover-page {
     background: url("/images/cover-background.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    opacity: 0.6;
+
 }
 .site-wrapper {
     display: table;

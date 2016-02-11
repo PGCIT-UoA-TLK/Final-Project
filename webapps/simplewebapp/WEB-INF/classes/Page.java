@@ -47,4 +47,8 @@ public class Page {
     protected static void printError(HttpServletRequest request, String s) {
         request.setAttribute("errorMessage", s);
     }
+
+    public static void displayWelcome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        navigate("/WEB-INF/welcome.jsp", request, response);
+    }
 }

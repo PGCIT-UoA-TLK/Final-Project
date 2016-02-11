@@ -29,6 +29,8 @@ public class SimpleBlogServlet extends HttpServlet {
             case "editUser": UserPage.editUser(request, response); break;
 
             case "": Page.displayHome(request, response); break;
+
+            case "home":Page.displayWelcome(request,response); break;
         }
     }
 
