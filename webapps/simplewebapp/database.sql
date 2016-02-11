@@ -4,9 +4,9 @@ CREATE TABLE users (
   password     BLOB         NOT NULL,
   firstname    VARCHAR(100) NOT NULL             DEFAULT '',
   lastname     VARCHAR(100) NOT NULL             DEFAULT '',
-  gender       VARCHAR(6)   NOT NULL             DEFAULT 'Male',
+  gender       VARCHAR(6)   NOT NULL             DEFAULT '',
   age          VARCHAR(11)  NOT NULL             DEFAULT '',
-  icon_name    INTEGER      NOT NULL             DEFAULT 1,
+  image        VARCHAR(50)  NOT NULL             DEFAULT '',
   active       BOOLEAN      NOT NULL             DEFAULT TRUE,
   passwordSalt VARCHAR(100) NOT NULL
 );

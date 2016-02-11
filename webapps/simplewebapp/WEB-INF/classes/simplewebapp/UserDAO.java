@@ -23,7 +23,7 @@ public class UserDAO {
     public User getUser(int id) {
         try {
             String query = "" +
-                    "SELECT user_id, username, password, passwordSalt, firstname, lastname, age, gender, icon_name " +
+                    "SELECT user_id, username, password, passwordSalt, firstname, lastname, age, gender, image " +
                     "FROM users WHERE user_id = ? AND active = true";
             ResultSet result = databaseDAO.getParametisedQuery(query, id);
             result.next();
@@ -37,9 +37,9 @@ public class UserDAO {
             String lastname = result.getString("lastname");
             String age = result.getString("age");
             String gender = result.getString("gender");
-            int icon = result.getInt("icon_name");
+            String image = result.getString("image");
 
-            User user = new User(id, username, password, passwordSalt, firstname, lastname, gender, age, icon);
+            User user = new User(id, username, password, passwordSalt, firstname, lastname, gender, age, image);
             return user;
         } catch (Exception ignored) {
         }
@@ -63,9 +63,9 @@ public class UserDAO {
             String lastname = result.getString("lastname");
             String age = result.getString("age");
             String gender = result.getString("gender");
-            int icon = result.getInt("icon_name");
+            String image = result.getString("image");
 
-            User user = new User(id, username, password, passwordSalt, firstname, lastname, gender, age, icon);
+            User user = new User(id, username, password, passwordSalt, firstname, lastname, gender, age, image);
             return user;
         } catch (Exception ignored) {
         }
@@ -92,9 +92,9 @@ public class UserDAO {
                 String lastname = result.getString("lastname");
                 String age = result.getString("age");
                 String gender = result.getString("gender");
-                int icon = result.getInt("icon_name");
+                String image = result.getString("image");
 
-                User user = new User(id, username, password, passwordSalt, firstname, lastname, gender, age, icon);
+                User user = new User(id, username, password, passwordSalt, firstname, lastname, gender, age, image);
 
                 // Adding the post object to the list
                 users.add(user);
@@ -107,10 +107,10 @@ public class UserDAO {
         return users;
     }
 
-    public User addUser(String username, byte[] password, String passwordSalt, String firstname, String lastname, String gender, String age, int icon) {
+    public User addUser(String username, byte[] password, String passwordSalt, String firstname, String lastname, String gender, String age, String image) {
         try {
-            String query = "INSERT INTO users (USERNAME, PASSWORD, PASSWORDSALT, FIRSTNAME, LASTNAME, GENDER, AGE, ICON_NAME) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            ResultSet result = databaseDAO.runParametisedQuery(query, username, password, passwordSalt, firstname, lastname, gender, age, icon);
+            String query = "INSERT INTO users (USERNAME, PASSWORD, PASSWORDSALT, FIRSTNAME, LASTNAME, GENDER, AGE, IMAGE) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            ResultSet result = databaseDAO.runParametisedQuery(query, username, password, passwordSalt, firstname, lastname, gender, age, image);
 
             User user;
             if (result == null) {
@@ -135,6 +135,9 @@ public class UserDAO {
             String query = "UPDATE users SET %s = ? WHERE user_id = ?";
             databaseDAO.runParametisedQuery(String.format(query, "firstname"), user.getFirstname(), user.getUserId());
             databaseDAO.runParametisedQuery(String.format(query, "lastname"), user.getLastname(), user.getUserId());
+            databaseDAO.runParametisedQuery(String.format(query, "gender"), user.getGender(), user.getUserId());
+            databaseDAO.runParametisedQuery(String.format(query, "age"), user.getAge(), user.getUserId());
+            databaseDAO.runParametisedQuery(String.format(query, "image"), user.getImage(), user.getUserId());
 
             return true;
         } catch (Exception e) {

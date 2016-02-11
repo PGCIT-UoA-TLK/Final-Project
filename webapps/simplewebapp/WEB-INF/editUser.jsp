@@ -1,7 +1,8 @@
 <%--@elvariable id="user" type="simplewebapp.User"--%>
-<%--@elvariable id="ages" type="java.util.Map<java.lang.String, java.lang.String>"--%>
-<%--@elvariable id="genders" type="java.util.Map<java.lang.String, java.lang.String>"--%>
 
+<%--@elvariable id="genders" type="java.util.Map<java.lang.String, java.lang.String>"--%>
+<%--@elvariable id="ages" type="java.util.Map<java.lang.String, java.lang.String>"--%>
+<%--@elvariable id="images" type="java.util.Map<java.lang.String, java.lang.String>"--%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -73,13 +74,34 @@
                         <c:forEach var="gender" items="${genders.keySet()}">
                             <div class="radio">
                                 <c:choose>
-                                    <c:when test="${gender.equals((user.gender))}">
-                                        <label><input type="radio" name="input-gender" value="${gender}" checked>${genders.get(gender)}</label>
+                                    <c:when test="${gender.equals(user.gender)}">
+                                        <label><input type="radio" name="gender" value="${gender}" checked>${genders.get(gender)}</label>
                                     </c:when>
                                     <c:otherwise>
-                                        <label><input type="radio" name="input-gender" value="${gender}">${genders.get(gender)}</label>
+                                        <label><input type="radio" name="gender" value="${gender}">${genders.get(gender)}</label>
                                     </c:otherwise>
                                 </c:choose>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Choose an icon</label>
+                    <div class="col-sm-10">
+                        <c:forEach var="image" items="${images.keySet()}">
+                            <div class="radio col-sm-3">
+                                <label>
+                                    <c:choose>
+                                        <c:when test="${images.get(image).equals(user.image)}">
+                                            <input title="${image}" type="radio" name="image" value="${images.get(image)}" checked>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input title="${image}" type="radio" name="image" value="${images.get(image)}">
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <img src="/images/${images.get(image)}" alt="${image} icon" class="img-thumbnail user-image">
+                                </label>
                             </div>
                         </c:forEach>
                     </div>

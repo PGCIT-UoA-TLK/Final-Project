@@ -12,14 +12,14 @@ public class User implements Serializable {
     private String lastname;
     private String age;
     private String gender;
-    private int icon;
+    private String image;
     private boolean active;
 
     public User() {
         this.active = false;
     }
 
-    public User(int userId, String username, byte[] password, String salt, String firstname, String lastname, String age, String gender, int icon) {
+    public User(int userId, String username, byte[] password, String salt, String firstname, String lastname, String age, String gender, String image) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -28,7 +28,7 @@ public class User implements Serializable {
         this.lastname = lastname;
         this.age = age;
         this.gender = gender;
-        this.icon = icon;
+        this.image = image;
         this.active = true;
     }
 
@@ -96,12 +96,12 @@ public class User implements Serializable {
         this.gender = gender;
     }
 
-    public int getIcon() {
-        return icon;
+    public String getImage() {
+        return image;
     }
 
-    public void setIcon(int icon) {
-        this.icon = icon;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public boolean isActive() {

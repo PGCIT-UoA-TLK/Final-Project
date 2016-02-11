@@ -25,13 +25,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class UserPage extends Page {
     public static final String url = "https://www.google.com/recaptcha/api/siteverify";
     public static final String secret = "6Lfl2xcTAAAAALB8ESkpLs5W3UvoI104QOdIBgT9";
     private final static String USER_AGENT = "Mozilla/5.0";
 
-    private static final Map<String, String> AGES = new HashMap<>();
+    private static final Map<String, String> AGES = new TreeMap<>();
 
     static {
         AGES.put("", "Please select an age");
@@ -52,14 +53,22 @@ public class UserPage extends Page {
         GENDERS.put("Female", "Female");
     }
 
+    private static final Map<String, String> IMAGES = new TreeMap<>();
+
+    static {
+        IMAGES.put("Donald", "userimage1.jpg");
+        IMAGES.put("Fresco", "userimage2.jpg");
+        IMAGES.put("Muppet", "userimage3.jpg");
+    }
+
     public static void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
         String age = request.getParameter("age");
-        String image = request.getParameter("optionsRadios");
-        String gender = request.getParameter("input-gender");
+        String image = request.getParameter("image");
+        String gender = request.getParameter("gender");
 
         if (request.getParameterMap().size() > 1) {
             Boolean allowed = checkRequiredUserParameters(request, username, password, firstname, lastname, age, image, gender);
@@ -80,27 +89,10 @@ public class UserPage extends Page {
             if (allowed) {
                 UserDAO userDAO = UserDAO.getInstance();
 
-                int icon;
-
-                switch (image) {
-                    case "option1":
-                        icon = 1;
-                        break;
-                    case "option2":
-                        icon = 2;
-                        break;
-                    case "option3":
-                        icon = 3;
-                        break;
-                    default:
-                        icon = 0;
-                        break;
-                }
-
                 String salt = new BigInteger(130, new SecureRandom()).toString(32);
                 byte[] hashedPassword = hashPassword(password.toCharArray(), salt.getBytes());
 
-                User newUser = userDAO.addUser(username, hashedPassword, salt, firstname, lastname, gender, age, icon);
+                User newUser = userDAO.addUser(username, hashedPassword, salt, firstname, lastname, gender, age, image);
 
                 if (newUser != null) {
                     request.getSession().setAttribute("user", newUser);
@@ -108,12 +100,12 @@ public class UserPage extends Page {
                     response.sendRedirect(request.getContextPath() + "?registerSuccess");
                     return;
                 }
-
             }
         }
 
-        request.setAttribute("ages", AGES);
         request.setAttribute("genders", GENDERS);
+        request.setAttribute("ages", AGES);
+        request.setAttribute("images", IMAGES);
 
         navigate("/WEB-INF/addUser.jsp", request, response);
 
@@ -158,8 +150,12 @@ public class UserPage extends Page {
 
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
+        String age = request.getParameter("age");
+        String image = request.getParameter("image");
+        String gender = request.getParameter("gender");
 
         boolean edited = false;
+
         if (firstname != null && !firstname.isEmpty()) {
             user.setFirstname(firstname);
             edited = true;
@@ -167,6 +163,21 @@ public class UserPage extends Page {
 
         if (lastname != null && !lastname.isEmpty()) {
             user.setLastname(lastname);
+            edited = true;
+        }
+
+        if (age != null && !age.isEmpty()) {
+            user.setAge(age);
+            edited = true;
+        }
+
+        if (image != null && !image.isEmpty()) {
+            System.err.println(image);
+            user.setImage(image);
+            edited = true;
+        }
+        if (gender != null && !gender.isEmpty()) {
+            user.setGender(gender);
             edited = true;
         }
 
@@ -199,9 +210,10 @@ public class UserPage extends Page {
         }
 
         request.setAttribute("user", user);
-        request.setAttribute("ages", AGES);
-        request.setAttribute("genders", GENDERS);
 
+        request.setAttribute("genders", GENDERS);
+        request.setAttribute("ages", AGES);
+        request.setAttribute("images", IMAGES);
 
         navigate("/WEB-INF/editUser.jsp", request, response);
     }

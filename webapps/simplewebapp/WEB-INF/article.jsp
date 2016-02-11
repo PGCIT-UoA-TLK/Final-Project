@@ -52,12 +52,19 @@
     </div>
 
     <c:if test="${article.embeddedContent != null && !article.embeddedContent.equals('') && article.embeddedContent.contains('youtube')}">
-        <iframe class="row col-xs-offset-4 col-xs-4" width="420" height="315" src="${article.embeddedContent}"></iframe>
+        <div class="row">
+            <div class="col-sm-4">&nbsp;</div>
+            <div class="col-sm-4">
+                <iframe class="col-xs-12" width="420" height="315" src="${article.embeddedContent}"></iframe>
+            </div>
+            <div class="col-sm-4">&nbsp;</div>
+        </div>
+        <hr />
     </c:if>
 
     <c:if test="${article.embeddedContent != null && !article.embeddedContent.equals('') && article.embeddedContent.contains('.mp3')}">
         <div class="row col-xs-offset-4 col-xs-4">
-            <audio  autoplay="" controls="" loop="" preload="">
+            <audio autoplay="" controls="" loop="" preload="">
                 <source src="${article.embeddedContent}" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
@@ -97,7 +104,7 @@
         </blockquote>
     </c:forEach>
 
-    <%@ include file="include/alerts.jsp"%>
+    <%@ include file="include/alerts.jsp" %>
 
     <c:if test="${(not empty user)}">
         <div class="col-xs-12">
