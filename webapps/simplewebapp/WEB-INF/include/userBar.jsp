@@ -14,7 +14,7 @@
             </button>
             <a class="navbar-brand" href="${contextPath}?">Latin Enthusiasts</a>
 
-            <img src="/images/IMG4.jpg" alt ="Latin" class="thumbnail-logo">
+            <img src="/images/IMG4.jpg" alt ="Latin" class="img-thumbnail thumbnail-logo">
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -24,7 +24,7 @@
                     <%--@elvariable id="user" type="simplewebapp.User"--%>
                     <c:when test="${not empty user.username}">
                         <li><a href="${contextPath}?page=editUser">${user.username}</a></li>
-                        <li>  <img src="/images/IMG${user.icon}.jpg" alt="icon" class="img-thumbnail" width=50 height=50 id="input-icon"></li>
+                        <li>  <img src="/images/IMG${user.icon}.jpg" alt="icon" class="img-thumbnail thumbnail-usericon" id="input-icon"></li>
                         <li> <a href="?page=addArticle&addArticle=1">Add a New Article</a></li>
                         <li><a href="${contextPath}?logout">Logout</a></li>
                     </c:when>

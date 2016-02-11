@@ -12,7 +12,7 @@ div.titleDiv{
 }
 
 div.articleText {
-    white-space: pre-line;
+    white-space: pre-wrap;
 }
 
 div#editArticle{
@@ -39,6 +39,7 @@ img.user-image {
     width: 89px;
 }
 
-img.thumbnail-logo {
+img.thumbnail-logo,
+img.thumbnail-usericon {
     height: 50px;
 }
