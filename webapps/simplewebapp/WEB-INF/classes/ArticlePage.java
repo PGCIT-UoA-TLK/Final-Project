@@ -109,6 +109,10 @@ public class ArticlePage extends Page {
                 }
             }
 
+            if(embeddedContent.contains("youtube") && !embeddedContent.contains("embed")){
+                embeddedContent = embeddedContent.substring(0, embeddedContent.lastIndexOf("m") + 1) + "/embed/" + embeddedContent.substring(embeddedContent.indexOf("=")+1);
+            }
+
             int articleId = 0;
             if (!newTitle.equals("") && !newBody.equals("")) {
                 articleId = ArticleDAO.getInstance().addNewArticleWithId(user.getUserId(), newTitle, newBody, embeddedContent);

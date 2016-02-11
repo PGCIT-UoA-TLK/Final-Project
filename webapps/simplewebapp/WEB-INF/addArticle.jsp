@@ -43,7 +43,7 @@
                 <div class="form-group">
                     <label for="embeddedContent" class="col-sm-2 control-label">Embed Audio or Video: </label>
                     <div class="col-sm-10">
-                        <input type="url" name="embeddedContent" class="form-control" id="embeddedContent" placeholder="Link to a Youtube Video or an MP3">
+                        <input type="url" name="embeddedContent" class="form-control" id="embeddedContent" placeholder="Link to Youtube URL or an MP3">
                     </div>
                 </div>
                 <input type="hidden" name="page" value="addArticle"/>
