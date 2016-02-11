@@ -90,10 +90,10 @@
                 </div>
                 <br/>
 
-                <input type="hidden" name="page" value="addUser">
-                <input type="submit" class="btn btn-default pull-right" value="Register">
                 <div class="g-recaptcha" data-sitekey="6Lfl2xcTAAAAAKC4PYbk_0AVGlMFaCFl8hP7getE"></div>
 
+                <input type="hidden" name="page" value="addUser">
+                <input type="submit" class="btn btn-default pull-right" value="Register">
             </fieldset>
 
         </form>

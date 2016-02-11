@@ -1,16 +1,22 @@
-import javax.net.ssl.HttpsURLConnection;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import simplewebapp.User;
 import simplewebapp.UserDAO;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+//import javax.json.Json;
+//import javax.json.JsonObject;
+//import javax.json.JsonReader;
 import java.net.URL;
+import javax.net.ssl.HttpsURLConnection;
+
 import java.util.List;
+
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 
 
 public class UserPage extends Page {
@@ -41,6 +47,13 @@ public class UserPage extends Page {
                 // username = username.trim();
                 if (username != null && u.getUsername() != null && username.equals(u.getUsername()) && verify(userResponse)) {
                     printError(request, "That username is taken.");
+                    allowed = false;
+                    break;
+                }
+
+                if (!verify(userResponse)) {
+                    request.setAttribute("errorMessage", "reCAPTCHA is invalid.");
+                    System.out.println("reCAPTCHA is invalid");
                     allowed = false;
                     break;
                 }
@@ -189,6 +202,8 @@ public class UserPage extends Page {
     }
 
 
+
+
     public static boolean verify(String gRecaptchaResponse) throws IOException {
         if (gRecaptchaResponse == null || "".equals(gRecaptchaResponse)) {
             return false;
@@ -230,16 +245,14 @@ public class UserPage extends Page {
             System.out.println(response.toString());
 
             //parse JSON response and return 'success' value
-            //                JsonReader jsonReader = Json.createReader(new StringReader(response.toString()));
-            //                JsonObject jsonObject = jsonReader.readObject();
-            //                jsonReader.close();
+            JsonReader jsonReader = Json.createReader(new StringReader(response.toString()));
+            JsonObject jsonObject = jsonReader.readObject();
+            jsonReader.close();
 
-            //                return jsonObject.getBoolean("success");
-            return true;
+            return jsonObject.getBoolean("success");
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-
     }
 }
