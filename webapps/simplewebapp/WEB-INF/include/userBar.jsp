@@ -13,6 +13,10 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="${contextPath}?">Latin Enthusiasts</a>
+
+
+            <img src="/images/IMG4.jpg" alt ="Latin" class="img-thumbnaillogo" width=50 height=50 >
+
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
