@@ -75,7 +75,14 @@ public class ArticlePage extends Page {
     }
 
     protected static void addArticle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user");
+
+        if (user == null) {
+            printError(request, "You must be logged in to do this.");
+            response.sendRedirect(request.getContextPath());
+            return;
+        }
+
         DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletFileUpload upload = new ServletFileUpload(factory);
 
@@ -129,6 +136,14 @@ public class ArticlePage extends Page {
     }
 
     protected static void editArticle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User user = (User) request.getSession().getAttribute("user");
+
+        if (user == null) {
+            printError(request, "You must be logged in to do this.");
+            response.sendRedirect(request.getContextPath());
+            return;
+        }
+
         int articleID = Integer.parseInt(request.getParameter("articleID"));
 
         Article article = ArticleDAO.getInstance().getByArticleID(articleID);

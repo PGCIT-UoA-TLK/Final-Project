@@ -5,8 +5,8 @@
     <title>User Registration</title>
 
     <%@ include file="include/specialIncludeFiles.jsp" %>
-    <script src="https://www.google.com/recaptcha/api.js"></script>
 
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 <body>
 
@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" id="ageLabel"  for="age">Select an Age Group</label>
+                    <label class="col-sm-2 control-label" id="ageLabel" for="age">Select an Age Group</label>
                     <select class="col-sm-3" id="age" name="age">
                         <option value="0-15">0-15</option>
                         <option value="16-25">16-25</option>
@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" >Gender</label>
+                    <label class="col-sm-2 control-label">Gender</label>
                     <div class="radio">
                         <label class="col-sm-offset-1 col-sm-4"><input type="radio" name="input-gender" value="Male" checked>Male</label>
                     </div>
@@ -79,15 +79,16 @@
                         <input title="Trump" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
                         <img src="/images/IMG1.jpg" alt="Donald icon" class="img-thumbnail" width=89 height=89>
                     </div>
-                    <div class="radio col-sm-3" >
+                    <div class="radio col-sm-3">
                         <input title="DIYFresco" type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
                         <img src="/images/IMG2.jpg" alt="Fresco icon" class="img-thumbnail" width=89 height=89>
                     </div>
-                    <div class="radio col-sm-3" >
+                    <div class="radio col-sm-3">
                         <input title="Muppet" type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
                         <img src="/images/IMG3.jpg" alt="Muppet icon" class="img-thumbnail" width=89 height=89>
                     </div>
-                </div><br />
+                </div>
+                <br/>
 
                 <input type="hidden" name="page" value="addUser">
                 <input type="submit" class="btn btn-default pull-right" value="Register">

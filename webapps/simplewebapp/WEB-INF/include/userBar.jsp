@@ -1,3 +1,4 @@
+<%--@elvariable id="contextPath" type="java.lang.String"--%>
 <%--suppress HtmlUnknownTarget --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -11,7 +12,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/simplewebapp/">Latin Enthusiasts</a>
+            <a class="navbar-brand" href="${contextPath}?">Latin Enthusiasts</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -20,14 +21,14 @@
                 <c:choose>
                     <%--@elvariable id="user" type="simplewebapp.User"--%>
                     <c:when test="${not empty user.username}">
-                        <li><a href="/simplewebapp/?page=editUser">${user.username}</a></li>
+                        <li><a href="${contextPath}?page=editUser">${user.username}</a></li>
                         <li>  <img src="/images/IMG${user.icon}.jpg" alt="icon" class="img-thumbnail" width=50 height=50 id="input-icon"></li>
                         <li> <a href="?page=addArticle&addArticle=1">Add a New Article</a></li>
-                        <li><a href="/simplewebapp/?logout">Logout</a></li>
+                        <li><a href="${contextPath}?logout">Logout</a></li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="/simplewebapp/?page=loginUser">Login</a></li>
-                        <li><a href="/simplewebapp/?page=addUser">Register</a></li>
+                        <li><a href="${contextPath}?page=loginUser">Login</a></li>
+                        <li><a href="${contextPath}?page=addUser">Register</a></li>
                     </c:otherwise>
                 </c:choose>
             </ul>
