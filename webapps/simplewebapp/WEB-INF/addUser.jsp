@@ -90,12 +90,14 @@
                         <img src="/images/IMG3.jpg" alt="Muppet icon" class="img-thumbnail" width=89 height=89>
                     </div>
                 </div>
-                <br/>
 
-                <div class="col-sm-6 g-recaptcha" data-sitekey="6Lfl2xcTAAAAAKC4PYbk_0AVGlMFaCFl8hP7getE"></div>
-                <div class="submit">
+                <div class="reaptcha col-sm-12">
+                    <div class="g-recaptcha" data-sitekey="6Lfl2xcTAAAAAKC4PYbk_0AVGlMFaCFl8hP7getE"></div>
+                </div>
+
+                <div class="submit col-sm-12">
                     <input type="hidden" name="page" value="addUser">
-                    <input type="submit" class="btn btn-default pull-right" value="Register">
+                    <input type="submit" class="btn btn-default" value="Register">
                 </div>
             </fieldset>
 
