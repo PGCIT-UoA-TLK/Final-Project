@@ -1,3 +1,6 @@
+import simplewebapp.User;
+import simplewebapp.UserDAO;
+
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -5,20 +8,13 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import simplewebapp.User;
-import simplewebapp.UserDAO;
-
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
+import java.io.*;
 import java.net.URL;
 import java.util.List;
 
 public class UserPage extends Page {
     public static final String url = "https://www.google.com/recaptcha/api/siteverify";
-    public static final String secret = "6Lfl2xcTAAAAAKC4PYbk_0AVGlMFaCFl8hP7getE";
+    public static final String secret = "6Lfl2xcTAAAAALB8ESkpLs5W3UvoI104QOdIBgT9";
     private final static String USER_AGENT = "Mozilla/5.0";
 
     public static void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
