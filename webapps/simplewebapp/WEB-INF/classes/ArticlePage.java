@@ -58,17 +58,25 @@ public class ArticlePage extends Page {
         User user = (User) request.getAttribute("user");
         String comment = request.getParameter("commentBox");
 
-        if (user != null && comment != null && !comment.equals("")) {
+        boolean hasError = false;
+        if (request.getParameter("newComment") != null) {
+            if (user == null) {
+                printError(request, "You must be logged in to post a comment");
+                hasError = true;
+            } else if (comment == null || comment.equals("")) {
+                printError(request, "Comment can not be blank");
+                hasError = true;
+            } else if (comment.length() > 200) {
+                printError(request, "Comment must not be longer than 200 characters");
+                hasError = true;
+            }
+        }
+
+        if (!hasError && user != null && comment != null && !comment.equals("")) {
             String newComment = request.getParameter("commentBox");
             CommentDAO.getInstance().addNewComment(newComment, article.getArticleId(), user.getUserId());
             response.sendRedirect(request.getContextPath() + "?page=article&article=" + article.getArticleId());
             return;
-        } else if (user == null) {
-            printError(request, "You must be logged in to post a comment");
-        } else if (comment == null || comment.equals("")) {
-            printError(request, "Comment can not be blank");
-        } else if (comment.length() > 200) {
-            printError(request, "Comment must not be longer than 200 characters");
         }
 
         navigate("/WEB-INF/article.jsp", request, response);

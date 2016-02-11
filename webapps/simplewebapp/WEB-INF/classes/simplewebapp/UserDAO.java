@@ -69,7 +69,7 @@ public class UserDAO {
     public User loginUser(String username, String password) {
         try {
             String query = "" +
-                    "SELECT user_id, username, password, firstname, lastname, age, gender, icon_name" +
+                    "SELECT user_id, username, password, firstname, lastname, age, gender, icon_name " +
                     "FROM users WHERE username = ? AND password = ? AND active = true";
             ResultSet result = databaseDAO.getParametisedQuery(query, username, password);
             result.next();
