@@ -24,9 +24,13 @@ div.images{
 }
 
 label#ageLabel{
-    padding-top: 0px;
+    padding-top: 0;
 }
 
 div.recaptcha{
     padding-bottom: 15px;
+}
+
+img.user-image {
+    width: 89px;
 }

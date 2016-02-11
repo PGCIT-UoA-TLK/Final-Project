@@ -13,32 +13,35 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.lang.reflect.Array;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserPage extends Page {
     public static final String url = "https://www.google.com/recaptcha/api/siteverify";
     public static final String secret = "6Lfl2xcTAAAAALB8ESkpLs5W3UvoI104QOdIBgT9";
     private final static String USER_AGENT = "Mozilla/5.0";
 
-    private static final List<String> AGES = new ArrayList<>();
+    private static final Map<String, String> AGES = new HashMap<>();
+
     static {
-        AGES.add("0-15");
-        AGES.add("16-25");
-        AGES.add("26-35");
-        AGES.add("36-45");
-        AGES.add("46-55");
-        AGES.add("56-65");
-        AGES.add("66-75");
-        AGES.add("75 and over");
+        AGES.put("", "Please select an age");
+        AGES.put("0-15", "0-15");
+        AGES.put("16-25", "16-25");
+        AGES.put("26-35", "26-35");
+        AGES.put("36-45", "36-45");
+        AGES.put("46-55", "46-55");
+        AGES.put("56-65", "56-65");
+        AGES.put("66-75", "66-75");
+        AGES.put("75 and over", "75 and over");
     }
 
-    private static final List<String> GENDER = new ArrayList<>();
+    private static final Map<String, String> GENDERS = new HashMap<>();
+
     static {
-        GENDER.add("Male");
-        GENDER.add("Female");
+        GENDERS.put("Male", "Male");
+        GENDERS.put("Female", "Female");
     }
 
     public static void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,11 +50,11 @@ public class UserPage extends Page {
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
         String age = request.getParameter("age");
-        String selection = request.getParameter("optionsRadios");
+        String image = request.getParameter("optionsRadios");
         String gender = request.getParameter("input-gender");
 
         if (request.getParameterMap().size() > 1) {
-            Boolean allowed = checkRequiredUserParameters(request, username, password, firstname, lastname);
+            Boolean allowed = checkRequiredUserParameters(request, username, password, firstname, lastname, age, image, gender);
 
             User temp = UserDAO.getInstance().getUserByUsername(username);
             // No user found, username not taken
@@ -66,12 +69,12 @@ public class UserPage extends Page {
                 allowed = false;
             }
 
-            if (allowed && username != null && !username.isEmpty() && password != null && !password.isEmpty() &&
-                    firstname != null && !firstname.isEmpty() && lastname != null && !lastname.isEmpty()) {
+            if (allowed) {
                 UserDAO userDAO = UserDAO.getInstance();
 
                 int icon;
-                switch (selection) {
+
+                switch (image) {
                     case "option1":
                         icon = 1;
                         break;
@@ -99,7 +102,7 @@ public class UserPage extends Page {
         }
 
         request.setAttribute("ages", AGES);
-        request.setAttribute("gender", GENDER);
+        request.setAttribute("genders", GENDERS);
 
         navigate("/WEB-INF/addUser.jsp", request, response);
 
@@ -181,13 +184,13 @@ public class UserPage extends Page {
 
         request.setAttribute("user", user);
         request.setAttribute("ages", AGES);
-        request.setAttribute("gender", GENDER);
+        request.setAttribute("genders", GENDERS);
 
 
         navigate("/WEB-INF/editUser.jsp", request, response);
     }
 
-    private static Boolean checkRequiredUserParameters(HttpServletRequest request, String username, String password, String firstname, String lastname) {
+    private static Boolean checkRequiredUserParameters(HttpServletRequest request, String username, String password, String firstname, String lastname, String age, String image, String gender) {
         List<User> allUsers = UserDAO.getInstance().getAll();
 
         for (User u : allUsers) {
@@ -209,6 +212,21 @@ public class UserPage extends Page {
 
         if (firstname == null || firstname.isEmpty() || lastname == null || lastname.isEmpty()) {
             printError(request, "Firstname and Lastname are required.");
+            return false;
+        }
+
+        if (age == null || age.isEmpty() || AGES.get(age) != null) {
+            printError(request, "Please select an age.");
+            return false;
+        }
+
+        if (image == null || image.isEmpty()) {
+            printError(request, "Please select an image.");
+            return false;
+        }
+
+        if (gender == null || gender.isEmpty() || GENDERS.get(gender) != null) {
+            printError(request, "Please select a gender.");
             return false;
         }
 

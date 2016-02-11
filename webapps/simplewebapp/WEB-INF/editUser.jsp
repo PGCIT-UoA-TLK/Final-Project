@@ -1,6 +1,6 @@
 <%--@elvariable id="user" type="simplewebapp.User"--%>
-<%--@elvariable id="ages" type="java.util.List<java.lang.String>"--%>
-<%--@elvariable id="gender" type="java.util.List<java.lang.String>"--%>
+<%--@elvariable id="ages" type="java.util.Map<java.lang.String, java.lang.String>"--%>
+<%--@elvariable id="genders" type="java.util.Map<java.lang.String, java.lang.String>"--%>
 
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -53,13 +53,13 @@
                     <label class="col-sm-2 control-label" id="ageLabel" for="age">Select an Age Group</label>
                     <div class="col-sm-3">
                         <select class="form-control" id="age" name="age">
-                            <c:forEach var="age" items="${ages}">
+                            <c:forEach var="age" items="${ages.keySet()}">
                                 <c:choose>
                                     <c:when test="${age.equals(user.age)}">
-                                        <option value="${age}" selected>${age}</option>
+                                        <option value="${age}" selected>${ages.get(age)}</option>
                                     </c:when>
                                     <c:otherwise>
-                                        <option value="${age}">${age}</option>
+                                        <option value="${age}">${ages.get(age)}</option>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
@@ -70,14 +70,14 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Gender</label>
                     <div class="col-sm-10">
-                        <c:forEach var="gender" items="${gender}">
+                        <c:forEach var="gender" items="${genders.keySet()}">
                             <div class="radio">
                                 <c:choose>
                                     <c:when test="${gender.equals((user.gender))}">
-                                        <label><input type="radio" name="input-gender" value="${gender}" checked>${gender}</label>
+                                        <label><input type="radio" name="input-gender" value="${gender}" checked>${genders.get(gender)}</label>
                                     </c:when>
                                     <c:otherwise>
-                                        <label><input type="radio" name="input-gender" value="${gender}" >${gender}</label>
+                                        <label><input type="radio" name="input-gender" value="${gender}">${genders.get(gender)}</label>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
