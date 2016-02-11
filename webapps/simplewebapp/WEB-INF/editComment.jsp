@@ -34,8 +34,8 @@
                 <input type="hidden" name="commentID" value="${comment.commentId}" />
                 <input type="hidden" name="page" value="editComment" />
                 <input type="hidden" name="edited" value="1" />
-                <input type="submit" class="btn btn-default pull-right" value="Submit" />
-                <input type="submit" value="Delete Comment" class="btn btn-default pull-right" onclick="confirmDelete('editCommentForm')" />
+                <input type="submit" class="btn btn-success pull-right" value="Submit" />
+                <input type="submit" class="btn btn-danger pull-right" value="Delete Comment" onclick="confirmDelete('editCommentForm')" />
                 <input type="hidden" id="delete" name="delete">
             </fieldset>
         </form>

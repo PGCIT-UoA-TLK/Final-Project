@@ -32,7 +32,7 @@
             <input type="hidden" name="articleID" value="${article.articleId}"/>
             <c:choose>
                 <c:when test="${(not empty user) && (user.userId == article.userId)}">
-                    <input type="submit" class="btn btn-default" value="Edit Article"/>
+                    <input type="submit" class="btn btn-primary" value="Edit Article"/>
                 </c:when>
             </c:choose>
         </form>
@@ -70,12 +70,12 @@
                 <c:choose>
                     <c:when test="${(not empty comment.userId) && (user.userId == comment.userId)}">
                         <input type="hidden" name="page" value="editComment"/>
-                        <input type="submit" class="btn btn-default" value="Edit Comment"/>
+                        <input type="submit" class="btn btn-success" value="Edit Comment"/>
                     </c:when>
                     <c:when test="${(article.userId == user.userId)}">
                         <input type="hidden" name="page" value="article">
                         <input type="hidden" id="delete" name="delete"/>
-                        <input type="submit" class="btn btn-default" value="Delete Comment" onclick="confirmDelete('articleCommentForm${comment.commentId}')">
+                        <input type="submit" class="btn btn-danger" value="Delete Comment" onclick="confirmDelete('articleCommentForm${comment.commentId}')">
                     </c:when>
                 </c:choose>
             </form>
@@ -99,7 +99,7 @@
                     <input type="hidden" name="article" value="${article.articleId}">
                     <input type="hidden" name="page" value="article">
                     <input type="hidden" name="newComment">
-                    <input type="submit" class="btn btn-default pull-right" value="Submit">
+                    <input type="submit" class="btn btn-success pull-right" value="Submit">
                 </fieldset>
             </form>
         </div>

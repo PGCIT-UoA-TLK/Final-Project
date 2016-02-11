@@ -40,8 +40,8 @@
                 </div>
                 <input type="hidden" name="page" value="editArticle">
                 <input type="hidden" name="articleID" value="${article.articleId}">
-                <input type="submit" class="btn btn-default pull-right" value="Submit Changes">
-                <input type="button" class="btn btn-default pull-right" value="Delete Article" onclick="confirmDelete('editArticleForm')">
+                <input type="submit" class="btn btn-success pull-right" value="Submit Changes">
+                <input type="button" class="btn btn-danger pull-right" value="Delete Article" onclick="confirmDelete('editArticleForm')">
                 <input type="hidden" id="delete" name="delete">
             </fieldset>
         </form>

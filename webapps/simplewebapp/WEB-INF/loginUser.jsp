@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <input type="hidden" name="page" value="loginUser">
-                <input type="submit" class="btn btn-default pull-right" value="Log In">
+                <input type="submit" class="btn btn-success pull-right" value="Log In">
             </fieldset>
         </form>
     </div>

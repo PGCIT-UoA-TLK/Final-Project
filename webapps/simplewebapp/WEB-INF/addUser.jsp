@@ -97,7 +97,7 @@
 
                 <div class="submit col-sm-12">
                     <input type="hidden" name="page" value="addUser">
-                    <input type="submit" class="btn btn-default" value="Register">
+                    <input type="submit" class="btn btn-success pull-right" value="Register">
                 </div>
             </fieldset>
 

@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <input type="hidden" name="page" value="addArticle"/>
-                <input type="submit" class="btn btn-default pull-right" value="Submit New Article">
+                <input type="submit" class="btn btn-success pull-right" value="Submit New Article">
             </fieldset>
         </form>
     </div>
