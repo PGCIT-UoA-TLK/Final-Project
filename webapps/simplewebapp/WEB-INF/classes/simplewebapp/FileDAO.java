@@ -80,16 +80,4 @@ public class FileDAO {
 
         return false;
     }
-
-    public boolean deleteFile(File file) {
-        String query = "DROP INDEX FROM uploadedFiles WHERE article_id = ? AND file_id = ?";
-        try {
-            databaseDAO.runParametisedQuery(query, file.getArticleId(), file.getFileId());
-            return true;
-        } catch (Exception e) {
-            System.out.println("FileDAO.deleteArticle: " + e.getMessage());
-        }
-
-        return false;
-    }
 }
