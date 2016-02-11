@@ -47,7 +47,8 @@
                 </div>
 
                 <div>
-                    <label for="age">Select your age group </br></label>
+                    <label for="age">Select your age group</label>
+                    <br />
                     <select id="age" name="chooseage" multiple>
                         <option value="0-15">0-15</option>
                         <option value="16-25">16-25</option>
