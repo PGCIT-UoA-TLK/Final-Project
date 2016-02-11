@@ -1,5 +1,4 @@
-<%@ page import="simplewebapp.DatabaseDAO" %>
-<%@ page import="simplewebapp.UploadedFileDAO" %><%--@elvariable id="article" type="simplewebapp.Article"--%>
+<%--@elvariable id="article" type="simplewebapp.Article"--%>
 <%--@elvariable id="comments" type="java.util.List<simplewebapp.Comment>"--%>
 <%--@elvariable id="files" type="java.util.List<simplewebapp.File>"--%>
 <%--@elvariable id="user" type="simplewebapp.User"--%>

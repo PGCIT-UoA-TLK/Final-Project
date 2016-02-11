@@ -1,6 +1,5 @@
 package simplewebapp;
 
-import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -81,15 +80,4 @@ public class UploadedFileDAO {
         return false;
     }
 
-    public boolean deleteFile(File file) {
-        String query = "DROP INDEX FROM uploadedFiles WHERE article_id = ? AND file_id = ?";
-        try {
-            databaseDAO.runParametisedQuery(query, file.getArticleId(), file.getFileId());
-            return true;
-        } catch (Exception e) {
-            System.out.println("UploadedFileDAO.deleteArticle: " + e.getMessage());
-        }
-
-        return false;
-    }
 }
