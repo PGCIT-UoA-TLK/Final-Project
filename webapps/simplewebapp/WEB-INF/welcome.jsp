@@ -8,7 +8,7 @@
     <%@include file="include/specialIncludeFiles.jsp" %>
 </head>
 <style>
-    body {
+    body.cover-page {
         background: url("/images/cover-background.jpg") no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
@@ -16,7 +16,7 @@
         background-size: cover;
     }
 </style>
-<body>
+<body class="cover-page">
 <div class="site-wrapper">
     <div class="site-wrapper-inner">
         <div class="cover-container">
