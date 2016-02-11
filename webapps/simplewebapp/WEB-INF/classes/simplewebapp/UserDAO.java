@@ -39,7 +39,7 @@ public class UserDAO {
             String gender = result.getString("gender");
             String image = result.getString("image");
 
-            User user = new User(id, username, password, passwordSalt, firstname, lastname, gender, age, image);
+            User user = new User(id, username, password, passwordSalt, firstname, lastname, age, gender, image);
             return user;
         } catch (Exception ignored) {
         }
@@ -65,7 +65,7 @@ public class UserDAO {
             String gender = result.getString("gender");
             String image = result.getString("image");
 
-            User user = new User(id, username, password, passwordSalt, firstname, lastname, gender, age, image);
+            User user = new User(id, username, password, passwordSalt, firstname, lastname, age, gender, image);
             return user;
         } catch (Exception ignored) {
         }

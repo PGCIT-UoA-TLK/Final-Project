@@ -172,7 +172,6 @@ public class UserPage extends Page {
         }
 
         if (image != null && !image.isEmpty()) {
-            System.err.println(image);
             user.setImage(image);
             edited = true;
         }
