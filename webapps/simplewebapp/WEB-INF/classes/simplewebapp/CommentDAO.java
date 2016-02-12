@@ -121,6 +121,7 @@ public class CommentDAO {
         return false;
     }
 
+    // Adds extra content that does not directly originate from the Comments table
     public static void addCommentExtras(Comment comment){
         comment.setUser(UserDAO.getInstance().getUser(comment.getUserId()));
     }

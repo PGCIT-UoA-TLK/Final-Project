@@ -59,6 +59,10 @@ body {
     font-weight: bold;
 }
 
+.inner.cover {
+    color: white;
+}
+
 @media (min-width: 768px) {
     /* Pull out the header and footer */
     .masthead {

@@ -35,6 +35,7 @@ public class Page {
         navigate("/WEB-INF/home.jsp", request, response);
     }
 
+    // Used to make loading pages a single function call rather than two lines of garbage
     protected static void navigate(String address, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(address);
         dispatcher.forward(request, response);

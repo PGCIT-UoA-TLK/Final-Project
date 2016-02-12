@@ -74,7 +74,8 @@ public class UserPage extends Page {
             Boolean allowed = checkRequiredUserParameters(request, username, password, firstname, lastname, age, image, gender);
 
             User temp = UserDAO.getInstance().getUserByUsername(username);
-            // No user found, username not taken
+
+            // If no user found, username isn't taken
             if (temp != null) {
                 printError(request, "That username is taken.");
                 allowed = false;
@@ -108,7 +109,49 @@ public class UserPage extends Page {
         request.setAttribute("images", IMAGES);
 
         navigate("/WEB-INF/addUser.jsp", request, response);
+    }
 
+    private static Boolean checkRequiredUserParameters(HttpServletRequest request, String username, String password, String firstname, String lastname, String age, String image, String gender) {
+        List<User> allUsers = UserDAO.getInstance().getAll();
+
+        for (User u : allUsers) {
+            if (username != null && u.getUsername() != null && username.equals(u.getUsername())) {
+                printError(request, "That username is taken.");
+                return false;
+            }
+        }
+
+        if (username == null || username.isEmpty()) {
+            printError(request, "Username is required.");
+            return false;
+        }
+
+        if (password == null || password.isEmpty()) {
+            printError(request, "Password is required.");
+            return false;
+        }
+
+        if (firstname == null || firstname.isEmpty() || lastname == null || lastname.isEmpty()) {
+            printError(request, "Firstname and Lastname are required.");
+            return false;
+        }
+
+        if (age == null || age.isEmpty() || AGES.get(age) == null || AGES.get(age).isEmpty()) {
+            printError(request, "Please select an age.");
+            return false;
+        }
+
+        if (image == null || image.isEmpty()) {
+            printError(request, "Please select an image.");
+            return false;
+        }
+
+        if (gender == null || gender.isEmpty() || GENDERS.get(gender) == null || GENDERS.get(gender).isEmpty()) {
+            printError(request, "Please select a gender.");
+            return false;
+        }
+
+        return true;
     }
 
     public static void loginUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -217,49 +260,7 @@ public class UserPage extends Page {
         navigate("/WEB-INF/editUser.jsp", request, response);
     }
 
-    private static Boolean checkRequiredUserParameters(HttpServletRequest request, String username, String password, String firstname, String lastname, String age, String image, String gender) {
-        List<User> allUsers = UserDAO.getInstance().getAll();
-
-        for (User u : allUsers) {
-            if (username != null && u.getUsername() != null && username.equals(u.getUsername())) {
-                printError(request, "That username is taken.");
-                return false;
-            }
-        }
-
-        if (username == null || username.isEmpty()) {
-            printError(request, "Username is required.");
-            return false;
-        }
-
-        if (password == null || password.isEmpty()) {
-            printError(request, "Password is required.");
-            return false;
-        }
-
-        if (firstname == null || firstname.isEmpty() || lastname == null || lastname.isEmpty()) {
-            printError(request, "Firstname and Lastname are required.");
-            return false;
-        }
-
-        if (age == null || age.isEmpty() || AGES.get(age) == null || AGES.get(age).isEmpty()) {
-            printError(request, "Please select an age.");
-            return false;
-        }
-
-        if (image == null || image.isEmpty()) {
-            printError(request, "Please select an image.");
-            return false;
-        }
-
-        if (gender == null || gender.isEmpty() || GENDERS.get(gender) == null || GENDERS.get(gender).isEmpty()) {
-            printError(request, "Please select a gender.");
-            return false;
-        }
-
-        return true;
-    }
-
+    // Provided with reCaptcha implementation. May have been modified
     public static boolean verify(String gRecaptchaResponse) throws IOException {
         if (gRecaptchaResponse == null || "".equals(gRecaptchaResponse)) {
             return false;

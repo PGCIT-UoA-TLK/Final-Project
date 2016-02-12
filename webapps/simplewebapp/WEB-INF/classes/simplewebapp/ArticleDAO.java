@@ -79,7 +79,6 @@ public class ArticleDAO {
         return null;
     }
 
-
     public int addNewArticleWithId(int userId, Date date, String newTitle, String newText, String embeddedContent){
         // KL - Crating the add new article query and calling the updateQuery method
         String query = "INSERT INTO article (user_id, date, title, body, embeddedContent) VALUES (?,?,?,?,?)";
@@ -123,6 +122,7 @@ public class ArticleDAO {
         return false;
     }
 
+    // Adds extra content that does not directly originate from the Article table
     private static void addArticleExtras(Article article) {
         article.setUser(UserDAO.getInstance().getUser(article.getUserId()));
         article.setComments(CommentDAO.getInstance().getCommentsByArticleID(article.getArticleId()));

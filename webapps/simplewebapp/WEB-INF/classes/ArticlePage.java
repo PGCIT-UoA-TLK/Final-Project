@@ -73,6 +73,7 @@ public class ArticlePage extends Page {
             }
         }
 
+        // Error checking the comment box before requests
         if (!hasError && user != null && comment != null && !comment.isEmpty()) {
             String newComment = request.getParameter("commentBox");
             CommentDAO.getInstance().addNewComment(newComment, article.getArticleId(), user.getUserId());
@@ -145,6 +146,11 @@ public class ArticlePage extends Page {
                 return;
             }
         } catch (FileUploadException e) {
+            /*
+            For some reason, addArticle is run twice when an article is saved. This causes one of the file checks to fail,
+            and this exception is triggered. We can't find what's causing this, but as far as we can tell it's mostly
+            harmless.
+             */
             System.out.println("No input detected. Continuing");
         }
 

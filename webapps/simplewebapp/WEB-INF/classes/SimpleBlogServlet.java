@@ -30,6 +30,7 @@ public class SimpleBlogServlet extends HttpServlet {
 
             case "": Page.displayHome(request, response); break;
 
+            // Home/Title page
             case "home":Page.displayWelcome(request,response); break;
         }
     }

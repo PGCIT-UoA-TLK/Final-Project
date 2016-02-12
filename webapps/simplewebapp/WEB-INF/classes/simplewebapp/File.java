@@ -9,8 +9,6 @@ public class File implements Serializable {
     private int articleId;
     private String filepath;
 
-
-
     public File() {
 
     }
@@ -19,7 +17,6 @@ public class File implements Serializable {
         this.fileId = fileId;
         this.articleId = articleId;
         this.filepath = filepath;
-
     }
 
     public int getFileId() {
@@ -45,8 +42,6 @@ public class File implements Serializable {
     public void setFilepath(String filepath) {
         this.filepath = filepath;
     }
-
-
 }
 
 
